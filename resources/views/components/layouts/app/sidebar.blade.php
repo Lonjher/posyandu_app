@@ -17,17 +17,14 @@
                 </flux:navlist.group>
             </flux:navlist>
 
-            <flux:spacer />
-
+            @can('isAdmin')
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
+                <flux:navlist.group :heading="__('Administrator')" class="grid">
+                    <flux:navlist.item icon="user" :href="route('admin.kelola-user')" :current="request()->routeIs('admin.kelola-user')" wire:navigate>{{ __('Pengguna') }}</flux:navlist.item>
+                </flux:navlist.group>
             </flux:navlist>
+            @endcan
+            <flux:spacer />
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
