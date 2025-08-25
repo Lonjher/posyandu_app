@@ -3,8 +3,8 @@
         Pengguna
     @endslot
     <flux:fieldset>
-        <flux:legend>Daftar Pengguna</flux:legend>
-        <flux:description>Berikut adalah data Pengguna Sistem Anda!</flux:description>
+        <flux:legend>Daftar Admin</flux:legend>
+        <flux:description>Berikut adalah data Admin Sistem Anda!</flux:description>
         <div class="min-h-screen">
             <div class="flex justify-between items-center mb-4 ">
                 <div class="flex gap-2">
@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <flux:button size="xs" class="shadow-sm cursor-pointer" icon="document"
-                        wire:click="export">Export
+                    <flux:button size="xs" class="shadow-sm cursor-pointer" icon="document" wire:click="export">
+                        Export
                     </flux:button>
                     <flux:modal.trigger name="add-user" class="mb-4">
                         <flux:button icon="plus-circle" size="xs" class="shadow-sm">Tambah</flux:button>
@@ -36,19 +36,22 @@
             <flux:modal name="add-user" class="md:w-xl">
                 <form wire:submit.prevent="store" class="space-y-6">
                     <div>
-                        <flux:heading size="lg">Tambah Pengguna</flux:heading>
-                        <flux:text class="mt-2">Buatkan akun untuk pengguna yang belum terdaftar dalam sistem!</flux:text>
+                        <flux:heading size="lg">Tambah Admin</flux:heading>
+                        <flux:text class="mt-2">Buatkan akun untuk Admin yang belum terdaftar dalam sistem!
+                        </flux:text>
                     </div>
-                    <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)" placeholder="NIK" />
+                    <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)"
+                        placeholder="NIK" />
                     <flux:input :invalid="$errors->has('name')" wire:model="name" label="Nama Lengkap"
                         placeholder="Full Name" />
                     <flux:input :invalid="$errors->has('email')" wire:model="email" label="Email"
                         placeholder="Email" />
-                    <flux:input label="No. HP" wire:model.defer="no_hp" :invalid="$errors->has('no_hp')"
-                        class="w-full" required placeholder="628xxxxxxxx" :invalid="$errors->has('no_hp')" />
+                    <flux:input label="No. HP" wire:model.defer="no_hp" :invalid="$errors->has('no_hp')" class="w-full"
+                        required placeholder="628xxxxxxxx" :invalid="$errors->has('no_hp')" />
                     <flux:input :invalid="$errors->has('tanggal_lahir')" wire:model="tanggal_lahir" type="date"
                         label="Tanggal Lahir" placeholder="Tanggal Lahir" />
-                    <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin' :invalid="$errors->has('jenis_kelamin')">
+                    <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
+                        :invalid="$errors->has('jenis_kelamin')">
                         <flux:select.option value="">Pilih Jenis Kelamin</flux:select.option>
                         <flux:select.option value="L" selected>Laki-laki</flux:select.option>
                         <flux:select.option value="P">Perempuan</flux:select.option>
@@ -66,26 +69,27 @@
             <flux:modal name="edit-user" class="md:w-xl">
                 <form wire:submit.prevent="update" class="space-y-6">
                     <div>
-                        <flux:heading size="lg">Update Pengguna</flux:heading>
-                        <flux:text class="mt-2">Update data pengguna yang sudah terdaftar dalam sistem.</flux:text>
+                        <flux:heading size="lg">Update Admin</flux:heading>
+                        <flux:text class="mt-2">Update data Admin yang sudah terdaftar dalam sistem.</flux:text>
                     </div>
-                    <flux:select placeholder="Peran Pengguna" wire:model='role'
-                        :invalid="$errors->has('role')">
-                            <flux:select.option value="admin">Admin</flux:select.option>
-                            <flux:select.option value="kader">Kader</flux:select.option>
-                            <flux:select.option value="pemdes">Pemerintah Desa</flux:select.option>
-                            <flux:select.option value="user">Penggguna</flux:select.option>
+                    <flux:select placeholder="Peran" wire:model='role' :invalid="$errors->has('role')">
+                        <flux:select.option value="admin">Admin</flux:select.option>
+                        <flux:select.option value="kader">Kader</flux:select.option>
+                        <flux:select.option value="pemdes">Pemerintah Desa</flux:select.option>
+                        <flux:select.option value="user">Penggguna</flux:select.option>
                     </flux:select>
-                    <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)" placeholder="NIK" />
+                    <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)"
+                        placeholder="NIK" />
                     <flux:input :invalid="$errors->has('name')" wire:model="name" label="Nama Lengkap"
                         placeholder="Full Name" />
                     <flux:input :invalid="$errors->has('email')" wire:model="email" label="Email"
                         placeholder="Email" />
-                    <flux:input label="No. HP" wire:model.defer="no_hp" :invalid="$errors->has('no_hp')"
-                        class="w-full" required placeholder="628xxxxxxxx" :invalid="$errors->has('no_hp')" />
+                    <flux:input label="No. HP" wire:model.defer="no_hp" :invalid="$errors->has('no_hp')" class="w-full"
+                        required placeholder="628xxxxxxxx" :invalid="$errors->has('no_hp')" />
                     <flux:input :invalid="$errors->has('tanggal_lahir')" wire:model="tanggal_lahir" type="date"
                         label="Tanggal Lahir" placeholder="Tanggal Lahir" />
-                    <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin' :invalid="$errors->has('jenis_kelamin')">
+                    <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
+                        :invalid="$errors->has('jenis_kelamin')">
                         <flux:select.option value="">Pilih Jenis Kelamin</flux:select.option>
                         <flux:select.option value="L" selected>Laki-laki</flux:select.option>
                         <flux:select.option value="P">Perempuan</flux:select.option>
@@ -94,7 +98,7 @@
                         placeholder="Alamat Lengkap" />
                     <div class="flex">
                         <flux:spacer />
-                        <flux:button type="submit" variant="primary">Edit Pengguna</flux:button>
+                        <flux:button type="submit" variant="primary">Edit Admin</flux:button>
                     </div>
                 </form>
             </flux:modal>
@@ -119,8 +123,8 @@
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200">
                                 <td class="px-2 py-2">{{ $users->firstItem() + $no }}</td>
                                 <td class="px-2 py-2 flex items-center gap-2">
-                                    <img src="{{ asset('storage/' . $user->avatar) }}"
-                                        class="h-6 w-6 rounded-full" alt="avatar">
+                                    <img src="{{ asset('storage/' . $user->avatar) }}" class="h-6 w-6 rounded-full"
+                                        alt="avatar">
                                     <div>
                                         <div class="text-[0.7rem] font-semibold">{{ $user->name }}</div>
                                         <div class="text-[0.65rem] text-gray-500 dark:text-gray-400">
@@ -147,16 +151,15 @@
                                         </button>
                                         <flux:menu class="w-10">
                                             <div class="flex flex-col space-y-1">
-                                                <flux:button wire:click="edit({{ $user->id_user }})"
-                                                    size="xs" icon="pencil" class="!text-[0.65rem]">
+                                                <flux:button wire:click="edit({{ $user->id_user }})" size="xs"
+                                                    icon="pencil" class="!text-[0.65rem]">
                                                     Edit
                                                 </flux:button>
                                                 <flux:button wire:click="confirmDelete({{ $user->id_user }})"
                                                     size="xs" icon="trash" class="!text-[0.65rem]">
                                                     Hapus
                                                 </flux:button>
-                                                <flux:button
-                                                    wire:click="confirm_reset_password({{ $user->id_user }})"
+                                                <flux:button wire:click="confirm_reset_password({{ $user->id_user }})"
                                                     size="xs" icon="key" class="!text-[0.65rem]">
                                                     Reset Password
                                                 </flux:button>

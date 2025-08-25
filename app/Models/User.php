@@ -70,6 +70,21 @@ class User extends Authenticatable
     }
 
     #[Scope]
+    protected function onlyAdmin()
+    {
+        return $this->where('role', 'admin');
+    }
+    #[Scope]
+    protected function onlyKader()
+    {
+        return $this->where('role', 'kader');
+    }
+    #[Scope]
+    protected function onlyPemdes()
+    {
+        return $this->where('role', 'pemdes');
+    }
+    #[Scope]
     protected function onlyUser()
     {
         return $this->where('role', 'user');

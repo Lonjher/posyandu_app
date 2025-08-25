@@ -3,8 +3,8 @@
         Pengguna
     @endslot
     <flux:fieldset>
-        <flux:legend>Daftar Pengguna</flux:legend>
-        <flux:description>Berikut adalah data Pengguna Sistem Anda!</flux:description>
+        <flux:legend>Daftar Pemdes</flux:legend>
+        <flux:description>Berikut adalah data Pemdes Sistem Anda!</flux:description>
         <div class="min-h-screen">
             <div class="flex justify-between items-center mb-4 ">
                 <div class="flex gap-2">
@@ -36,8 +36,8 @@
             <flux:modal name="add-user" class="md:w-xl">
                 <form wire:submit.prevent="store" class="space-y-6">
                     <div>
-                        <flux:heading size="lg">Tambah Pengguna</flux:heading>
-                        <flux:text class="mt-2">Buatkan akun untuk pengguna yang belum terdaftar dalam sistem!</flux:text>
+                        <flux:heading size="lg">Tambah Pemdes</flux:heading>
+                        <flux:text class="mt-2">Buatkan akun untuk Pemdes yang belum terdaftar dalam sistem!</flux:text>
                     </div>
                     <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)" placeholder="NIK" />
                     <flux:input :invalid="$errors->has('name')" wire:model="name" label="Nama Lengkap"
@@ -66,10 +66,10 @@
             <flux:modal name="edit-user" class="md:w-xl">
                 <form wire:submit.prevent="update" class="space-y-6">
                     <div>
-                        <flux:heading size="lg">Update Pengguna</flux:heading>
-                        <flux:text class="mt-2">Update data pengguna yang sudah terdaftar dalam sistem.</flux:text>
+                        <flux:heading size="lg">Update Pemdes</flux:heading>
+                        <flux:text class="mt-2">Update data Pemdes yang sudah terdaftar dalam sistem.</flux:text>
                     </div>
-                    <flux:select placeholder="Peran Pengguna" wire:model='role'
+                    <flux:select placeholder="Peran" wire:model='role'
                         :invalid="$errors->has('role')">
                             <flux:select.option value="admin">Admin</flux:select.option>
                             <flux:select.option value="kader">Kader</flux:select.option>
@@ -94,7 +94,7 @@
                         placeholder="Alamat Lengkap" />
                     <div class="flex">
                         <flux:spacer />
-                        <flux:button type="submit" variant="primary">Edit Pengguna</flux:button>
+                        <flux:button type="submit" variant="primary">Edit Pemdes</flux:button>
                     </div>
                 </form>
             </flux:modal>
