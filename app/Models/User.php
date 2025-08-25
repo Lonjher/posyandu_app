@@ -89,4 +89,9 @@ class User extends Authenticatable
     {
         return $this->where('role', 'user');
     }
+
+    public function laporanKegiatans()
+    {
+        return $this->hasMany(LaporanKegiatan::class, 'user_id', 'id_user');
+    }
 }

@@ -37,6 +37,9 @@
                             :current="request()->routeIs('admin.kelola-user')" wire:navigate>{{ __('Pengguna') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
+                    <flux:navlist.item icon="newspaper" :href="route('view.laporan-kegiatan')"
+                            :current="request()->routeIs('view.laporan-kegiatan')" wire:navigate>{{ __('Lap. Kegiatan') }}
+                        </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
         @endcan

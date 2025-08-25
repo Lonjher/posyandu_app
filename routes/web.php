@@ -4,7 +4,7 @@ use App\Livewire\Admin\KelolaAdmin;
 use App\Livewire\Admin\KelolaKader;
 use App\Livewire\Admin\KelolaPemdes;
 use App\Livewire\Admin\KelolaUser;
-use App\Livewire\HomePage;
+use App\Livewire\LaporanKegiatan;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('kelola-pemdes', KelolaPemdes::class)->name('admin.kelola-pemdes');
     });
 
+    Route::get('laporan-kegiatan', LaporanKegiatan::class)->name('view.laporan-kegiatan');
     Route::redirect('settings', 'settings/profile');
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
