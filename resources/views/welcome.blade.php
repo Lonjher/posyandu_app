@@ -62,13 +62,16 @@
             <!-- Button -->
             @if (Auth::user())
                 <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <flux:button as="button" type="submit" icon="arrow-right-start-on-rectangle" size="sm" variant="primary" color="rose">
-                            {{ __('Keluar') }}
-                        </flux:button>
-                    </form>
+                    @csrf
+                    <flux:button as="button" type="submit" icon="arrow-right-start-on-rectangle" size="sm"
+                        variant="primary" color="rose">
+                        {{ __('Keluar') }}
+                    </flux:button>
+                </form>
             @else
-                <flux:button href="{{ route('login') }}" class="transition-transform transform hover:scale-105" icon="arrow-left-end-on-rectangle" variant="primary" color="purple" size='sm'>Masuk</flux:button>
+                <flux:button href="{{ route('login') }}" class="transition-transform transform hover:scale-105"
+                    icon="arrow-left-end-on-rectangle" variant="primary" color="purple" size='sm'>Masuk
+                </flux:button>
             @endif
         </div>
     </header>
@@ -89,7 +92,8 @@
                     Built with TailwindCSS and responsive by default.
                 </p>
                 <div class="flex space-x-4 pt-2">
-                    <flux:button href="{{ route('register') }}" class="transition-transform transform hover:scale-105" variant="primary" color="purple" size='sm'>Daftar Sekarang</flux:button>
+                    <flux:button href="{{ route('register') }}" class="transition-transform transform hover:scale-105"
+                        variant="primary" color="purple" size='sm'>Daftar Sekarang</flux:button>
                 </div>
             </div>
 
@@ -194,6 +198,137 @@
             </div>
         </div>
     </div> --}}
+    <!-- Edukasi Section -->
+    <div class="container mx-auto px-4 py-6">
+        <!-- Header -->
+        <div class="text-center mb-8 animate-fade-in">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-3">
+                Edukasi Posyandu
+            </h1>
+            <p class="text-sm text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+                Pilih kategori edukasi untuk kesehatan keluarga
+            </p>
+        </div>
+
+        <!-- Grid Kategori -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            @foreach ($categories as $key => $category)
+                <a href="#"
+                    class="category-card group bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-150 dark:border-gray-700 p-4 text-center transition-all duration-200 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-600 animate-slide-up"
+                    style="animation-delay: {{ $loop->index * 0.07 }}s">
+
+                    <div
+                        class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-105
+                {{ $key == 'bumil'
+                    ? 'bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-300'
+                    : ($key == 'balita'
+                        ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300'
+                        : ($key == 'lansia'
+                            ? 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300'
+                            : 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300')) }}">
+
+                        @if ($key == 'bumil')
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                            </svg>
+                        @elseif($key == 'balita')
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                            </svg>
+                        @elseif($key == 'lansia')
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                            </svg>
+                        @else
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        @endif
+                    </div>
+
+                    <h3 class="font-medium text-gray-800 dark:text-white text-sm mb-1">
+                        {{ $category }}
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                        {{ $key == 'bumil'
+                            ? 'Edukasi ibu hamil'
+                            : ($key == 'balita'
+                                ? 'Edukasi balita'
+                                : ($key == 'lansia'
+                                    ? 'Edukasi lansia'
+                                    : 'Kesehatan umum')) }}
+                    </p>
+
+                    <div
+                        class="mt-2 text-indigo-600 dark:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="text-xs">Lihat</span>
+                        <svg class="w-3 h-3 inline-block ml-0.5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+
+        <!-- Edukasi Terbaru -->
+        <div class="animate-fade-in">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800 dark:text-white">Edukasi Terbaru</h2>
+                <a href="#" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Lihat semua</a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                @foreach ($latestEdukasi as $edukasi)
+                    <div
+                        class="bg-white dark:bg-gray-800 rounded-md shadow-sm border border-gray-150 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md">
+                        <div class="h-28 overflow-hidden">
+                            <img src="{{ asset('storage/' . $edukasi->gambar) }}" alt="{{ $edukasi->judul }}"
+                                class="w-full h-full object-cover transition-transform duration-300 hover:scale-102">
+                        </div>
+                        <div class="p-3">
+                            <span
+                                class="text-[10px] font-medium px-1.5 py-0.5 rounded-full
+                        {{ $edukasi->kategori == 'bumil'
+                            ? 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
+                            : ($edukasi->kategori == 'balita'
+                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                                : ($edukasi->kategori == 'lansia'
+                                    ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                                    : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200')) }}">
+                                {{ $edukasi->kategori == 'bumil'
+                                    ? 'Ibu Hamil'
+                                    : ($edukasi->kategori == 'balita'
+                                        ? 'Balita'
+                                        : ($edukasi->kategori == 'lansia'
+                                            ? 'Lansia'
+                                            : 'Umum')) }}
+                            </span>
+
+                            <h3
+                                class="font-medium text-gray-800 dark:text-white text-sm mt-1.5 mb-1.5 line-clamp-2 leading-tight">
+                                {{ $edukasi->judul }}
+                            </h3>
+
+                            <a href="#"
+                                class="text-xs text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium inline-flex items-center">
+                                Baca
+                                <svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     <!-- About Us Section -->
     <section id="about" class="relative bg-white py-16">
         <div class="max-w-6xl mx-auto px-6 text-center">

@@ -10,10 +10,22 @@ use App\Livewire\Pemdes\ViewLaporan;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Models\Edukasi as ModelsEdukasi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
-    return view('welcome');
+    $categories = [
+            'bumil' => 'Ibu Hamil',
+            'balita' => 'Balita',
+            'lansia' => 'Lansia',
+            'umum' => 'Umum'
+        ];
+
+        $latestEdukasi = ModelsEdukasi::with('user')
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+    return view('welcome', compact('categories', 'latestEdukasi'));
 })->name('home');
 
 Route::view('dashboard', 'dashboard')
