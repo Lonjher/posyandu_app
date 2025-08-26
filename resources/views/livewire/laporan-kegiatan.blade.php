@@ -98,14 +98,21 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            <span>{{ \Carbon\Carbon::parse($Vtanggal_kegiatan)->format('d F Y') }}</span>
+                            <span>{{ \Carbon\Carbon::parse($Vcreated_at)->format('d F Y') }}</span>
                         </span>
                         <flux:separator vertical />
                         <span class="flex items-center text-xs">
                             <flux:icon.user variant="mini" /> <span class="ml-1">{{ $Vuser }}</span>
                         </span>
                     </div>
-                    <p class="text-gray-700 dark:text-gray-300 text-sm">{{ $Vdeskripsi_kegiatan }}</p>
+                    <span class="flex flex-col mb-3">
+                        <h4 class="font-medium text-gray-700 dark:text-gray-300 text-xs">Deskripsi</h4>
+                        <span class="text-sm">{{ $Vdeskripsi_kegiatan }}</span>
+                    </span>
+                    <span class="flex flex-col">
+                        <h4 class="font-medium text-gray-700 dark:text-gray-300 text-xs">Tanggal Kegiatan</h4>
+                        <span class="text-sm">{{ \Carbon\Carbon::parse($Vtanggal_kegiatan)->format('d F Y') }}</span>
+                    </span>
                 </div>
             </div>
 
@@ -553,8 +560,8 @@
         </div>
     </flux:modal>
     <flux:fieldset>
-        <flux:legend>Daftar Kelompok KKN</flux:legend>
-        <flux:description>Berikut adalah kelompok KKN berdasarkan data terbaru.</flux:description>
+        <flux:legend>Daftar Laporan Posyandu</flux:legend>
+        <flux:description>Berikut adalah Laporan yang anda buat.</flux:description>
 
         <div class="flex justify-between items-end mb-4">
             <div class="flex gap-2">
@@ -627,7 +634,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                <small><span>{{ \Carbon\Carbon::parse($laporan->tanggal_kegiatan)->format('d M Y') }}</span></small>
+                                <small><span>{{ \Carbon\Carbon::parse($laporan->created_at)->format('d M Y') }}</span></small>
                             </div>
 
                             <p class="text-xs text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">

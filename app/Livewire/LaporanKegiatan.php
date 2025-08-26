@@ -32,10 +32,10 @@ class LaporanKegiatan extends Component
 
     public ?ModelLaporanKegiatan $laporanDetail = null;
     public $Vnama_kegiatan;
+    public $Vcreated_at;
     public $Vtanggal_kegiatan;
     public $Vdeskripsi_kegiatan;
     public $Vuser;
-    public $Vcreated_at;
     public $Vphotos;
     public $Vjumlah_foto;
 
@@ -104,46 +104,6 @@ class LaporanKegiatan extends Component
         $this->existingPhotos = $laporan->dokumentasi;
     }
 
-    // public function update()
-    // {
-    //     $this->validate();
-
-    //     // Hitung total foto yang akan disimpan
-    //     $existingCount = count($this->existingPhotos);
-    //     $newCount = count($this->photos);
-    //     $totalCount = $existingCount + $newCount;
-
-    //     if ($totalCount > 5) {
-    //         session()->flash('error', 'Total foto tidak boleh lebih dari 5');
-    //         return;
-    //     }
-
-    //     $this->laporanId->update([
-    //         'nama_kegiatan' => $this->nama_kegiatan,
-    //         'tanggal_kegiatan' => $this->tanggal_kegiatan,
-    //         'deskripsi_kegiatan' => $this->deskripsi_kegiatan,
-    //     ]);
-
-    //     // Simpan foto baru
-    //     if (!empty($this->photos)) {
-    //         foreach ($this->photos as $photo) {
-    //             $path = $photo->store('dokumentasi-posyandu', 'public');
-
-    //             DokumentasiLaporan::create([
-    //                 'laporan_id' => $this->laporanId->id_laporan,
-    //                 'photo_path' => $path,
-    //             ]);
-    //         }
-    //     }
-
-    //     $this->resetInput();
-    //     Flux::modals()->close();
-    //     $this->dispatch('alert',
-    //         type: 'success',
-    //         title: 'Sukses',
-    //         text: "Laporan berhasil diupdate!"
-    //     );
-    // }
     public function update()
     {
         DB::beginTransaction();
@@ -346,6 +306,7 @@ class LaporanKegiatan extends Component
         Flux::modal('view-laporan')->show();
         $this->Vuser = $laporan->user->name;
         $this->Vnama_kegiatan = $laporan->nama_kegiatan;
+        $this->Vcreated_at = $laporan->created_at->format('d M Y');
         $this->Vtanggal_kegiatan = $laporan->tanggal_kegiatan;
         $this->Vdeskripsi_kegiatan = $laporan->deskripsi_kegiatan;
         $this->Vphotos = $laporan->dokumentasi;

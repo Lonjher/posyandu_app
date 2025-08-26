@@ -6,6 +6,7 @@ use App\Models\User;
 use Flux\Flux;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -31,15 +32,16 @@ class KelolaUser extends Component
         $query = User::onlyUser();
 
         if ($this->search) {
-            $query->where(function($q) {
-                $q->where('name', 'like', '%'.$this->search.'%')
-                  ->orWhere('email', 'like', '%'.$this->search.'%')
-                  ->orWhere('nik', 'like', '%'.$this->search.'%');
-            });
+            $users = $query->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%')
+                    ->orWhere('nik', 'like', '%' . $this->search . '%');
+            })->paginate($this->perPage);
+        } else {
+            $users = $query->latest()
+                ->paginate($this->perPage);
         }
 
-        $users = $query->latest()
-                      ->paginate($this->perPage);
         return view('livewire.admin.kelola-user', [
             'users' => $users
         ]);
@@ -83,16 +85,28 @@ class KelolaUser extends Component
 
         $validated['password'] = Hash::make(str_replace('-', '', $this->tanggal_lahir));
         $validated['role'] = 'user';
-        try{
+        try {
             User::create($validated);
-            session()->flash('message', 'User berhasil ditambahkan.');
-        } catch(\Exception $e){
-            session()->flash('error', 'Terjadi kesalahan saat menambahkan user: ' . $e->getMessage());
+            $this->resetForm();
+            Flux::modals()->close();
+            $this->dispatch(
+                'alert',
+                type: 'success',
+                title: "Sukses",
+                text: "User berhasil ditambahkan.",
+            );
+        } catch (\Exception $e) {
+            $this->resetForm();
+            Flux::modals()->close();
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: "Gagal",
+                text: $e->getMessage(),
+                timer: 5000
+            );
             return;
         }
-        Flux::modals()->close();
-        $this->resetForm();
-        $this->dispatch('alert', ['type' => 'success', 'message' => 'User berhasil ditambahkan.']);
     }
 
     public function resetForm()
@@ -110,13 +124,37 @@ class KelolaUser extends Component
         $this->resetErrorBag();
     }
 
-    public function updatingSearch()
+    public function confirmDelete(User $user)
     {
-        $this->resetPage();
+        $this->dispatch(
+            'confirmDelete',
+            type: 'warning',
+            title: "Konfirmasi Hapus",
+            text: "Apakah Anda yakin ingin menghapus data pemdes ini? Tindakan ini tidak dapat dibatalkan.",
+            id: $user->id_user
+        );
     }
 
-    public function updatingPerPage()
+    #[On('delete')]
+    public function delete(User $id)
     {
-        $this->resetPage();
+        try {
+            $id->delete();
+            $this->dispatch(
+                'alert',
+                type: 'success',
+                title: "Sukses",
+                text: "Data pemdes berhasil dihapus.",
+            );
+        } catch (\Exception $e) {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: "Gagal",
+                text: $e->getMessage(),
+                times: 5000
+            );
+            return;
+        }
     }
 }

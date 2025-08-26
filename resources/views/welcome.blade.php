@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appwind Landing Page</title>
+    <title>SIPEDER | Welcome</title>
     @vite('resources/css/app.css')
     <style>
         /* Animasi bounce up and down */
@@ -44,7 +44,10 @@
             <!-- Logo -->
             <div class="flex items-center space-x-2">
                 <div class="bg-gradient-to-r from-purple-500 to-indigo-500 w-6 h-6 rounded-full"></div>
-                <span class="font-bold text-lg text-gray-800">Appwind.</span>
+                <span class="flex flex-col leading-none">
+                    <span class="font-bold text-lg/none text-gray-800">SIPEDES</span>
+                    <small><span class="text-xs/none text-gray-800">Sistem Informasi Posyandu Desa</span></small>
+                </span>
             </div>
 
             <!-- Menu -->

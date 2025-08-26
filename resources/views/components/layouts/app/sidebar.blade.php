@@ -38,10 +38,20 @@
                         </flux:navlist.item>
                     </flux:navlist.group>
                     <flux:navlist.item icon="newspaper" :href="route('view.laporan-kegiatan')"
-                            :current="request()->routeIs('view.laporan-kegiatan')" wire:navigate>{{ __('Lap. Kegiatan') }}
-                        </flux:navlist.item>
+                        :current="request()->routeIs('view.laporan-kegiatan')" wire:navigate>{{ __('Lap. Kegiatan') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="book-open" :href="route('view.edukasi')"
+                        :current="request()->routeIs('view.edukasi')" wire:navigate>{{ __('Edukasi') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+        @endcan
+        @can('isPemdes')
+            <flux:navlist.group :heading="__('Data')" class="grid">
+                <flux:navlist.item icon="newspaper" :href="route('pemdes.laporan-kegiatan')"
+                    :current="request()->routeIs('pemdes.laporan-kegiatan')" wire:navigate>{{ __('Lap. Kegiatan') }}
+                </flux:navlist.item>
+            </flux:navlist.group>
         @endcan
         <flux:spacer />
 
