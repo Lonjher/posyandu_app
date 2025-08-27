@@ -35,7 +35,7 @@ class Edukasi extends Component
     // Validation rules
     protected $rules = [
         'judul' => 'required|min:5|max:255',
-        'kategori' => 'required|in:bumil,balita,lansia,umum',
+        'kategori' => 'required|in:bumil,anak,lansia,umum',
         'gambar' => 'nullable|image|max:2048', // 2MB max
     ];
 

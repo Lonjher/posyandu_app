@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul');
             $table->string('gambar');
             $table->unsignedBigInteger('user_id');
-            $table->enum('kategori', ['bumil', 'balita', 'lansia', 'umum']);
+            $table->enum('kategori', ['bumil', 'anak', 'lansia', 'umum']);
             $table->foreign('user_id')->references('id_user')->on('users');
             $table->timestamps();
         });
