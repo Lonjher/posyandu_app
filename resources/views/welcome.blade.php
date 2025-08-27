@@ -1,5 +1,7 @@
-<!DOCTYPE html>
 <x-layouts.auth>
+    @slot('title')
+    Welcome
+    @endslot
     @push('style')
     <style>
         /* Animasi bounce up and down */
@@ -45,24 +47,43 @@
 
                 <!-- Menu -->
                 <nav class="hidden md:flex space-x-6 text-sm text-gray-700 dark:text-gray-300">
-                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Features</a>
-                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">About</a>
-                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Pricing</a>
-                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Clients</a>
+                    <a href="#home" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Home</a>
+                    <a href="#edukasi" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Edukasi</a>
+                    <a href="#about" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">About</a>
+                    <a href="#statistic" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Statistic</a>
                     <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Contact</a>
                 </nav>
 
-                <!-- Button -->
-                <div>
-                    <a href="#" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
-                        Masuk
-                    </a>
+                <div class="flex items-center gap-3">
+                    <flux:dropdown x-data align="end">
+                        <flux:button variant="subtle" square class="group" aria-label="Preferred color scheme">
+                            <flux:icon.sun x-show="$flux.appearance === 'light'" variant="mini"
+                                class="text-zinc-500 dark:text-white" />
+                            <flux:icon.moon x-show="$flux.appearance === 'dark'" variant="mini"
+                                class="text-zinc-500 dark:text-white" />
+                            <flux:icon.moon x-show="$flux.appearance === 'system' && $flux.dark" variant="mini" />
+                            <flux:icon.sun x-show="$flux.appearance === 'system' && ! $flux.dark" variant="mini" />
+                        </flux:button>
+
+                        <flux:menu>
+                            <flux:menu.item icon="sun" x-on:click="$flux.appearance = 'light'">Light</flux:menu.item>
+                            <flux:menu.item icon="moon" x-on:click="$flux.appearance = 'dark'">Dark</flux:menu.item>
+                            <flux:menu.item icon="computer-desktop" x-on:click="$flux.appearance = 'system'">System
+                            </flux:menu.item>
+                        </flux:menu>
+                    </flux:dropdown>
+                    <!-- Button -->
+                    <div>
+                        <a href="#" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
+                            Masuk
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
 
         <!-- Hero Section -->
-        <section class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+        <section id="hero" class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
 
                 <!-- Left content -->
@@ -77,9 +98,15 @@
                         pengingat jadwal kegiatan Posyandu bagi Posyandu Desa Ketawang Karay.
                     </p>
                     <div class="flex space-x-4 pt-2">
-                        <a href="#" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
+                        @if (Auth::user())
+                        <a href="{{ route('dashboard') }}" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
+                            Dashboard
+                        </a>
+                        @else
+                        <a href="{{ route('register') }}" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
                             Daftar Sekarang
                         </a>
+                        @endif
                     </div>
                 </div>
 
@@ -183,7 +210,7 @@
             </div>
         </div> --}}
         <!-- Edukasi Section -->
-        <div class="container mx-auto px-4 py-6">
+        <div id="edukasi" class="container mx-auto px-4 py-6">
             <!-- Header -->
             <div class="text-center mb-8 animate-fade-in">
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-3">
@@ -407,7 +434,7 @@
         </section>
 
         <!-- Statistics Section -->
-        <section class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden py-16">
+        <section id="statistic" class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden py-16">
             <div class="absolute inset-0 overflow-hidden">
                 <div
                     class="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-r from-purple-200 to-indigo-200 dark:from-purple-900 dark:to-indigo-900 rounded-full blur-3xl opacity-40 dark:opacity-20">
