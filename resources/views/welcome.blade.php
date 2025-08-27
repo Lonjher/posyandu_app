@@ -83,13 +83,13 @@
             <!-- Left content -->
             <div class="space-y-4">
                 <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                    Tailwind CSS Template <br>
-                    for <span class="text-purple-600">App</span> &
-                    <span class="text-purple-600">Software Site</span>.
+                    Sistem Informasi Kesehatan <br>
+                    <span class="text-purple-600">Ibu Hamil</span>, <span class="text-purple-600">Anak</span> &
+                    <span class="text-purple-600">Lansia</span>.
                 </h1>
                 <p class="text-gray-600 text-sm md:text-base leading-relaxed">
-                    Clean design with all essential components for your next app or software project.
-                    Built with TailwindCSS and responsive by default.
+                    Aplikasi berbasis website untuk mempermudah pencatatan kesehatan, penyampaian informasi, serta
+                    pengingat jadwal kegiatan Posyandu bagi Posyandu Desa Ketawang Karay.
                 </p>
                 <div class="flex space-x-4 pt-2">
                     <flux:button href="{{ route('register') }}" class="transition-transform transform hover:scale-105"
@@ -337,33 +337,86 @@
                 About <span class="text-purple-600">Us</span>
             </h2>
             <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
-                Kami adalah tim pengembang yang berfokus pada pembuatan solusi digital
-                menggunakan teknologi modern seperti Laravel dan TailwindCSS.
-                Visi kami adalah menghadirkan pengalaman pengguna yang sederhana, cepat, dan elegan.
+                SIPEDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu hamil,
+                anak, dan lansia secara lebih cepat, terstruktur, dan mudah diakses.
             </p>
 
             <!-- Content Grid -->
-            <div class="mt-12 grid gap-8 md:grid-cols-3">
-                <div class="p-6 bg-purple-50 rounded-2xl shadow hover:shadow-lg transition">
-                    <h3 class="text-lg font-semibold text-gray-800">🎯 Visi</h3>
-                    <p class="mt-2 text-gray-600 text-sm">
-                        Menjadi pengembang solusi digital yang inovatif, efektif,
-                        dan mudah digunakan oleh semua orang.
+            <div class="mt-8 grid gap-4 md:grid-cols-3">
+                <!-- Visi -->
+                <div
+                    class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                    <div class="flex items-center mb-2">
+                        <div
+                            class="w-6 h-6 bg-purple-100 dark:bg-purple-800 rounded-md flex items-center justify-center mr-2">
+                            <span class="text-purple-600 dark:text-purple-300 text-xs">🎯</span>
+                        </div>
+                        <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Visi</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-xs leading-relaxed">
+                        Mewujudkan pelayanan kesehatan masyarakat desa yang efektif dan mudah diakses melalui teknologi
+                        digital.
                     </p>
                 </div>
-                <div class="p-6 bg-purple-50 rounded-2xl shadow hover:shadow-lg transition">
-                    <h3 class="text-lg font-semibold text-gray-800">🚀 Misi</h3>
-                    <p class="mt-2 text-gray-600 text-sm">
-                        Membangun aplikasi yang efisien, scalable, dan memiliki UI/UX modern
-                        untuk mendukung kebutuhan pengguna.
-                    </p>
+
+                <!-- Misi -->
+                <div
+                    class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                    <div class="flex items-center mb-2">
+                        <div
+                            class="w-6 h-6 bg-blue-100 dark:bg-blue-800 rounded-md flex items-center justify-center mr-2">
+                            <span class="text-blue-600 dark:text-blue-300 text-xs">🚀</span>
+                        </div>
+                        <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Misi</h3>
+                    </div>
+                    <ul class="text-gray-600 dark:text-gray-300 text-xs space-y-1">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                            Mempermudah pencatatan data kesehatan
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                            Notifikasi WhatsApp jadwal posyandu
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                            Edukasi kesehatan masyarakat
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                            Dukungan pengambilan keputusan
+                        </li>
+                    </ul>
                 </div>
-                <div class="p-6 bg-purple-50 rounded-2xl shadow hover:shadow-lg transition">
-                    <h3 class="text-lg font-semibold text-gray-800">🤝 Layanan</h3>
-                    <p class="mt-2 text-gray-600 text-sm">
-                        Konsultasi, pengembangan software berbasis web & mobile, serta
-                        integrasi sistem untuk bisnis Anda.
-                    </p>
+
+                <!-- Layanan -->
+                <div
+                    class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                    <div class="flex items-center mb-2">
+                        <div
+                            class="w-6 h-6 bg-green-100 dark:bg-green-800 rounded-md flex items-center justify-center mr-2">
+                            <span class="text-green-600 dark:text-green-300 text-xs">🤝</span>
+                        </div>
+                        <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Layanan</h3>
+                    </div>
+                    <ul class="text-gray-600 dark:text-gray-300 text-xs space-y-1">
+                        <li class="flex items-start">
+                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                            Pencatatan data kesehatan
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                            Notifikasi WhatsApp
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                            Edukasi kesehatan
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                            Dokumentasi kegiatan
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
