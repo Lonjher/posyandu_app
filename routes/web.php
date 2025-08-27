@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Livewire\Admin\Edukasi;
 use App\Livewire\Admin\KelolaAdmin;
 use App\Livewire\Admin\KelolaKader;
@@ -10,13 +11,14 @@ use App\Livewire\Pemdes\ViewLaporan;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Livewire\User\EdukasiByKategori;
 use App\Models\Edukasi as ModelsEdukasi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
     $categories = [
+            'anak' => 'Anak',
             'bumil' => 'Ibu Hamil',
-            'balita' => 'Balita',
             'lansia' => 'Lansia',
             'umum' => 'Umum'
         ];
@@ -27,6 +29,8 @@ Route::get('/', function(){
             ->get();
     return view('welcome', compact('categories', 'latestEdukasi'));
 })->name('home');
+
+Route::get('/edukasi/{kategori}', EdukasiByKategori::class)->name('adukasi.kategori');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

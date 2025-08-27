@@ -221,7 +221,7 @@
                         class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-105
                 {{ $key == 'bumil'
                     ? 'bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-300'
-                    : ($key == 'balita'
+                    : ($key == 'anak'
                         ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300'
                         : ($key == 'lansia'
                             ? 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300'
@@ -232,7 +232,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
                             </svg>
-                        @elseif($key == 'balita')
+                        @elseif($key == 'anak')
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -256,8 +256,8 @@
                     <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
                         {{ $key == 'bumil'
                             ? 'Edukasi ibu hamil'
-                            : ($key == 'balita'
-                                ? 'Edukasi balita'
+                            : ($key == 'anak'
+                                ? 'Edukasi anak'
                                 : ($key == 'lansia'
                                     ? 'Edukasi lansia'
                                     : 'Kesehatan umum')) }}
@@ -294,15 +294,15 @@
                                 class="text-[10px] font-medium px-1.5 py-0.5 rounded-full
                         {{ $edukasi->kategori == 'bumil'
                             ? 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
-                            : ($edukasi->kategori == 'balita'
+                            : ($edukasi->kategori == 'anak'
                                 ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
                                 : ($edukasi->kategori == 'lansia'
                                     ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
                                     : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200')) }}">
                                 {{ $edukasi->kategori == 'bumil'
                                     ? 'Ibu Hamil'
-                                    : ($edukasi->kategori == 'balita'
-                                        ? 'Balita'
+                                    : ($edukasi->kategori == 'anak'
+                                        ? 'anak'
                                         : ($edukasi->kategori == 'lansia'
                                             ? 'Lansia'
                                             : 'Umum')) }}
@@ -334,7 +334,7 @@
         <div class="max-w-6xl mx-auto px-6 text-center">
             <!-- Heading -->
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
-                About <span class="text-purple-600">Us</span>
+                <span class="text-purple-600">SIPEDES</span>
             </h2>
             <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
                 SIPEDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu hamil,
@@ -446,26 +446,17 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Statistic 1 -->
                 <div class="stat-card bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
-                    <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <img src="{{ asset('img/baby.png') }}" alt="baby" width="100">
-                    </div>
-                    <h3 class="text-4xl font-bold text-indigo-600 counter">97</h3>
-                    <p class="mt-2 text-gray-600">Bayi</p>
-                </div>
-
-                <!-- Statistic 2 -->
-                <div class="stat-card bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
                     <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <img src="{{ asset('img/balita.png') }}" alt="balita" width="100">
+                        <img src="{{ asset('img/anak.png') }}" alt="anak" width="100">
                     </div>
                     <h3 class="text-4xl font-bold text-purple-600 counter">250</h3>
-                    <p class="mt-2 text-gray-600">Balita</p>
+                    <p class="mt-2 text-gray-600">Anak</p>
                 </div>
 
                 <!-- Statistic 3 -->
                 <div class="stat-card bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
                     <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <img src="{{ asset('img/bumil.png') }}" alt="balita" width="100">
+                        <img src="{{ asset('img/bumil.png') }}" alt="anak" width="100">
                     </div>
                     <h3 class="text-4xl font-bold text-pink-600 counter">120</h3>
                     <p class="mt-2 text-gray-600">Ibu Hamil</p>
@@ -474,7 +465,7 @@
                 <!-- Statistic 4 -->
                 <div class="stat-card bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
                     <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <img src="{{ asset('img/lansia.png') }}" alt="balita" width="100">
+                        <img src="{{ asset('img/lansia.png') }}" alt="anak" width="100">
                     </div>
                     <h3 class="text-4xl font-bold counter text-blue-600">24</h3>
                     <p class="mt-2 text-gray-600">Lansia</p>
