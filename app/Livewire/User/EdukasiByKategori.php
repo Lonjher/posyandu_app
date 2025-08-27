@@ -4,8 +4,10 @@ namespace App\Livewire\User;
 
 use Livewire\Component;
 use App\Models\Edukasi;
+use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
 
+#[Layout('components.layouts.auth')]
 class EdukasiByKategori extends Component
 {
     use WithPagination;
@@ -23,7 +25,7 @@ class EdukasiByKategori extends Component
         $this->kategori = $kategori;
 
         // Validasi kategori
-        $validCategories = ['bumil', 'balita', 'lansia', 'umum'];
+        $validCategories = ['bumil', 'anak', 'lansia', 'umum'];
         if (!in_array($this->kategori, $validCategories)) {
             abort(404);
         }
@@ -39,14 +41,14 @@ class EdukasiByKategori extends Component
     {
         $categoryTitles = [
             'bumil' => 'Edukasi Ibu Hamil',
-            'balita' => 'Edukasi Balita',
+            'anak' => 'Edukasi anak',
             'lansia' => 'Edukasi Lansia',
             'umum' => 'Edukasi Kesehatan Umum'
         ];
 
         $categoryDescriptions = [
             'bumil' => 'Temukan informasi dan tips bermanfaat untuk kesehatan ibu hamil',
-            'balita' => 'Tips dan edukasi untuk tumbuh kembang balita yang optimal',
+            'anak' => 'Tips dan edukasi untuk tumbuh kembang anak yang optimal',
             'lansia' => 'Informasi kesehatan untuk lansia yang sehat dan aktif',
             'umum' => 'Edukasi kesehatan umum untuk seluruh keluarga'
         ];
@@ -59,6 +61,6 @@ class EdukasiByKategori extends Component
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-        return view('livewire.edukasi-by-category', compact('categoryTitles', 'categoryDescriptions', 'edukasis'));
+        return view('livewire.user.edukasi-by-kategori', compact('categoryTitles', 'categoryDescriptions', 'edukasis'));
     }
 }

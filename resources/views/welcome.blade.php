@@ -1,11 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPEDER | Welcome</title>
-    @vite('resources/css/app.css')
+<x-layouts.auth>
+    @push('style')
     <style>
         /* Animasi bounce up and down */
         @keyframes bounce {
@@ -34,186 +29,175 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
     </style>
-</head>
+    @endpush
+    <section class="antialiased">
+        <!-- Navbar -->
+        <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm dark:shadow-gray-800/30">
+            <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="bg-gradient-to-r from-purple-500 to-indigo-500 w-6 h-6 rounded-full"></div>
+                    <span class="flex flex-col leading-none">
+                        <span class="font-bold text-lg/none text-gray-800 dark:text-white">SIPEDES</span>
+                        <small><span class="text-xs/none text-gray-800 dark:text-gray-300">Sistem Informasi Posyandu Desa</span></small>
+                    </span>
+                </div>
 
-<body class="antialiased bg-white">
+                <!-- Menu -->
+                <nav class="hidden md:flex space-x-6 text-sm text-gray-700 dark:text-gray-300">
+                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Features</a>
+                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">About</a>
+                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Pricing</a>
+                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Clients</a>
+                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Contact</a>
+                </nav>
 
-    <!-- Navbar -->
-    <header class="sticky top-0 z-50 bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
-            <!-- Logo -->
-            <div class="flex items-center space-x-2">
-                <div class="bg-gradient-to-r from-purple-500 to-indigo-500 w-6 h-6 rounded-full"></div>
-                <span class="flex flex-col leading-none">
-                    <span class="font-bold text-lg/none text-gray-800">SIPEDES</span>
-                    <small><span class="text-xs/none text-gray-800">Sistem Informasi Posyandu Desa</span></small>
-                </span>
+                <!-- Button -->
+                <div>
+                    <a href="#" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
+                        Masuk
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
+
+                <!-- Left content -->
+                <div class="space-y-4">
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
+                        Sistem Informasi Kesehatan <br>
+                        <span class="text-purple-600 dark:text-purple-400">Ibu Hamil</span>, <span class="text-purple-600 dark:text-purple-400">Anak</span> &
+                        <span class="text-purple-600 dark:text-purple-400">Lansia</span>.
+                    </h1>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed">
+                        Aplikasi berbasis website untuk mempermudah pencatatan kesehatan, penyampaian informasi, serta
+                        pengingat jadwal kegiatan Posyandu bagi Posyandu Desa Ketawang Karay.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="#" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
+                            Daftar Sekarang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right content (Mockup card) -->
+                <div class="relative flex justify-center md:justify-start">
+
+                    <!-- Efek Lingkaran Blur -->
+                    <div class="absolute -top-10 -left-16 w-80 h-80 bg-gradient-to-r from-purple-400 to-indigo-400 dark:from-purple-800 dark:to-indigo-800 rounded-full blur-3xl opacity-30 dark:opacity-20">
+                    </div>
+                    <div class="absolute top-20 -left-5 w-96 h-96 bg-gradient-to-r from-indigo-300 to-purple-300 dark:from-indigo-700 dark:to-purple-700 rounded-full blur-3xl opacity-20 dark:opacity-15">
+                    </div>
+
+                    <!-- Mockup Card -->
+                    <div class="relative p-6">
+                        <img class="bounce-animation" src="{{ asset('img/home.png') }}" alt="hero">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        {{-- <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-white mb-4">App Dashboard</h1>
+                <p class="text-xl text-indigo-100">With animated bounce effect and gradient circles</p>
             </div>
 
-            <!-- Menu -->
-            <nav class="hidden md:flex space-x-6 text-sm text-gray-700">
-                <a href="#" class="hover:text-purple-600">Features</a>
-                <a href="#" class="hover:text-purple-600">About</a>
-                <a href="#" class="hover:text-purple-600">Pricing</a>
-                <a href="#" class="hover:text-purple-600">Clients</a>
-                <a href="#" class="hover:text-purple-600">Contact</a>
-            </nav>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+                <!-- Bagian kiri dengan efek lingkaran dan gambar -->
+                <div class="relative flex justify-center md:justify-start w-full md:w-1/2">
+                    <!-- Efek Lingkaran Blur -->
+                    <div
+                        class="absolute -top-10 -left-16 w-80 h-80 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full blur-3xl opacity-30">
+                    </div>
+                    <div
+                        class="absolute top-20 -left-5 w-96 h-96 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-full blur-3xl opacity-20">
+                    </div>
 
-            <!-- Button -->
-            @if (Auth::user())
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <flux:button as="button" type="submit" icon="arrow-right-start-on-rectangle" size="sm"
-                        variant="primary" color="rose">
-                        {{ __('Keluar') }}
-                    </flux:button>
-                </form>
-            @else
-                <flux:button href="{{ route('login') }}" class="transition-transform transform hover:scale-105"
-                    icon="arrow-left-end-on-rectangle" variant="primary" color="purple" size='sm'>Masuk
-                </flux:button>
-            @endif
-        </div>
-    </header>
+                    <!-- Mockup Card -->
+                    <div class="relative p-6">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                            alt="Dashboard App" class="w-full max-w-md rounded-2xl shadow-2xl bounce-animation">
+                    </div>
+                </div>
 
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-r from-purple-50 to-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
+                <!-- Bagian kanan dengan fitur-fitur -->
+                <div class="w-full md:w-1/2 bg-white rounded-2xl shadow-xl p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">App Features</h2>
 
-            <!-- Left content -->
-            <div class="space-y-4">
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                    Sistem Informasi Kesehatan <br>
-                    <span class="text-purple-600">Ibu Hamil</span>, <span class="text-purple-600">Anak</span> &
-                    <span class="text-purple-600">Lansia</span>.
+                    <div class="space-y-6">
+                        <div class="card-hover bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-chart-pie text-blue-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-gray-800">Analytics Dashboard</h3>
+                                    <p class="text-gray-600 mt-2">Track your financial data with beautiful and interactive
+                                        charts.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-hover bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <div class="flex items-start">
+                                <div class="bg-green-100 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-shield-alt text-green-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-gray-800">Secure Transactions</h3>
+                                    <p class="text-gray-600 mt-2">Bank-level security for all your transactions and data.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-hover bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-bell text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-gray-800">Smart Notifications</h3>
+                                    <p class="text-gray-600 mt-2">Get alerted for important events and transactions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <button
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium flex items-center">
+                            <i class="fab fa-apple mr-2 text-xl"></i> App Store
+                        </button>
+                        <button
+                            class="bg-gray-800 hover:bg-black text-white px-6 py-3 rounded-lg font-medium flex items-center">
+                            <i class="fab fa-google-play mr-2 text-xl"></i> Google Play
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+        <!-- Edukasi Section -->
+        <div class="container mx-auto px-4 py-6">
+            <!-- Header -->
+            <div class="text-center mb-8 animate-fade-in">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-3">
+                    Edukasi Posyandu
                 </h1>
-                <p class="text-gray-600 text-sm md:text-base leading-relaxed">
-                    Aplikasi berbasis website untuk mempermudah pencatatan kesehatan, penyampaian informasi, serta
-                    pengingat jadwal kegiatan Posyandu bagi Posyandu Desa Ketawang Karay.
+                <p class="text-sm text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+                    Pilih kategori edukasi untuk kesehatan keluarga
                 </p>
-                <div class="flex space-x-4 pt-2">
-                    <flux:button href="{{ route('register') }}" class="transition-transform transform hover:scale-105"
-                        variant="primary" color="purple" size='sm'>Daftar Sekarang</flux:button>
-                </div>
             </div>
 
-            <!-- Right content (Mockup card) -->
-            <div class="relative flex justify-center md:justify-start">
-
-                <!-- Efek Lingkaran Blur -->
-                <div
-                    class="absolute -top-10 -left-16 w-80 h-80 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full blur-3xl opacity-30">
-                </div>
-                <div
-                    class="absolute top-20 -left-5 w-96 h-96 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-full blur-3xl opacity-20">
-                </div>
-
-                <!-- Mockup Card -->
-                <div class="relative p-6">
-                    <img class="bounce-animation" src="{{ asset('img/home.png') }}" alt="hero">
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    {{-- <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-white mb-4">App Dashboard</h1>
-            <p class="text-xl text-indigo-100">With animated bounce effect and gradient circles</p>
-        </div>
-
-        <div class="flex flex-col md:flex-row items-center justify-between gap-10">
-            <!-- Bagian kiri dengan efek lingkaran dan gambar -->
-            <div class="relative flex justify-center md:justify-start w-full md:w-1/2">
-                <!-- Efek Lingkaran Blur -->
-                <div
-                    class="absolute -top-10 -left-16 w-80 h-80 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full blur-3xl opacity-30">
-                </div>
-                <div
-                    class="absolute top-20 -left-5 w-96 h-96 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-full blur-3xl opacity-20">
-                </div>
-
-                <!-- Mockup Card -->
-                <div class="relative p-6">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
-                        alt="Dashboard App" class="w-full max-w-md rounded-2xl shadow-2xl bounce-animation">
-                </div>
-            </div>
-
-            <!-- Bagian kanan dengan fitur-fitur -->
-            <div class="w-full md:w-1/2 bg-white rounded-2xl shadow-xl p-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">App Features</h2>
-
-                <div class="space-y-6">
-                    <div class="card-hover bg-gray-50 p-5 rounded-xl border border-gray-200">
-                        <div class="flex items-start">
-                            <div class="bg-blue-100 p-3 rounded-lg mr-4">
-                                <i class="fas fa-chart-pie text-blue-600 text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-800">Analytics Dashboard</h3>
-                                <p class="text-gray-600 mt-2">Track your financial data with beautiful and interactive
-                                    charts.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-hover bg-gray-50 p-5 rounded-xl border border-gray-200">
-                        <div class="flex items-start">
-                            <div class="bg-green-100 p-3 rounded-lg mr-4">
-                                <i class="fas fa-shield-alt text-green-600 text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-800">Secure Transactions</h3>
-                                <p class="text-gray-600 mt-2">Bank-level security for all your transactions and data.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-hover bg-gray-50 p-5 rounded-xl border border-gray-200">
-                        <div class="flex items-start">
-                            <div class="bg-purple-100 p-3 rounded-lg mr-4">
-                                <i class="fas fa-bell text-purple-600 text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-lg text-gray-800">Smart Notifications</h3>
-                                <p class="text-gray-600 mt-2">Get alerted for important events and transactions.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 flex flex-wrap gap-4">
-                    <button
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium flex items-center">
-                        <i class="fab fa-apple mr-2 text-xl"></i> App Store
-                    </button>
-                    <button
-                        class="bg-gray-800 hover:bg-black text-white px-6 py-3 rounded-lg font-medium flex items-center">
-                        <i class="fab fa-google-play mr-2 text-xl"></i> Google Play
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!-- Edukasi Section -->
-    <div class="container mx-auto px-4 py-6">
-        <!-- Header -->
-        <div class="text-center mb-8 animate-fade-in">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-3">
-                Edukasi Posyandu
-            </h1>
-            <p class="text-sm text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
-                Pilih kategori edukasi untuk kesehatan keluarga
-            </p>
-        </div>
-
-        <!-- Grid Kategori -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            @foreach ($categories as $key => $category)
-                <a href="#"
+            <!-- Grid Kategori -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                @foreach ($categories as $key => $category)
+                <a href="{{ route('adukasi.kategori', $key) }}"
                     class="category-card group bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-150 dark:border-gray-700 p-4 text-center transition-all duration-200 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-600 animate-slide-up"
                     style="animation-delay: {{ $loop->index * 0.07 }}s">
 
@@ -228,25 +212,25 @@
                             : 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300')) }}">
 
                         @if ($key == 'bumil')
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                            </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                        </svg>
                         @elseif($key == 'anak')
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                            </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
                         @elseif($key == 'lansia')
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                            </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                        </svg>
                         @else
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                            </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
                         @endif
                     </div>
 
@@ -272,17 +256,17 @@
                         </svg>
                     </div>
                 </a>
-            @endforeach
-        </div>
-
-        <!-- Edukasi Terbaru -->
-        <div class="animate-fade-in">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-800 dark:text-white">Edukasi Terbaru</h2>
-                <a href="#" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Lihat semua</a>
+                @endforeach
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                @foreach ($latestEdukasi as $edukasi)
+
+            <!-- Edukasi Terbaru -->
+            <div class="animate-fade-in">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Edukasi Terbaru</h2>
+                    <a href="#" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Lihat semua</a>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    @foreach ($latestEdukasi as $edukasi)
                     <div
                         class="bg-white dark:bg-gray-800 rounded-md shadow-sm border border-gray-150 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md">
                         <div class="h-28 overflow-hidden">
@@ -324,165 +308,166 @@
                             </a>
                         </div>
                     </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- About Us Section -->
-    <section id="about" class="relative bg-white py-16">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <!-- Heading -->
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
-                <span class="text-purple-600">SIPEDES</span>
-            </h2>
-            <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
-                SIPEDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu hamil,
-                anak, dan lansia secara lebih cepat, terstruktur, dan mudah diakses.
-            </p>
+        <!-- About Section -->
+        <section id="about" class="relative bg-white dark:bg-gray-900 py-16">
+            <div class="max-w-6xl mx-auto px-6 text-center">
+                <!-- Heading -->
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">
+                    <span class="text-purple-600 dark:text-purple-400">SIPEDES</span>
+                </h2>
+                <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    SIPEDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu hamil,
+                    anak, dan lansia secara lebih cepat, terstruktur, dan mudah diakses.
+                </p>
 
-            <!-- Content Grid -->
-            <div class="mt-8 grid gap-4 md:grid-cols-3">
-                <!-- Visi -->
-                <div
-                    class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
-                    <div class="flex items-center mb-2">
-                        <div
-                            class="w-6 h-6 bg-purple-100 dark:bg-purple-800 rounded-md flex items-center justify-center mr-2">
-                            <span class="text-purple-600 dark:text-purple-300 text-xs">🎯</span>
+                <!-- Content Grid -->
+                <div class="mt-8 grid gap-4 md:grid-cols-3">
+                    <!-- Visi -->
+                    <div
+                        class="p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                        <div class="flex items-center mb-2">
+                            <div
+                                class="w-6 h-6 bg-purple-100 dark:bg-purple-800 rounded-md flex items-center justify-center mr-2">
+                                <span class="text-purple-600 dark:text-purple-300 text-xs">🎯</span>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Visi</h3>
                         </div>
-                        <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Visi</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-xs leading-relaxed">
+                            Mewujudkan pelayanan kesehatan masyarakat desa yang efektif dan mudah diakses melalui teknologi
+                            digital.
+                        </p>
                     </div>
-                    <p class="text-gray-600 dark:text-gray-300 text-xs leading-relaxed">
-                        Mewujudkan pelayanan kesehatan masyarakat desa yang efektif dan mudah diakses melalui teknologi
-                        digital.
+
+                    <!-- Misi -->
+                    <div
+                        class="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                        <div class="flex items-center mb-2">
+                            <div
+                                class="w-6 h-6 bg-blue-100 dark:bg-blue-800 rounded-md flex items-center justify-center mr-2">
+                                <span class="text-blue-600 dark:text-blue-300 text-xs">🚀</span>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Misi</h3>
+                        </div>
+                        <ul class="text-gray-600 dark:text-gray-300 text-xs space-y-1">
+                            <li class="flex items-start">
+                                <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                                Mempermudah pencatatan data kesehatan
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                                Notifikasi WhatsApp jadwal posyandu
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                                Edukasi kesehatan masyarakat
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
+                                Dukungan pengambilan keputusan
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Layanan -->
+                    <div
+                        class="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                        <div class="flex items-center mb-2">
+                            <div
+                                class="w-6 h-6 bg-green-100 dark:bg-green-800 rounded-md flex items-center justify-center mr-2">
+                                <span class="text-green-600 dark:text-green-300 text-xs">🤝</span>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Layanan</h3>
+                        </div>
+                        <ul class="text-gray-600 dark:text-gray-300 text-xs space-y-1">
+                            <li class="flex items-start">
+                                <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                                Pencatatan data kesehatan
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                                Notifikasi WhatsApp
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                                Edukasi kesehatan
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
+                                Dokumentasi kegiatan
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden py-16">
+            <div class="absolute inset-0 overflow-hidden">
+                <div
+                    class="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-r from-purple-200 to-indigo-200 dark:from-purple-900 dark:to-indigo-900 rounded-full blur-3xl opacity-40 dark:opacity-20">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-800 dark:to-purple-800 rounded-full blur-3xl opacity-30 dark:opacity-15">
+                </div>
+            </div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                        Statistik Tahun 2025
+                    </h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300">
+                        Data Statistik Posyandu Desa Ketawang Karay
                     </p>
                 </div>
 
-                <!-- Misi -->
-                <div
-                    class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
-                    <div class="flex items-center mb-2">
-                        <div
-                            class="w-6 h-6 bg-blue-100 dark:bg-blue-800 rounded-md flex items-center justify-center mr-2">
-                            <span class="text-blue-600 dark:text-blue-300 text-xs">🚀</span>
+                <div class="flex justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-2xl">
+                        <!-- Statistic 1 -->
+                        <div class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
+                            <div class="bg-purple-100 dark:bg-purple-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <img src="{{ asset('img/anak.png') }}" alt="anak" class="w-6 h-6 md:w-7 md:h-7">
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400 counter">250</h3>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Anak</p>
                         </div>
-                        <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Misi</h3>
-                    </div>
-                    <ul class="text-gray-600 dark:text-gray-300 text-xs space-y-1">
-                        <li class="flex items-start">
-                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
-                            Mempermudah pencatatan data kesehatan
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
-                            Notifikasi WhatsApp jadwal posyandu
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
-                            Edukasi kesehatan masyarakat
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-blue-500 dark:text-blue-400 mr-1 text-xs">•</span>
-                            Dukungan pengambilan keputusan
-                        </li>
-                    </ul>
-                </div>
 
-                <!-- Layanan -->
-                <div
-                    class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
-                    <div class="flex items-center mb-2">
-                        <div
-                            class="w-6 h-6 bg-green-100 dark:bg-green-800 rounded-md flex items-center justify-center mr-2">
-                            <span class="text-green-600 dark:text-green-300 text-xs">🤝</span>
+                        <!-- Statistic 2 -->
+                        <div class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
+                            <div class="bg-pink-100 dark:bg-pink-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <img src="{{ asset('img/bumil.png') }}" alt="bumil" class="w-6 h-6 md:w-7 md:h-7">
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-pink-600 dark:text-pink-400 counter">120</h3>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Ibu Hamil</p>
                         </div>
-                        <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Layanan</h3>
+
+                        <!-- Statistic 3 -->
+                        <div class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
+                            <div class="bg-blue-100 dark:bg-blue-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <img src="{{ asset('img/lansia.png') }}" alt="lansia" class="w-6 h-6 md:w-7 md:h-7">
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold counter text-blue-600 dark:text-blue-400">24</h3>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Lansia</p>
+                        </div>
                     </div>
-                    <ul class="text-gray-600 dark:text-gray-300 text-xs space-y-1">
-                        <li class="flex items-start">
-                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
-                            Pencatatan data kesehatan
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
-                            Notifikasi WhatsApp
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
-                            Edukasi kesehatan
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-green-500 dark:text-green-400 mr-1 text-xs">•</span>
-                            Dokumentasi kegiatan
-                        </li>
-                    </ul>
+                </div>
+
+                <!-- Additional Info -->
+                <div
+                    class="mt-16 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-700 dark:to-purple-700 rounded-2xl shadow-xl p-8 text-center text-white">
+                    <h3 class="text-2xl font-bold mb-4">Join Us</h3>
+                    <p class="max-w-2xl mx-auto mb-6">Bergabung untuk mendapatkan layanan yang kami berikan.</p>
+                    <button class="bg-white text-indigo-600 dark:bg-gray-100 dark:text-indigo-700 hover:bg-gray-100 dark:hover:bg-gray-200 px-6 py-3 rounded-lg font-medium">
+                        Get Started
+                    </button>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
-
-    <!-- Statistics Section -->
-    <section class="relative bg-gradient-to-r from-purple-50 to-white overflow-hidden py-16">
-        <div class="absolute inset-0 overflow-hidden">
-            <div
-                class="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-r from-purple-200 to-indigo-200 rounded-full blur-3xl opacity-40">
-            </div>
-            <div
-                class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full blur-3xl opacity-30">
-            </div>
-        </div>
-
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-                    Statistik Tahun 2025
-                </h2>
-                <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-600">
-                    Data Statistik Posyandu ...............
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Statistic 1 -->
-                <div class="stat-card bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <img src="{{ asset('img/anak.png') }}" alt="anak" width="100">
-                    </div>
-                    <h3 class="text-4xl font-bold text-purple-600 counter">250</h3>
-                    <p class="mt-2 text-gray-600">Anak</p>
-                </div>
-
-                <!-- Statistic 3 -->
-                <div class="stat-card bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
-                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <img src="{{ asset('img/bumil.png') }}" alt="anak" width="100">
-                    </div>
-                    <h3 class="text-4xl font-bold text-pink-600 counter">120</h3>
-                    <p class="mt-2 text-gray-600">Ibu Hamil</p>
-                </div>
-
-                <!-- Statistic 4 -->
-                <div class="stat-card bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <img src="{{ asset('img/lansia.png') }}" alt="anak" width="100">
-                    </div>
-                    <h3 class="text-4xl font-bold counter text-blue-600">24</h3>
-                    <p class="mt-2 text-gray-600">Lansia</p>
-                </div>
-            </div>
-
-            <!-- Additional Info -->
-            <div
-                class="mt-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 text-center text-white">
-                <h3 class="text-2xl font-bold mb-4">Join Us</h3>
-                <p class="max-w-2xl mx-auto mb-6">Bergabung untuk mendapatkan layanan yang kami berikan.</p>
-                <button class="bg-white text-indigo-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-medium">
-                    Get Started
-                </button>
-            </div>
-        </div>
-    </section>
-</body>
-
-</html>
+</x-layouts.auth>
