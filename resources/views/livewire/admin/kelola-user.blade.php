@@ -53,6 +53,12 @@
                         <flux:select.option value="L" selected>Laki-laki</flux:select.option>
                         <flux:select.option value="P">Perempuan</flux:select.option>
                     </flux:select>
+                    <flux:select placeholder="Kategori" wire:model='kategori' :invalid="$errors->has('kategori')">
+                        <flux:select.option value="" selected>Kategori</flux:select.option>
+                        <flux:select.option value="bumil">Ibu Hamil</flux:select.option>
+                        <flux:select.option value="Anak">Anak</flux:select.option>
+                        <flux:select.option value="Lansia">Lansia</flux:select.option>
+                    </flux:select>
                     <flux:input :invalid="$errors->has('alamat')" wire:model="alamat" label="Alamat"
                         placeholder="Alamat Lengkap" />
                     <div class="flex">

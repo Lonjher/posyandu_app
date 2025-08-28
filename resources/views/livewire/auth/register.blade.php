@@ -55,6 +55,19 @@
                             </div>
                         </div>
 
+                        <!-- Jenis Kategori -->
+                        <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                            <div>
+                                <flux:select wire:model="kategori" :label="__('Kategori')" icon="users" size="sm" :invalid="$errors->has('kategori')"
+                                    required>
+                                    <option value="">-- Pilih --</option>
+                                    <option value="bumil">Ibu Hamil</option>
+                                    <option value="anak">Anak</option>
+                                    <option value="lansia">Lansia</option>
+                                </flux:select>
+                            </div>
+                        </div>
+
                         <!-- Password -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>

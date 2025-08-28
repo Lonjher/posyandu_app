@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\isAdmin;
+use App\Http\Middleware\isAdminBidanKader;
 use App\Http\Middleware\isKader;
 use App\Http\Middleware\isPemdes;
 use App\Http\Middleware\isUser;
@@ -20,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'isUser' => isUser::class,
             'isKader' => isKader::class,
             'isPemdes' => isPemdes::class,
+            'isAdminBidanKader' => isAdminBidanKader::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

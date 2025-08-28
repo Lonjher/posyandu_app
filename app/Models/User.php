@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email',
         'nik',
         'jenis_kelamin',
+        'kategori',
         'alamat',
         'tanggal_lahir',
         'email_verified_at',
@@ -88,6 +89,22 @@ class User extends Authenticatable
     protected function onlyUser()
     {
         return $this->where('role', 'user');
+    }
+
+    #[Scope]
+    protected function onlyBumil()
+    {
+        return $this->where('kategori', 'bumil');
+    }
+    #[Scope]
+    protected function onlyAnak()
+    {
+        return $this->where('kategori', 'anak');
+    }
+    #[Scope]
+    protected function onlyLansia()
+    {
+        return $this->where('kategori', 'lansia');
     }
 
     public function laporanKegiatans()

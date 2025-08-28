@@ -74,9 +74,11 @@
                     </flux:dropdown>
                     <!-- Button -->
                     <div>
-                        <a href="#" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
-                            Masuk
-                        </a>
+                        @if ('Auth::user()')
+                            <a href="{{ route('login') }}" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
+                                Masuk
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['admin', 'kader', 'user', 'pemdes']);
             $table->string('no_hp')->nullable();
+            $table->enum('kategori', ['bumil', 'anak', 'lansia', 'umum'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
             $table->rememberToken();

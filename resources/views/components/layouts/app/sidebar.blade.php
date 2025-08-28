@@ -14,16 +14,14 @@
         </a>
 
         <flux:navlist variant="outline">
-            <flux:navlist.group :heading="__('Platform')" class="grid">
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
-                    wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-            </flux:navlist.group>
+            <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
         </flux:navlist>
 
-        @can('isAdmin')
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Administrator')" class="grid">
-                    <flux:navlist.group heading="Kelola Pengguna" expandable>
+        <flux:navlist variant="outline">
+            <flux:navlist.group :heading="__('Administrator')" class="grid">
+                    @can('isAdmin')
+                    <flux:navlist.group heading="Administrator" expandable>
                         <flux:navlist.item icon="user" :href="route('admin.kelola-admin')"
                             :current="request()->routeIs('admin.kelola-admin')" wire:navigate>{{ __('Admin') }}
                         </flux:navlist.item>
@@ -37,19 +35,26 @@
                             :current="request()->routeIs('admin.kelola-user')" wire:navigate>{{ __('Pengguna') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
+                    @endcan
+                    @can('isAdminBidanKader')
+                        <flux:navlist.group heading="Pemeriksaan" expandable>
+                            <flux:navlist.item icon="newspaper" :href="route('pemeriksaan.bumil')"
+                                :current="request()->routeIs('pemeriksaan.bumil')" wire:navigate>{{ __('Ibu Hamil') }}
+                            </flux:navlist.item>
+                        </flux:navlist.group>
+                    @endcan
                     <flux:navlist.item icon="newspaper" :href="route('view.laporan-kegiatan')"
-                        :current="request()->routeIs('view.laporan-kegiatan')" wire:navigate>{{ __('Lap. Kegiatan') }}
+                        :current="request()->routeIs('view.laporan-kegiatan')" wire:navigate>{{ __('Inf. Kegiatan') }}
                     </flux:navlist.item>
                     <flux:navlist.item icon="book-open" :href="route('view.edukasi')"
                         :current="request()->routeIs('view.edukasi')" wire:navigate>{{ __('Edukasi') }}
                     </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
-        @endcan
         @can('isPemdes')
             <flux:navlist.group :heading="__('Data')" class="grid">
                 <flux:navlist.item icon="newspaper" :href="route('pemdes.laporan-kegiatan')"
-                    :current="request()->routeIs('pemdes.laporan-kegiatan')" wire:navigate>{{ __('Lap. Kegiatan') }}
+                    :current="request()->routeIs('pemdes.laporan-kegiatan')" wire:navigate>{{ __('Inf. Kegiatan') }}
                 </flux:navlist.item>
             </flux:navlist.group>
         @endcan
