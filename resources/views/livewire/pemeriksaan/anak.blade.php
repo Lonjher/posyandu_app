@@ -1,7 +1,7 @@
 <div class="">
     <!-- Header Section -->
-    <flux:legend>Pemeriksaan Ibu Hamil</flux:legend>
-    <flux:description>Manajemen data pemeriksaan kesehatan ibu hamil</flux:description>
+    <flux:legend>Pemeriksaan Anak</flux:legend>
+    <flux:description>Manajemen data pemeriksaan kesehatan Anak</flux:description>
 
     <div class="flex justify-between items-end mb-2 mt-5">
         <div class="flex gap-2">

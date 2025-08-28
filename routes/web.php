@@ -8,6 +8,7 @@ use App\Livewire\Admin\KelolaPemdes;
 use App\Livewire\Admin\KelolaUser;
 use App\Livewire\LaporanKegiatan;
 use App\Livewire\Pemdes\ViewLaporan;
+use App\Livewire\Pemeriksaan\Anak;
 use App\Livewire\Pemeriksaan\Bumil;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('isAdminBidanKader')->prefix('pemeriksaan')->group(function() {
         Route::get('bumil', Bumil::class)->name('pemeriksaan.bumil');
+        Route::get('anak', Anak::class)->name('pemeriksaan.anak');
     });
 
     Route::middleware('isPemdes')->prefix('pemdes')->group(function() {
