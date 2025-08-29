@@ -9,7 +9,7 @@
             <div class="flex justify-between items-center mb-4 ">
                 <div class="flex gap-2">
                     <flux:input type="text" icon="magnifying-glass" kbd="⌘K" wire:model.live="search"
-                        placeholder="Cari DPL..." class="w-full" size="xs" />
+                        placeholder="Cari Kader..." class="w-full" size="xs" />
                     <div>
                         <flux:select size="xs" placeholder="Per Page" wire:model.live='perPage'>
                             <flux:select.option value="5">5</flux:select.option>

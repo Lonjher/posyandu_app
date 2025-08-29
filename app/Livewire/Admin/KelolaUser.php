@@ -132,11 +132,10 @@ class KelolaUser extends Component
     public function confirmDelete(User $user)
     {
         $this->dispatch(
-            'confirmDelete',
-            type: 'warning',
-            title: "Konfirmasi Hapus",
-            text: "Apakah Anda yakin ingin menghapus data pemdes ini? Tindakan ini tidak dapat dibatalkan.",
-            id: $user->id_user
+            'alert',
+            type: 'info',
+            title: "Informasi",
+            text: "Fitur ini akan segera hadir!",
         );
     }
 
@@ -161,5 +160,37 @@ class KelolaUser extends Component
             );
             return;
         }
+    }
+
+    public function confirm_reset_password(User $user)
+    {
+        $this->dispatch(
+            'alert',
+            type: 'info',
+            title: 'Informasi!',
+            text: 'Fitur ini akan segera hadir!',
+            timer: 4000
+        );
+    }
+
+    public  function edit(){
+        $this->dispatch(
+            'alert',
+            type: 'info',
+            title: 'Informasi!',
+            text: 'Fitur ini akan segera hadir!',
+            timer: 4000
+        );
+    }
+
+    public function export()
+    {
+        $this->dispatch(
+            'alert',
+            type: 'info',
+            title: 'Informasi!',
+            text: 'Fitur ini akan segera hadir!',
+            timer: 4000
+        );
     }
 }

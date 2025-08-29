@@ -7,10 +7,12 @@ use App\Livewire\Admin\KelolaKader;
 use App\Livewire\Admin\KelolaPemdes;
 use App\Livewire\Admin\KelolaUser;
 use App\Livewire\LaporanKegiatan;
+use App\Livewire\LaporanPemeriksaanPemdes;
 use App\Livewire\Pemdes\ViewLaporan;
 use App\Livewire\Pemeriksaan\Anak;
 use App\Livewire\Pemeriksaan\Bumil;
 use App\Livewire\Pemeriksaan\Lansia;
+use App\Livewire\PemeriksaanSaya;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -55,8 +57,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('lansia', Lansia::class)->name('pemeriksaan.lansia');
     });
 
+
+    Route::get('hasil/pemeriksaan', PemeriksaanSaya::class)->name('hasil.pemeriksaan');
+
     Route::middleware('isPemdes')->prefix('pemdes')->group(function() {
         Route::get('laporan-kegiatan', ViewLaporan::class)->name('pemdes.laporan-kegiatan');
+        Route::get('laporan-pemeriksaan', LaporanPemeriksaanPemdes::class)->name('pemdes.laporan-pemeriksaan');
     });
     Route::redirect('settings', 'settings/profile');
 
