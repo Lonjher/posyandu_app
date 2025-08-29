@@ -11,6 +11,7 @@ use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Bumil extends Component
 {
@@ -154,7 +155,7 @@ class Bumil extends Component
                 title: 'Sukses',
                 text: "Data pemeriksaan berhasil dihapus!"
             );
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->dispatch(
                 'alert',
                 type: 'error',
@@ -307,5 +308,28 @@ class Bumil extends Component
         return view('livewire.pemeriksaan.bumil', [
             'pemeriksaans' => $pemeriksaans
         ]);
+    }
+
+    public function exportPdf()
+    {
+        $pemeriksaans = BumilPemeriksaan::with(['bumil', 'user', 'skriningTbc'])->get();
+
+        try {
+            $pdf = Pdf::loadView('pdf.bumil-laporan', compact('pemeriksaans'))
+                ->setPaper('folio', 'landscape'); // HORIZONTAL
+
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'laporan-bumil-pemeriksaan.pdf');
+        } catch (\Exception $e) {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: "Error",
+                text: 'Ada masalah' . $e->getMessage(),
+                timer: 5000
+            );
+            return;
+        }
     }
 }

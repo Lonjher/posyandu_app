@@ -18,11 +18,14 @@
                 </flux:select>
             </div>
         </div>
-        <flux:modal.trigger name="choose-pasien" class="mb-2">
-            <div class="flex gap-2">
-                <flux:button icon="plus-circle" size="xs" class="shadow-sm">Tambah</flux:button>
-            </div>
-        </flux:modal.trigger>
+        <div class="flex gap-4">
+            <flux:button wire:click='exportPdf' icon="pdf" size="xs" class="shadow-sm">Export</flux:button>
+            <flux:modal.trigger name="choose-pasien" class="mb-2">
+                <div class="flex gap-2">
+                    <flux:button icon="plus-circle" size="xs" class="shadow-sm">Tambah</flux:button>
+                </div>
+            </flux:modal.trigger>
+        </div>
     </div>
 
 
@@ -346,9 +349,9 @@
                 @elseif($searchLansia && $searchLansiaResults->isNotEmpty())
                     @foreach ($searchLansiaResults as $lansia)
                         <button wire:click="chooseLansia({{ $lansia->id_user }})"
-                            class="grid grid-cols-5 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
+                            class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
                             <span
-                                class="col-span-2 font-medium dark:text-white text-zinc-800">{{ $lansia->nik }}</span>
+                                class="font-medium dark:text-white text-zinc-800">{{ $lansia->nik }}</span>
                             <span class="col-span-2">{{ $lansia->name }}</span>
                             <span class="text-end">{{ $lansia->jenis_kelamin }}</span>
                     @endforeach
@@ -364,9 +367,9 @@
                 @elseif($this->lansiaList)
                     @foreach ($this->lansiaList as $result)
                         <button wire:click="chooseLansia({{ $result->id_user }})"
-                            class="grid grid-cols-5 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
+                            class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
                             <span
-                                class="col-span-2 font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
+                                class="font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
                             <span class="col-span-2">{{ $result->name }}</span>
                             <span class="text-end">{{ $result->jenis_kelamin }}</span>
                         </button>

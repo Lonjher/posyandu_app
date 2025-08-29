@@ -18,11 +18,14 @@
                 </flux:select>
             </div>
         </div>
-        <flux:modal.trigger name="choose-pasien" class="mb-2">
-            <div class="flex gap-2">
-                <flux:button icon="plus-circle" size="xs" class="shadow-sm">Tambah</flux:button>
-            </div>
-        </flux:modal.trigger>
+        <div class="flex gap-4">
+            <flux:button wire:click='exportPdf' icon="pdf" size="xs" class="shadow-sm">Export</flux:button>
+            <flux:modal.trigger name="choose-pasien" class="mb-2">
+                <div class="flex gap-2">
+                    <flux:button icon="plus-circle" size="xs" class="shadow-sm">Tambah</flux:button>
+                </div>
+            </flux:modal.trigger>
+        </div>
     </div>
 
 
@@ -172,8 +175,8 @@
             <!-- Header dengan informasi anak -->
             <div class="flex flex-col pb-4">
                 <span>
-                    <flux:legend> {{ $isEdit ? 'Update' : '' }} Pemeriksaan Ibu Hamil</flux:legend>
-                    <flux:description>Manajemen data pemeriksaan kesehatan ibu hamil</flux:description>
+                    <flux:legend> {{ $isEdit ? 'Update' : '' }} Pemeriksaan Anak</flux:legend>
+                    <flux:description>Manajemen data pemeriksaan kesehatan Anak</flux:description>
                 </span>
 
                 @if ($choosenAnak)
@@ -410,8 +413,8 @@
             <!-- Header dengan informasi anak -->
             <div class="flex flex-col pb-4">
                 <span>
-                    <flux:legend> {{ $isEdit ? 'Update' : '' }} Pemeriksaan Ibu Hamil</flux:legend>
-                    <flux:description>Manajemen data pemeriksaan kesehatan ibu hamil</flux:description>
+                    <flux:legend> {{ $isEdit ? 'Update' : '' }} Pemeriksaan Anak</flux:legend>
+                    <flux:description>Manajemen data pemeriksaan kesehatan Anak</flux:description>
                 </span>
 
                 @if ($choosenAnak)
@@ -647,7 +650,7 @@
         {{-- Sticky Search Input --}}
         <div class="sticky top-0 z-40 bg-white dark:bg-zinc-800 px-4 pt-4 pb-2">
             <flux:input type="text" variant="filled" icon="magnifying-glass" wire:model.live="searchAnak"
-                placeholder="Cari Ibu Hamil..." class="w-full" size="md" clearable />
+                placeholder="Cari Anak..." class="w-full" size="md" clearable />
         </div>
 
         {{-- Scrollable Results --}}
@@ -678,7 +681,7 @@
                 @elseif($searchAnak)
                     <div class="py-4 text-center">
                         <p class="text-sm text-gray-500 dark:text-zinc-400">
-                            🔍 Tidak ditemukan Ibu Hamil</p>
+                            🔍 Tidak ditemukan Anak</p>
                     </div>
 
                     {{-- Optional default state --}}
@@ -694,7 +697,7 @@
                 @else
                     <div class="py-4 text-center">
                         <p class="text-sm text-gray-500 dark:text-zinc-400">
-                            👋 Masukkan nama/NIK Ibu Hamil</p>
+                            👋 Masukkan nama/NIK Anak</p>
                     </div>
                 @endif
             </div>

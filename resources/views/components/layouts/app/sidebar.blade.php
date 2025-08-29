@@ -38,13 +38,13 @@
                     @endcan
                     @can('isAdminBidanKader')
                         <flux:navlist.group heading="Pemeriksaan" expandable>
-                            <flux:navlist.item icon="newspaper" :href="route('pemeriksaan.bumil')"
+                            <flux:navlist.item icon="pregnant" :href="route('pemeriksaan.bumil')"
                                 :current="request()->routeIs('pemeriksaan.bumil')" wire:navigate>{{ __('Ibu Hamil') }}
                             </flux:navlist.item>
-                            <flux:navlist.item icon="newspaper" :href="route('pemeriksaan.anak')"
+                            <flux:navlist.item icon="child" :href="route('pemeriksaan.anak')"
                                 :current="request()->routeIs('pemeriksaan.anak')" wire:navigate>{{ __('Anak') }}
                             </flux:navlist.item>
-                            <flux:navlist.item icon="newspaper" :href="route('pemeriksaan.lansia')"
+                            <flux:navlist.item icon="old" :href="route('pemeriksaan.lansia')"
                                 :current="request()->routeIs('pemeriksaan.lansia')" wire:navigate>{{ __('Lansia') }}
                             </flux:navlist.item>
                         </flux:navlist.group>

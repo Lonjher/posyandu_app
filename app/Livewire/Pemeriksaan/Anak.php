@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pemeriksaan;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\AnakPemeriksaan;
@@ -374,5 +375,28 @@ class Anak extends Component
         return view('livewire.pemeriksaan.anak', [
             'pemeriksaans' => $pemeriksaans
         ]);
+    }
+
+    public function exportPdf()
+    {
+        $pemeriksaans = AnakPemeriksaan::with(['anak', 'user', 'skriningTbc'])->get();
+
+        try {
+            $pdf = Pdf::loadView('pdf.anak-laporan', compact('pemeriksaans'))
+                ->setPaper('folio', 'landscape'); // HORIZONTAL
+
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'laporan-anak-pemeriksaan.pdf');
+        } catch (\Exception $e) {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: "Error",
+                text: 'Ada masalah' . $e->getMessage(),
+                timer: 5000
+            );
+            return;
+        }
     }
 }
