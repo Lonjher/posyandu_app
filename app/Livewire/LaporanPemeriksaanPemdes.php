@@ -11,9 +11,9 @@ class LaporanPemeriksaanPemdes extends Component
 {
     public function render()
     {
-        $anakPemeriksaans = AnakPemeriksaan::latest();
-        $bumilPemeriksaans = BumilPemeriksaan::latest();
-        $lansiaPemeriksaans = LansiaPemeriksaan::latest();
+        $anakPemeriksaans = AnakPemeriksaan::latest()->get();
+        $bumilPemeriksaans = BumilPemeriksaan::latest()->get();
+        $lansiaPemeriksaans = LansiaPemeriksaan::latest()->get();
         return view('livewire.laporan-pemeriksaan-pemdes', [
             'anakPemeriksaans' => $anakPemeriksaans,
             'bumilPemeriksaans' => $bumilPemeriksaans,

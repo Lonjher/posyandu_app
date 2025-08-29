@@ -1,13 +1,16 @@
 <div>
+        <!-- Header Section -->
+    <flux:legend>Laporan Pemeriksaan</flux:legend>
+    <flux:description>Review hasil pemeriksaan Posyandu</flux:description>
+
     @if ($anakPemeriksaans)
-        <div class="w-full overflow-x-auto border border-gray-300 dark:border-gray-700 rounded-md">
+        <div class="w-full overflow-x-auto border border-gray-300 dark:border-gray-700 rounded-md mt-4 mb-4">
             <table class="min-w-[800px] w-full text-xs divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
                     <tr>
                         <th class="px-2 py-2 text-left">No.</th>
                         <th class="px-2 py-2 text-left">Nama</th>
                         <th class="px-2 py-2 text-left">Diagnosa</th>
-                        <th class="px-2 py-2 text-left">Edukasi</th>
                         <th class="px-2 py-2 text-left">Tgl</th>
                     </tr>
                 </thead>
@@ -29,10 +32,7 @@
                                     {{ $pemeriksaan->diagnosa ?? '-' }}
                                 </td>
                                 <td class="px-2 py-1.5 whitespace-nowrap text-gray-500 dark:text-gray-400">
-                                    {{ $pemeriksaan->edukasi ?? '-' }}
-                                </td>
-                                <td class="px-2 py-1.5 whitespace-nowrap text-gray-500 dark:text-gray-400">
-                                    {{ $pemeriksaan->created_at->format('d/m') }}
+                                    {{ $pemeriksaan->created_at }}
                                 </td>
                             </tr>
                         @endforeach
@@ -45,30 +45,25 @@
                     @endif
                 </tbody>
             </table>
-
-            <!-- Pagination -->
-            @if ($anakPemeriksaans && $anakPemeriksaans->hasPages())
-                <div class="px-2 py-1.5 border-t dark:border-gray-700">
-                    {{ $anakPemeriksaans->links('vendor.pagination.tailwind') }}
-                </div>
-            @endif
         </div>
-    @elseif($lansiaPemeriksaans)
+    @endif
+
+    @if($lansiaPemeriksaans)
         <!-- Tabel -->
-        <div class="w-full overflow-x-auto border border-gray-300 dark:border-gray-700 rounded-md">
+        <div class="w-full overflow-x-auto border border-gray-300 dark:border-gray-700 rounded-md mb-4">
             <table class="min-w-[1000px] w-full text-xs divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
                     <tr>
                         <th class="px-2 py-2 text-left">No</th>
                         <th class="px-2 py-2 text-left">Nama Lansia</th>
                         <th class="px-2 py-2 text-left">Diagnosa</th>
-                        <th class="px-2 py-2 text-left">Edukasi</th>
+                        <th class="px-2 py-2 text-left">Tgl</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($lansiaPemeriksaans as $no => $pemeriksaan)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                            <td class="px-2 py-2">{{ $lansiaPemeriksaans->firstItem() + $no }}</td>
+                            <td class="px-2 py-2">{{ $no=+1 }}</td>
                             <td class="px-2 py-2 flex items-center gap-2">
                                 <img src="{{ asset('storage/' . $pemeriksaan->lansia->avatar) }}"
                                     class="h-6 w-6 rounded-full" alt="avatar">
@@ -79,7 +74,7 @@
                                 </div>
                             </td>
                             <td class="px-2 py-2">{{ $pemeriksaan->diagnosa }}</td>
-                            <td class="px-2 py-2">{{ $pemeriksaan->edukasi ?? '-' }}</td>
+                            <td class="px-2 py-2">{{ $pemeriksaan->created_at ?? '-' }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -88,26 +83,25 @@
                     @endforelse
                 </tbody>
             </table>
-            @if ($lansiaPemeriksaans->hasPages())
-                <div class="px-2 py-2 border-t">{{ $lansiaPemeriksaans->links() }}</div>
-            @endif
         </div>
-    @elseif($bumilPemeriksaans)s
-        <div class="w-full overflow-x-auto border border-gray-300 dark:border-gray-700 rounded-md">
+    @endif
+
+    @if($bumilPemeriksaans)
+        <div class="w-full overflow-x-auto border border-gray-300 dark:border-gray-700 rounded-md mb-4">
             <table class="min-w-[800px] w-full text-xs divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
                     <tr>
                         <th class="px-2 py-2 text-left">No.</th>
                         <th class="px-2 py-2 text-left">Nama</th>
                         <th class="px-2 py-2 text-left">Diagnosa</th>
-                        <th class="px-2 py-2 text-left">Edukasi</th>
+                        <th class="px-2 py-2 text-left">Tgl</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                     @if ($bumilPemeriksaans)
                         @foreach ($bumilPemeriksaans as $no => $pemeriksaan)
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200">
-                                <td class="px-2 py-2">{{ $bumilPemeriksaans->firstItem() + $no }}</td>
+                                <td class="px-2 py-2">{{ $no=+1 }}</td>
                                 <td class="px-2 py-2 flex items-center gap-2">
                                     <img src="{{ asset('storage/' . $pemeriksaan->bumil->avatar) }}"
                                         class="h-6 w-6 rounded-full" alt="avatar">
@@ -121,7 +115,7 @@
                                     {{ $pemeriksaan->diagnosa ?? '-' }}
                                 </td>
                                 <td class="px-2 py-1.5 whitespace-nowrap text-gray-500 dark:text-gray-400">
-                                    {{ $pemeriksaan->edukasi ?? '-' }}
+                                    {{ $pemeriksaan->created_at ?? '-' }}
                                 </td>
                             </tr>
                         @endforeach
