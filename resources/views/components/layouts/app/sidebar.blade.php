@@ -44,6 +44,9 @@
                             <flux:navlist.item icon="newspaper" :href="route('pemeriksaan.anak')"
                                 :current="request()->routeIs('pemeriksaan.anak')" wire:navigate>{{ __('Anak') }}
                             </flux:navlist.item>
+                            <flux:navlist.item icon="newspaper" :href="route('pemeriksaan.lansia')"
+                                :current="request()->routeIs('pemeriksaan.lansia')" wire:navigate>{{ __('Lansia') }}
+                            </flux:navlist.item>
                         </flux:navlist.group>
                     @endcan
                     <flux:navlist.item icon="newspaper" :href="route('view.laporan-kegiatan')"
