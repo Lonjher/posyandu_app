@@ -96,6 +96,7 @@ class User extends Authenticatable
     {
         return $this->where('kategori', 'bumil');
     }
+
     #[Scope]
     protected function onlyAnak()
     {

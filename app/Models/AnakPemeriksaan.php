@@ -27,6 +27,8 @@ class AnakPemeriksaan extends Model
         'obat_cacing',
         'mt_pangan_lokal',
         'gejala_sakit',
+        'diagnosa',
+        'keterangan',
         'skrining_tbc_id',
     ];
 
@@ -35,7 +37,7 @@ class AnakPemeriksaan extends Model
         return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
 
-    public function bumil()
+    public function anak()
     {
         return $this->belongsTo(User::class, 'anak_id', 'id_user');
     }

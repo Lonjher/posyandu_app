@@ -56,8 +56,8 @@
                     <flux:select placeholder="Kategori" wire:model='kategori' :invalid="$errors->has('kategori')">
                         <flux:select.option value="" selected>Kategori</flux:select.option>
                         <flux:select.option value="bumil">Ibu Hamil</flux:select.option>
-                        <flux:select.option value="Anak">Anak</flux:select.option>
-                        <flux:select.option value="Lansia">Lansia</flux:select.option>
+                        <flux:select.option value="anak">Anak</flux:select.option>
+                        <flux:select.option value="lansia">Lansia</flux:select.option>
                     </flux:select>
                     <flux:input :invalid="$errors->has('alamat')" wire:model="alamat" label="Alamat"
                         placeholder="Alamat Lengkap" />
@@ -116,7 +116,7 @@
                             <th class="px-2 py-2 text-left">Tgl. Lahir</th>
                             <th class="px-2 py-2 text-left">Jenis Kelamin</th>
                             <th class="px-2 py-2 text-left">Alamat</th>
-                            <th class="px-2 py-2 text-left">Peran</th>
+                            <th class="px-2 py-2 text-left">Kategori</th>
                             <th class="px-2 py-2 text-left">Aksi</th>
                         </tr>
                     </thead>
@@ -144,7 +144,7 @@
                                 <td class="px-2 py-2 text-[0.7rem]">
                                     {{ Str::limit($user->alamat, 20) }}</td>
                                 <td class="px-2 py-2 text-[0.7rem]">
-                                    {{ $user->role }}</td>
+                                    {{ $user->kategori }}</td>
                                 <td class="px-2 py-2 space-x-1">
                                     <flux:dropdown position="bottom" align="start">
                                         <button
