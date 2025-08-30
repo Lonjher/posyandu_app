@@ -17,38 +17,44 @@ class PemeriksaanSaya extends Component
     public function render()
     {
         $userId = auth()->id();
-        $anakPemeriksaans = AnakPemeriksaan::with('skriningTbc')->where('anak_id', $userId)->latest()->paginate(10);
-        $bumilPemeriksaans = BumilPemeriksaan::with('skriningTbc')->where('bumil_id', $userId)->latest()->paginate(10);
-        $lansiaPemeriksaans = LansiaPemeriksaan::with('skriningTbc')->where('lansia_id', $userId)->latest()->paginate(10);
+        $anakPemeriksaans = null;
+        $bumilPemeriksaans = null;
+        $lansiaPemeriksaans = null;
+        if (Auth::user()->kategori === 'anak') {
+            $anakPemeriksaans = AnakPemeriksaan::with('skriningTbc')->where('anak_id', $userId)->latest()->paginate(10);
+        } elseif (Auth::user()->kategori === 'bumil') {
+            $bumilPemeriksaans = BumilPemeriksaan::with('skriningTbc')->where('bumil_id', $userId)->latest()->paginate(10);
+        } else {
+            $lansiaPemeriksaans = LansiaPemeriksaan::with('skriningTbc')->where('lansia_id', $userId)->latest()->paginate(10);
+        }
+
         return view('livewire.pemeriksaan-saya', [
             'anakPemeriksaans' => $anakPemeriksaans,
-            'bumilPemeriksaans'=> $bumilPemeriksaans,
-            'lansiaPemeriksaans'=> $lansiaPemeriksaans
+            'bumilPemeriksaans' => $bumilPemeriksaans,
+            'lansiaPemeriksaans' => $lansiaPemeriksaans
         ]);
     }
 
     public function exportPdf()
     {
-        if(Auth::user()->kategori === 'anak')
-        {
+        if (Auth::user()->kategori === 'anak') {
             $pemeriksaans = AnakPemeriksaan::with(['anak', 'user', 'skriningTbc'])->get();
-        }elseif(Auth::user()->kategori === 'lansia'){
+        } elseif (Auth::user()->kategori === 'lansia') {
             $pemeriksaans = LansiaPemeriksaan::with(['lansia', 'user', 'skriningTbc'])->get();
-        }elseif(Auth::user()->kategori === 'bumil'){
+        } elseif (Auth::user()->kategori === 'bumil') {
             $pemeriksaans = BumilPemeriksaan::with(['bumil', 'user', 'skriningTbc'])->get();
         }
 
         try {
-            if(Auth::user()->kategori === 'anak')
-            {
+            if (Auth::user()->kategori === 'anak') {
                 $pdf = Pdf::loadView('pdf.anak-laporan', compact('pemeriksaans'))
-                ->setPaper('folio', 'landscape'); // HORIZONTAL
-            }elseif(Auth::user()->kategori === 'lansia'){
+                    ->setPaper('folio', 'landscape'); // HORIZONTAL
+            } elseif (Auth::user()->kategori === 'lansia') {
                 $pdf = Pdf::loadView('pdf.lansia-laporan', compact('pemeriksaans'))
-                ->setPaper('folio', 'landscape'); // HORIZONTAL
-            }elseif(Auth::user()->kategori === 'bumil'){
+                    ->setPaper('folio', 'landscape'); // HORIZONTAL
+            } elseif (Auth::user()->kategori === 'bumil') {
                 $pdf = Pdf::loadView('pdf.bumil-laporan', compact('pemeriksaans'))
-                ->setPaper('folio', 'landscape'); // HORIZONTAL
+                    ->setPaper('folio', 'landscape'); // HORIZONTAL
             }
 
             return response()->streamDownload(function () use ($pdf) {
