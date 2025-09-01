@@ -18,11 +18,14 @@
                 </flux:select>
             </div>
         </div>
-        <flux:modal.trigger name="choose-pasien" class="mb-2">
-            <div class="flex gap-2">
-                <flux:button icon="plus-circle" size="xs" class="shadow-sm">Tambah</flux:button>
-            </div>
-        </flux:modal.trigger>
+        <div class="flex gap-4">
+            <flux:button wire:click='exportPdf' icon="pdf" size="xs" class="shadow-sm">Export</flux:button>
+            <flux:modal.trigger name="choose-pasien" class="mb-2">
+                <div class="flex gap-2">
+                    <flux:button icon="plus-circle" size="xs" class="shadow-sm">Tambah</flux:button>
+                </div>
+            </flux:modal.trigger>
+        </div>
     </div>
 
 

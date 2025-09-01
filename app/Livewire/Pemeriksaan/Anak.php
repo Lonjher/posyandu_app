@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Pemeriksaan;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\BumilPemeriksaan;
+use App\Models\AnakPemeriksaan;
 use App\Models\SkriningTbc;
 use App\Models\User;
 use Flux\Flux;
@@ -15,28 +16,32 @@ use Livewire\Attributes\On;
 class Anak extends Component
 {
     use WithPagination;
-    public $searchBumil = null;
-    public $searchBumilResults = null;
-    public ?User $choosenBumil = null;
+    public $searchAnak = null;
+    public $searchAnakResults = null;
+    public ?User $choosenAnak = null;
 
-    public $user_id;
-    public $usia_kehamilan;
-    public $berat_badan;
-    public $lila;
-    public $sistole_distole;
-    public $keluhan_lain;
+    // Deklarasi property
+    public $bb;
+    public $kesimpulan_hasil_bb;
+    public $kesimpulan_hasil_pengukuran_bb;
+    public $tb;
+    public $kesimpulan_hasil_tb;
+    public $kesimpulan_hasil_pengukuran_imt;
+    public $lingkar_kepala;
+    public $kesimpulan_lk;
+    public $lingkar_lengan_atas;
+    public $kesimpulan_lla;
+    public $asi_eksklusif;
+    public $mp_asi;
+    public $imunisasi;
+    public $vitamin_a;
+    public $obat_cacing;
+    public $mt_pangan_lokal;
+    public $gejala_sakit;
     public $diagnosa;
     public $keterangan;
-    public $konsumsi_ttd = false;
-    public $jumlah_ttd;
-    public $jadwal_ttd;
-    public $konsumsi_mt = false;
-    public $komposisi_jumlah_porsi;
-    public $jadwal_mt;
-    public $ikut_kelas_bumil = false;
-    public $edukasi;
 
-    // Skrining TBC fields
+    // skrining TBC
     public $batuk_terus_menerus = false;
     public $demam_lebih_dari_2_minggu = false;
     public $berat_badan_turun_tanpa_sebab_jelas = false;
@@ -46,20 +51,29 @@ class Anak extends Component
     public $isEdit = false;
     public $editedPemeriksaan;
 
+    /**
+     * Rules validasi
+     */
     protected $rules = [
-        'usia_kehamilan' => 'required|numeric',
-        'berat_badan' => 'required|numeric',
-        'lila' => 'required|numeric',
-        'sistole_distole' => 'required|string',
-        'keluhan_lain' => 'nullable|string',
-        'diagnosa' => 'nullable|string',
-        'keterangan' => 'nullable|string',
-        'jumlah_ttd' => 'nullable|string',
-        'jadwal_ttd' => 'nullable',
-        'komposisi_jumlah_porsi' => 'nullable|string',
-        'jadwal_mt' => 'nullable',
-        'ikut_kelas_bumil' => 'boolean',
-        'edukasi' => 'nullable|string|required_if:ikut_kelas_bumil,false',
+        'bb' => 'required|numeric|min:3',
+        'kesimpulan_hasil_bb' => 'required|string',
+        'kesimpulan_hasil_pengukuran_bb' => 'required|string',
+        'tb' => 'required|numeric|min:3',
+        'kesimpulan_hasil_tb' => 'required|string',
+        'kesimpulan_hasil_pengukuran_imt' => 'required|string',
+        'lingkar_kepala' => 'required|numeric|min:3',
+        'kesimpulan_lk' => 'required|string',
+        'lingkar_lengan_atas' => 'required|numeric|min:3',
+        'kesimpulan_lla' => 'required|string',
+        'asi_eksklusif' => 'nullable|boolean',
+        'mp_asi' => 'nullable|string',
+        'imunisasi' => 'required|string',
+        'vitamin_a' => 'nullable|string',
+        'obat_cacing' => 'nullable|string',
+        'mt_pangan_lokal' => 'nullable|string',
+        'gejala_sakit' => 'nullable|string',
+        'diagnosa' => 'nullable|string|max:255',
+        'keterangan' => 'nullable|string|max:255',
 
         // Skrining TBC rules
         'batuk_terus_menerus' => 'boolean',
@@ -68,57 +82,97 @@ class Anak extends Component
         'kontak_dengan_orang_terinfeksi_tbc' => 'boolean',
     ];
 
-    public function updatedSearchBumil()
+    /**
+     * Custom messages
+     */
+    protected $messages = [
+        'anak_id.required' => 'Anak wajib dipilih.',
+        'anak_id.integer' => 'ID anak tidak valid.',
+
+        'bb.required' => 'Berat badan wajib diisi.',
+        'bb.numeric' => 'Berat badan harus berupa angka.',
+        'bb.min' => 'Berat badan minimal 1.',
+
+        'kesimpulan_hasil_bb.required' => 'Kesimpulan hasil BB wajib diisi.',
+        'kesimpulan_hasil_pengukuran_bb.required' => 'Kesimpulan hasil pengukuran BB wajib diisi.',
+
+        'tb.required' => 'Tinggi badan wajib diisi.',
+        'tb.numeric' => 'Tinggi badan harus berupa angka.',
+        'tb.min' => 'Tinggi badan minimal 1.',
+
+        'kesimpulan_hasil_tb.required' => 'Kesimpulan hasil TB wajib diisi.',
+        'kesimpulan_hasil_pengukuran_imt.required' => 'Kesimpulan hasil pengukuran IMT wajib diisi.',
+
+        'lingkar_kepala.required' => 'Lingkar kepala wajib diisi.',
+        'lingkar_kepala.numeric' => 'Lingkar kepala harus berupa angka.',
+        'kesimpulan_lk.required' => 'Kesimpulan lingkar kepala wajib diisi.',
+
+        'lingkar_lengan_atas.required' => 'Lingkar lengan atas wajib diisi.',
+        'lingkar_lengan_atas.numeric' => 'Lingkar lengan atas harus berupa angka.',
+        'kesimpulan_lla.required' => 'Kesimpulan LLA wajib diisi.',
+
+        'asi_eksklusif.boolean' => 'ASI eksklusif harus berupa pilihan ya/tidak.',
+
+        'imunisasi.required' => 'Imunisasi wajib diisi.',
+    ];
+
+    public function updatedSearchAnak()
     {
-        if (strlen($this->searchBumil) >= 2) {
-            $this->searchBumilResults = User::onlyBumil()
+        if (strlen($this->searchAnak) >= 2) {
+            $this->searchAnakResults = User::onlyAnak()
                 ->where(function ($q) {
                     $q->where('nik', 'like', '%' . $this->searchBumil . '%')
                         ->orWhere('name', 'like', '%' . $this->searchBumil . '%');
                 })
                 ->get();
         } else {
-            $this->searchBumilResults = null;
+            $this->searchAnakResults = null;
         }
     }
 
-    public function chooseBumil(User $user)
+    #[Computed]
+    public function anakList()
     {
-        $this->choosenBumil = $user;
+        return User::onlyAnak()->get();
+    }
+
+    public function chooseAnak(User $user)
+    {
+        $this->choosenAnak = $user;
         Flux::modals()->close();
         Flux::modal('pemeriksaan-modal')->show();
     }
 
-    #[Computed]
-    public function bumilList()
-    {
-        return User::onlyBumil()->get();
-    }
-
-    public function edit(BumilPemeriksaan $pemeriksaan)
+    public function edit(AnakPemeriksaan $pemeriksaan)
     {
         $this->isEdit = true;
-        // Load data pemeriksaan ke form
+
+        // simpan object pemeriksaan yang sedang diedit
         $this->editedPemeriksaan = $pemeriksaan;
-        $this->choosenBumil = $pemeriksaan->bumil;
-        $this->usia_kehamilan = $pemeriksaan->usia_kehamilan;
-        $this->berat_badan = $pemeriksaan->berat_badan;
-        $this->lila = $pemeriksaan->lila;
-        $this->sistole_distole = $pemeriksaan->sistole_distole;
-        $this->keluhan_lain = $pemeriksaan->keluhan_lain;
-        $this->diagnosa = $pemeriksaan->diagnosa;
-        $this->keterangan = $pemeriksaan->keterangan;
-        $this->jumlah_ttd = $pemeriksaan->jumlah_ttd;
-        $this->jadwal_ttd = $pemeriksaan->jadwal_ttd;
-        $this->konsumsi_ttd = !empty($pemeriksaan->jumlah_ttd); // Set konsumsi_ttd berdasarkan data
-        $this->komposisi_jumlah_porsi = $pemeriksaan->komposisi_jumlah_porsi;
-        $this->jadwal_mt = $pemeriksaan->jadwal_mt;
-        $this->konsumsi_mt = !empty($pemeriksaan->komposisi_jumlah_porsi); // Set konsumsi_mt berdasarkan data
-        $this->ikut_kelas_bumil = empty($pemeriksaan->edukasi);
-        $this->edukasi = $pemeriksaan->edukasi;
-        // dd($pemeriksaan->jumlah_ttd);
-        // dd($this->konsumsi_ttd, $this->konsumsi_mt);
-        // Load data skrining TBC
+
+        // Load data pemeriksaan ke form (disesuaikan dengan atribut fungsi save)
+        $this->user_id = $pemeriksaan->user_id;
+        $this->choosenAnak = $pemeriksaan->anak;
+        $this->bb = $pemeriksaan->bb;
+        $this->kesimpulan_hasil_bb = $pemeriksaan->kesimpulan_hasil_bb;
+        $this->kesimpulan_hasil_pengukuran_bb = $pemeriksaan->kesimpulan_hasil_pengukuran_bb;
+        $this->tb = $pemeriksaan->tb;
+        $this->kesimpulan_hasil_tb = $pemeriksaan->kesimpulan_hasil_tb;
+        $this->kesimpulan_hasil_pengukuran_imt = $pemeriksaan->kesimpulan_hasil_pengukuran_imt;
+        $this->lingkar_kepala = $pemeriksaan->lingkar_kepala;
+        $this->kesimpulan_lk = $pemeriksaan->kesimpulan_lk;
+        $this->lingkar_lengan_atas = $pemeriksaan->lingkar_lengan_atas;
+        $this->kesimpulan_lla = $pemeriksaan->kesimpulan_lla;
+        $this->asi_eksklusif = $pemeriksaan->asi_eksklusif;
+        $this->mp_asi = $pemeriksaan->mp_asi;
+        $this->imunisasi = $pemeriksaan->imunisasi;
+        $this->vitamin_a = $pemeriksaan->vitamin_a;
+        $this->obat_cacing = $pemeriksaan->obat_cacing;
+        $this->mt_pangan_lokal = $pemeriksaan->mt_pangan_lokal;
+        $this->gejala_sakit = $pemeriksaan->gejala_sakit;
+        $this->skrining_tbc_id = $pemeriksaan->skrining_tbc_id;
+
+        // Jika ada relasi skrining TBC, load juga detailnya
         if ($pemeriksaan->skriningTbc) {
             $this->batuk_terus_menerus = $pemeriksaan->skriningTbc->batuk_terus_menerus;
             $this->demam_lebih_dari_2_minggu = $pemeriksaan->skriningTbc->demam_lebih_dari_2_minggu;
@@ -126,22 +180,24 @@ class Anak extends Component
             $this->kontak_dengan_orang_terinfeksi_tbc = $pemeriksaan->skriningTbc->kontak_dengan_orang_terinfeksi_tbc;
         }
 
+        // buka modal edit
         Flux::modal('pemeriksaan-update')->show();
     }
 
-    public function confirmDelete(BumilPemeriksaan $pemeriksaan)
+
+    public function confirmDelete(AnakPemeriksaan $pemeriksaan)
     {
         $this->dispatch(
             'confirmDelete',
             type: 'question',
             title: 'Peringatan!',
             text: "Apakah anda yakin ingin menghapus data ini?",
-            id: $pemeriksaan->id_bumil_pemeriksaan
+            id: $pemeriksaan->id_anak_pemeriksaan
         );
     }
 
     #[On('delete')]
-    public function delete(BumilPemeriksaan $id)
+    public function delete(AnakPemeriksaan $id)
     {
         $pemeriksaan = $id;
         $skriningTbc = $id->skriningTbc;
@@ -154,12 +210,13 @@ class Anak extends Component
                 title: 'Sukses',
                 text: "Data pemeriksaan berhasil dihapus!"
             );
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->dispatch(
                 'alert',
                 type: 'error',
                 title: 'Error',
-                text: "Ada yang salah: " . $e->getMessage()
+                text: "Ada yang salah: " . $e->getMessage(),
+                timer: 5000
             );
             return;
         }
@@ -167,56 +224,61 @@ class Anak extends Component
 
     public function save()
     {
-        $this->validate();
-        // Simpan data skrining TBC terlebih dahulu
-        $skriningTbcData = [
-            'batuk_terus_menerus' => $this->batuk_terus_menerus,
-            'demam_lebih_dari_2_minggu' => $this->demam_lebih_dari_2_minggu,
-            'berat_badan_turun_tanpa_sebab_jelas' => $this->berat_badan_turun_tanpa_sebab_jelas,
-            'kontak_dengan_orang_terinfeksi_tbc' => $this->kontak_dengan_orang_terinfeksi_tbc,
-        ];
 
-        // Simpan data pemeriksaan bumil
-        $data = [
-            'user_id' => Auth::user()->id_user,
-            'bumil_id' => $this->choosenBumil->id_user,
-            'usia_kehamilan' => $this->usia_kehamilan,
-            'berat_badan' => $this->berat_badan,
-            'lila' => $this->lila,
-            'sistole_distole' => $this->sistole_distole,
-            'keluhan_lain' => $this->keluhan_lain,
-            'diagnosa' => $this->diagnosa,
-            'keterangan' => $this->keterangan,
-            'jumlah_ttd' => $this->konsumsi_ttd ? $this->jumlah_ttd : null,
-            'jadwal_ttd' => $this->konsumsi_ttd ? $this->jadwal_ttd : null,
-            'komposisi_jumlah_porsi' => $this->konsumsi_mt ? $this->komposisi_jumlah_porsi : null,
-            'jadwal_mt' => $this->konsumsi_mt ? $this->jadwal_mt : null,
-            'ikut_kelas_bumil' => $this->ikut_kelas_bumil,
-            'edukasi' => $this->edukasi,
-        ];
+        $this->validate();
+
 
         try {
-            $skriningTbc = SkriningTbc::create($skriningTbcData);
-            $data['skrining_tbc_id'] = $skriningTbc->id_skrining_tbc;
-            // Buat pemeriksaan baru
-            BumilPemeriksaan::create($data);
-            $message = 'Data berhasil disimpan!';
-            Flux::modals()->close('pemeriksaan-modal');
+            // Simpan data skrining TBC
+            $skriningTbc = SkriningTbc::create([
+                'batuk_terus_menerus' => $this->batuk_terus_menerus,
+                'demam_lebih_dari_2_minggu' => $this->demam_lebih_dari_2_minggu,
+                'berat_badan_turun_tanpa_sebab_jelas' => $this->berat_badan_turun_tanpa_sebab_jelas,
+                'kontak_dengan_orang_terinfeksi_tbc' => $this->kontak_dengan_orang_terinfeksi_tbc,
+            ]);
+
+            // Simpan data pemeriksaan anak
+            AnakPemeriksaan::create([
+                'user_id' => Auth::user()->id_user,
+                'anak_id' => $this->choosenAnak->id_user,
+                'bb' => $this->bb,
+                'kesimpulan_hasil_bb' => $this->kesimpulan_hasil_bb,
+                'kesimpulan_hasil_pengukuran_bb' => $this->kesimpulan_hasil_pengukuran_bb,
+                'tb' => $this->tb,
+                'kesimpulan_hasil_tb' => $this->kesimpulan_hasil_tb,
+                'kesimpulan_hasil_pengukuran_imt' => $this->kesimpulan_hasil_pengukuran_imt,
+                'lingkar_kepala' => $this->lingkar_kepala,
+                'kesimpulan_lk' => $this->kesimpulan_lk,
+                'lingkar_lengan_atas' => $this->lingkar_lengan_atas,
+                'kesimpulan_lla' => $this->kesimpulan_lla,
+                'asi_eksklusif' => $this->asi_eksklusif,
+                'mp_asi' => $this->mp_asi,
+                'imunisasi' => $this->imunisasi,
+                'vitamin_a' => $this->vitamin_a,
+                'obat_cacing' => $this->obat_cacing,
+                'mt_pangan_lokal' => $this->mt_pangan_lokal,
+                'gejala_sakit' => $this->gejala_sakit,
+                'skrining_tbc_id' => $skriningTbc->id_skrining_tbc,
+            ]);
+
+            FLux::modals()->close();
             $this->dispatch(
                 'alert',
                 type: 'success',
                 title: "Sukses",
-                text: $message
+                text: "Data berhasil disimpan!"
             );
 
-            $this->resetForm();
+            $this->reset();
+
         } catch (\Exception $e) {
-            Flux::modals()->close('pemeriksaan-modal');
+            FLux::modals()->close();
             $this->dispatch(
                 'alert',
                 type: 'error',
                 title: "Error",
-                text: 'Terjadi kesalahan: ' . $e->getMessage()
+                text: 'Terjadi kesalahan: ' . $e->getMessage(),
+                timer: 5000
             );
         }
     }
@@ -231,36 +293,42 @@ class Anak extends Component
             'kontak_dengan_orang_terinfeksi_tbc' => $this->kontak_dengan_orang_terinfeksi_tbc,
         ];
 
-        // Simpan data pemeriksaan bumil
+        // Data yang akan diupdate
         $data = [
             'user_id' => Auth::user()->id_user,
-            'bumil_id' => $this->choosenBumil->id_user,
-            'usia_kehamilan' => $this->usia_kehamilan,
-            'berat_badan' => $this->berat_badan,
-            'lila' => $this->lila,
-            'sistole_distole' => $this->sistole_distole,
-            'keluhan_lain' => $this->keluhan_lain,
-            'diagnosa' => $this->diagnosa,
-            'keterangan' => $this->keterangan,
-            'jumlah_ttd' => $this->jumlah_ttd,
-            'jadwal_ttd' => $this->jadwal_ttd,
-            'komposisi_jumlah_porsi' => $this->komposisi_jumlah_porsi,
-            'jadwal_mt' => $this->jadwal_mt,
-            'ikut_kelas_bumil' => $this->ikut_kelas_bumil,
-            'edukasi' => $this->edukasi,
+            'anak_id' => $this->choosenAnak->id_user,
+            'bb' => $this->bb,
+            'kesimpulan_hasil_bb' => $this->kesimpulan_hasil_bb,
+            'kesimpulan_hasil_pengukuran_bb' => $this->kesimpulan_hasil_pengukuran_bb,
+            'tb' => $this->tb,
+            'kesimpulan_hasil_tb' => $this->kesimpulan_hasil_tb,
+            'kesimpulan_hasil_pengukuran_imt' => $this->kesimpulan_hasil_pengukuran_imt,
+            'lingkar_kepala' => $this->lingkar_kepala,
+            'kesimpulan_lk' => $this->kesimpulan_lk,
+            'lingkar_lengan_atas' => $this->lingkar_lengan_atas,
+            'kesimpulan_lla' => $this->kesimpulan_lla,
+            'asi_eksklusif' => $this->asi_eksklusif,
+            'mp_asi' => $this->mp_asi,
+            'imunisasi' => $this->imunisasi,
+            'vitamin_a' => $this->vitamin_a,
+            'obat_cacing' => $this->obat_cacing,
+            'mt_pangan_lokal' => $this->mt_pangan_lokal,
+            'gejala_sakit' => $this->gejala_sakit,
         ];
-        // Update skrining TBC
+
         $this->editedPemeriksaan->skriningTbc->update($skriningTbcData);
-        // Update pemeriksaan
+        // Update data pemeriksaan
         $this->editedPemeriksaan->update($data);
+
         Flux::modals()->close();
         $this->dispatch(
             'alert',
             type: 'success',
             title: "Sukses",
-            text: "Data berhasil diupdate"
+            text: "Data berhasil diperbarui"
         );
     }
+
 
     public function resetForm()
     {
@@ -293,11 +361,11 @@ class Anak extends Component
 
     public function render()
     {
-        $query = BumilPemeriksaan::with('bumil')
+        $query = AnakPemeriksaan::with('anak')
             ->orderBy('created_at', 'desc');
 
         if ($this->search) {
-            $query->whereHas('bumil', function ($q) {
+            $query->whereHas('anak', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%');
             });
         }
@@ -307,5 +375,28 @@ class Anak extends Component
         return view('livewire.pemeriksaan.anak', [
             'pemeriksaans' => $pemeriksaans
         ]);
+    }
+
+    public function exportPdf()
+    {
+        $pemeriksaans = AnakPemeriksaan::with(['anak', 'user', 'skriningTbc'])->get();
+
+        try {
+            $pdf = Pdf::loadView('pdf.anak-laporan', compact('pemeriksaans'))
+                ->setPaper('folio', 'landscape'); // HORIZONTAL
+
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'laporan-anak-pemeriksaan.pdf');
+        } catch (\Exception $e) {
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: "Error",
+                text: 'Ada masalah' . $e->getMessage(),
+                timer: 5000
+            );
+            return;
+        }
     }
 }
