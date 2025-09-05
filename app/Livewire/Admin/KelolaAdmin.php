@@ -165,4 +165,17 @@ class KelolaAdmin extends Component
             return;
         }
     }
+
+    public function edit(User $user)
+    {
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->nik = $user->nik;
+        $this->no_hp = $user->no_hp;
+        $this->alamat = $user->alamat;
+        $this->jenis_kelamin = $user->jenis_kelamin;
+        $this->tanggal_lahir = $user->tanggal_lahir;
+        $this->role = $user->role_id;
+        Flux::modal('edit-user')->show();
+    }
 }
