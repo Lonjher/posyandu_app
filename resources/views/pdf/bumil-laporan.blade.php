@@ -45,7 +45,7 @@
                 <th rowspan="2">Jadwal TTD</th>
                 <th rowspan="2">Komposisi / Porsi</th>
                 <th rowspan="2">Jadwal MT</th>
-                <th rowspan="2">Ikut Kelas</th>
+                <th rowspan="2">Ikut Kelas Bumil</th>
                 <th rowspan="2">Edukasi</th>
                 <th colspan="4" class="col-span">Skrining TBC</th>
             </tr>

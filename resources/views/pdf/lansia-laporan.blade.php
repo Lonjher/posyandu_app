@@ -66,7 +66,7 @@
             @foreach($pemeriksaans as $i => $p)
             <tr>
                 <td>{{ $i+1 }}</td>
-                <td>{{ $p->lansia->nama ?? '-' }}</td>
+                <td>{{ $p->lansia->name ?? '-' }}</td>
                 <td>{{ $p->user->nama ?? '-' }}</td>
                 <td>{{ $p->usia }}</td>
                 <td>{{ $p->bb }}</td>

@@ -66,7 +66,7 @@
             @foreach($pemeriksaans as $i => $p)
                 <tr>
                     <td>{{ $i+1 }}</td>
-                    <td>{{ $p->anak->nama ?? '-' }}</td>
+                    <td>{{ $p->anak->name ?? '-' }}</td>
                     <td>{{ $p->bb }}</td>
                     <td>{{ $p->kesimpulan_hasil_bb }}</td>
                     <td>{{ $p->kesimpulan_hasil_pengukuran_bb }}</td>
@@ -91,7 +91,7 @@
                     <td>{{ $p->skriningTbc->bb_turun ?? '-' }}</td>
                     <td>{{ $p->skriningTbc->keringat_malam ?? '-' }}</td>
                     <td>{{ $p->skriningTbc->kontak_tb ?? '-' }}</td>
-                    <td>{{ $p->user->nama ?? '-' }}</td>
+                    <td>{{ $p->user->name ?? '-' }}</td>
                 </tr>
             @endforeach
         </tbody>
