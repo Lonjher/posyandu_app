@@ -17,6 +17,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\User\EdukasiByKategori;
+use App\Livewire\BacaEdukasi;
 use App\Models\Edukasi as ModelsEdukasi;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::get('/', function(){
 })->name('home');
 
 Route::get('/edukasi/{kategori}', EdukasiByKategori::class)->name('adukasi.kategori');
+Route::get('/baca-edukasi/{edukasi}', BacaEdukasi::class)->name('baca.edukasi');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

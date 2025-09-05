@@ -38,11 +38,7 @@
             <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
                 <!-- Logo -->
                 <div class="flex items-center space-x-2">
-                    <div class="bg-gradient-to-r from-purple-500 to-indigo-500 w-6 h-6 rounded-full"></div>
-                    <span class="flex flex-col leading-none">
-                        <span class="font-bold text-lg/none text-gray-800 dark:text-white">SIPEDES</span>
-                        <small><span class="text-xs/none text-gray-800 dark:text-gray-300">Sistem Informasi Posyandu Desa</span></small>
-                    </span>
+                    <x-app-logo />
                 </div>
 
                 <!-- Menu -->
@@ -326,7 +322,7 @@
                                 {{ $edukasi->judul }}
                             </h3>
 
-                            <a href="#"
+                            <a href="{{ route('baca.edukasi', $edukasi->id_edukasi) }}"
                                 class="text-xs text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium inline-flex items-center">
                                 Baca
                                 <svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor"
