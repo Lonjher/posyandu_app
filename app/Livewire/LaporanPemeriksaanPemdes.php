@@ -9,6 +9,8 @@ use Livewire\Component;
 
 class LaporanPemeriksaanPemdes extends Component
 {
+    public string $activeTab = 'bumil';
+
     public function render()
     {
         $anakPemeriksaans = AnakPemeriksaan::latest()->get();
@@ -19,5 +21,10 @@ class LaporanPemeriksaanPemdes extends Component
             'bumilPemeriksaans' => $bumilPemeriksaans,
             'lansiaPemeriksaans' => $lansiaPemeriksaans
         ]);
+    }
+
+    public function setTab(string $tab): void
+    {
+        $this->activeTab = $tab;
     }
 }

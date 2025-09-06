@@ -47,8 +47,13 @@ return new class extends Migration
         });
         User::create([
             "name" => 'Admin',
+            'nik' => '3562768756744567',
+            'jenis_kelamin' => 'L',
             'email' => 'admin@gmail.com',
+            'alamat' => 'Alamat Admin',
+            'tanggal_lahir' => '2001/01/01',
             'role' => 'admin',
+            'no_hp' => '6287779088535',
             "password" => Hash::make('123123'),
         ]);
     }

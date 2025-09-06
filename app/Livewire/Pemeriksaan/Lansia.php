@@ -294,7 +294,6 @@ class Lansia extends Component
             'mata_kiri',
             'telinga_kanan',
             'telinga_kiri',
-            'jenis_kelamin',
             'usia',
             'menggunakan_alat_kontrasepsi',
             'diagnosa',
