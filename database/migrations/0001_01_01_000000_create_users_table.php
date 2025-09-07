@@ -17,13 +17,15 @@ return new class extends Migration
             $table->id('id_user');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('avatar')->nullable();
             $table->string('nik')->nullable();
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->text('alamat')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->string('password');
-            $table->enum('role', ['admin', 'petugas', 'user', 'balai_desa']);
+            $table->enum('role', ['admin', 'kader', 'user', 'pemdes']);
             $table->string('no_hp')->nullable();
+            $table->enum('kategori', ['bumil', 'anak', 'lansia', 'umum'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
             $table->rememberToken();
@@ -45,8 +47,13 @@ return new class extends Migration
         });
         User::create([
             "name" => 'Admin',
+            'nik' => '3562768756744567',
+            'jenis_kelamin' => 'L',
             'email' => 'admin@gmail.com',
+            'alamat' => 'Alamat Admin',
+            'tanggal_lahir' => '2001/01/01',
             'role' => 'admin',
+            'no_hp' => '6287779088535',
             "password" => Hash::make('123123'),
         ]);
     }

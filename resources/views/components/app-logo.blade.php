@@ -1,6 +1,9 @@
-<div class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-    <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
+<div class="flex aspect-square size-8 items-center justify-center rounded-md">
+    <x-app-logo-icon />
 </div>
 <div class="ms-1 grid flex-1 text-start text-sm">
-    <span class="mb-0.5 truncate leading-tight font-semibold">Laravel Starter Kit</span>
+    <span class="flex flex-col leading-none">
+        <span class="font-bold text-lg/none text-gray-800 dark:text-white">SIPONDES</span>
+        <small><span class="text-xs/none text-gray-800 dark:text-gray-300">Sistem Informasi Posyandu</span></small>
+    </span>
 </div>

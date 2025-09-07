@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,6 +26,7 @@ class User extends Authenticatable
         'email',
         'nik',
         'jenis_kelamin',
+        'kategori',
         'alamat',
         'tanggal_lahir',
         'email_verified_at',
@@ -66,4 +69,82 @@ class User extends Authenticatable
             ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    #[Scope]
+    protected function onlyAdmin()
+    {
+        return $this->where('role', 'admin');
+    }
+    #[Scope]
+    protected function onlyKader()
+    {
+        return $this->where('role', 'kader');
+    }
+    #[Scope]
+    protected function onlyPemdes()
+    {
+        return $this->where('role', 'pemdes');
+    }
+    #[Scope]
+    protected function onlyUser()
+    {
+        return $this->where('role', 'user');
+    }
+
+    #[Scope]
+    protected function onlyBumil()
+    {
+        return $this->where('kategori', 'bumil');
+    }
+
+    #[Scope]
+    protected function onlyAnak()
+    {
+        return $this->where('kategori', 'anak');
+    }
+    #[Scope]
+    protected function onlyLansia()
+    {
+        return $this->where('kategori', 'lansia');
+    }
+
+    public function laporanKegiatans()
+    {
+        return $this->hasMany(LaporanKegiatan::class, 'user_id', 'id_user');
+    }
+
+    public function edukasis()
+    {
+        return $this->hasMany(Edukasi::class, 'user_id', 'id_user');
+    }
+
+    public function bumilPemeriksaans()
+    {
+        return $this->hasMany(BumilPemeriksaan::class, 'user_id', 'id_user');
+    }
+
+    public function pemeriksaanBumils()
+    {
+        return $this->hasMany(BumilPemeriksaan::class, 'bumil_id', 'id_user');
+    }
+    public function anakPemeriksaans()
+    {
+        return $this->hasMany(AnakPemeriksaan::class, 'user_id', 'id_user');
+    }
+
+    public function pemeriksaanAnaks()
+    {
+        return $this->hasMany(AnakPemeriksaan::class, 'anak_id', 'id_user');
+    }
+
+    public function lansiaPemeriksaans()
+    {
+        return $this->hasMany(LansiaPemeriksaan::class, 'lansia_id', 'id_user');
+    }
+
+    public function pemeriksaanLansias()
+    {
+        return $this->hasMany(LansiaPemeriksaan::class, 'lansia_id', 'id_user');
+    }
+
 }

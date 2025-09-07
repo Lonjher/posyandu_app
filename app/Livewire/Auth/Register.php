@@ -45,6 +45,7 @@ class Register extends Component
             'alamat' => ['required', 'string', 'max:255'],
             'tanggal_lahir' => ['nullable', 'date'],
             'jenis_kelamin' => ['required', 'in:L,P'], // Laki-laki / Perempuan
+            'kategori' => ['required', 'in:bumil,anak,lansia'], // Ibu hamil / Anak / Lansia
         ], [
             // Name
             'name.required' => 'Nama lengkap wajib diisi.',
@@ -72,6 +73,9 @@ class Register extends Component
             // Jenis Kelamin
             'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
             'jenis_kelamin.in' => 'Jenis kelamin hanya boleh Laki-laki atau Perempuan.',
+            // Kategori
+            'kategori.required' => 'Kategori wajib dipilih.',
+            'kategori.in' => 'Kategori tidak sesuai.',
         ]);
 
 
