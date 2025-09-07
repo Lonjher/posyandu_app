@@ -109,32 +109,222 @@
                 </form>
             </flux:modal>
 
-            <flux:modal name="open-chat" class="md:w-lg">
-                <form wire:submit.prevent="chat_notif" class="space-y-6">
-                    <div>
-                        <flux:heading size="lg">Chat Notif Pengguna</flux:heading>
-                        <flux:text class="mt-2">Buatkan chat notifikasi pengguna terkiat pemeriksaan!
-                        </flux:text>
+            {{-- Modal Notif WhatsApp --}}
+            <flux:modal name="open-chat" class="md:w-3xl">
+                <!-- Header -->
+                <div class="bg-blue-50 dark:bg-blue-900/30 px-4 py-3 rounded-lg mb-5">
+                    <div class="flex items-center">
+                        <div
+                            class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center mr-2">
+                            <i class="fas fa-comment-medical text-blue-600 dark:text-blue-300 text-sm"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-semibold text-gray-800 dark:text-white">Chat Notifikasi</h2>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Pengingat pemeriksaan kesehatan</p>
+                        </div>
                     </div>
-                    <flux:textarea :invalid="$errors->has('chat')" wire:model="chat" label="Chat Notif"
-                        placeholder="Tuliskan Notif Anda!" />
-                    <div class="flex">
-                        <flux:button type="submit" variant="primary">Kirim</flux:button>
+                </div>
+
+                <!-- Form Content -->
+                <form wire:submit.prevent="chat_notif" class="space-y-4">
+                    <!-- Tanggal Input -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-calendar-day mr-1 text-blue-500 text-sm"></i>
+                            Tanggal
+                        </label>
+                        <div class="relative">
+                            <input type="date" wire:model.live="tanggalAgenda"
+                                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                required>
+                        </div>
+                        @error('tanggalAgenda')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Waktu Input -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-clock mr-1 text-blue-500 text-sm"></i>
+                            Waktu
+                        </label>
+                        <div class="relative">
+                            <input type="time" wire:model.live="waktuAgenda"
+                                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                required>
+                        </div>
+                        @error('waktuAgenda')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Agenda Input -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-clipboard-list mr-1 text-blue-500 text-sm"></i>
+                            Agenda
+                        </label>
+                        <div class="relative">
+                            <input type="text" wire:model.live="agenda" placeholder="Jenis pemeriksaan..."
+                                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                required>
+                        </div>
+                        @error('agenda')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Preview Chat -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-700/30 p-3 rounded-md border border-gray-200 dark:border-gray-600">
+                        <h4 class="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                            <i class="fas fa-eye mr-1 text-blue-500 text-xs"></i>
+                            Preview
+                        </h4>
+                        <div class="bg-white dark:bg-gray-800 p-2 rounded text-xs text-gray-600 dark:text-gray-300">
+                            <p class="leading-tight">
+                                <strong>Posyandu Desa Ketawang</strong><br><br>
+                                Assalamu’alaikum Wr. Wb.<br><br>
+                                Kami menginformasikan bahwa kegiatan Posyandu Desa Ketawang Karay akan dilaksanakan
+                                pada:<br>
+                                📅 Hari/Tanggal:
+                                {{ $tanggalAgenda ? \Carbon\Carbon::parse($tanggalAgenda)->translatedFormat('d M Y') : '..............' }}
+                                <br>
+                                🕘 Pukul: {{ $waktuAgenda ?? '..........' }} <br>
+                                📒 Agenda: {{ $agenda ?? '.........' }}<br>
+                                📍 Tempat: Posyandu Desa Ketawang Karay<br>
+                                <br>
+                                Wassalamu’alaikum Wr. Wb.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2 pt-2">
+                        <button type="button" x-on:click="$flux.modal('open-chat').close()"
+                            class="flex-1 px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="flex-1 px-3 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center justify-center"
+                            wire:loading.attr="disabled">
+                            <span wire:loading.remove>Kirim</span>
+                            <span wire:loading>
+                                <i class="fas fa-spinner fa-spin mr-1"></i>
+                                ...
+                            </span>
+                        </button>
                     </div>
                 </form>
             </flux:modal>
 
-            <flux:modal name="bulk-chat" class="md:w-lg">
-                <form wire:submit.prevent="sendBulkChat" class="space-y-6">
-                    <div>
-                        <flux:heading size="lg">Chat Notif Pengguna</flux:heading>
-                        <flux:text class="mt-2">Buatkan chat notifikasi pengguna terkiat pemeriksaan!
-                        </flux:text>
+            {{-- Modal Bulk Chat --}}
+            <flux:modal name="bulk-chat" class="md:w-3xl">
+                <!-- Header -->
+                <div class="bg-blue-50 dark:bg-blue-900/30 px-4 py-3 rounded-lg mb-5">
+                    <div class="flex items-center">
+                        <div
+                            class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center mr-2">
+                            <i class="fas fa-comment-medical text-blue-600 dark:text-blue-300 text-sm"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-semibold text-gray-800 dark:text-white">Chat Notifikasi</h2>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Pengingat pemeriksaan kesehatan</p>
+                        </div>
                     </div>
-                    <flux:textarea :invalid="$errors->has('chat')" wire:model="chat" label="Chat Notif"
-                        placeholder="Tuliskan Notif Anda!" />
-                    <div class="flex">
-                        <flux:button type="submit" variant="primary">Kirim</flux:button>
+                </div>
+
+                <!-- Form Content -->
+                <form wire:submit.prevent="sendBulkChat" class="space-y-4">
+                    <!-- Tanggal Input -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-calendar-day mr-1 text-blue-500 text-sm"></i>
+                            Tanggal
+                        </label>
+                        <div class="relative">
+                            <input type="date" wire:model.live="tanggalAgenda"
+                                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                required>
+                        </div>
+                        @error('tanggalAgenda')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Waktu Input -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-clock mr-1 text-blue-500 text-sm"></i>
+                            Waktu
+                        </label>
+                        <div class="relative">
+                            <input type="time" wire:model.live="waktuAgenda"
+                                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                required>
+                        </div>
+                        @error('waktuAgenda')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Agenda Input -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-clipboard-list mr-1 text-blue-500 text-sm"></i>
+                            Agenda
+                        </label>
+                        <div class="relative">
+                            <input type="text" wire:model.live="agenda" placeholder="Jenis pemeriksaan..."
+                                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                required>
+                        </div>
+                        @error('agenda')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Preview Chat -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-700/30 p-3 rounded-md border border-gray-200 dark:border-gray-600">
+                        <h4 class="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                            <i class="fas fa-eye mr-1 text-blue-500 text-xs"></i>
+                            Preview
+                        </h4>
+                        <div class="bg-white dark:bg-gray-800 p-2 rounded text-xs text-gray-600 dark:text-gray-300">
+                            <p class="leading-tight">
+                                <strong>Posyandu Desa Ketawang</strong><br><br>
+                                Assalamu’alaikum Wr. Wb.<br><br>
+                                Kami menginformasikan bahwa kegiatan Posyandu Desa Ketawang Karay akan dilaksanakan
+                                pada:<br>
+                                📅 Hari/Tanggal:
+                                {{ $tanggalAgenda ? \Carbon\Carbon::parse($tanggalAgenda)->translatedFormat('d M Y') : '..............' }}
+                                <br>
+                                🕘 Pukul: {{ $waktuAgenda ?? '..........' }} <br>
+                                📒 Agenda: {{ $agenda ?? '.........' }}<br>
+                                📍 Tempat: Posyandu Desa Ketawang Karay<br>
+                                <br>
+                                Wassalamu’alaikum Wr. Wb.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2 pt-2">
+                        <button type="button" x-on:click="$flux.modal('bulk-chat').close()"
+                            class="flex-1 px-3 py-2 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="flex-1 px-3 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center justify-center"
+                            wire:loading.attr="disabled">
+                            <span wire:loading.remove>Kirim</span>
+                            <span wire:loading>
+                                <i class="fas fa-spinner fa-spin mr-1"></i>
+                                ...
+                            </span>
+                        </button>
                     </div>
                 </form>
             </flux:modal>
@@ -187,7 +377,7 @@
                         @forelse ($users as $no => $user)
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200">
                                 <td class="px-2 py-2">
-                                    <input type="checkbox" value="{{ $user->id_user }}"
+                                    <input type="checkbox" value="{{ $user->no_hp }}"
                                         wire:model.live="selectedUsers"
                                         class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                 </td>

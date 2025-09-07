@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
+use App\Services\FonnteService;
 use Flux\Flux;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -30,7 +31,9 @@ class KelolaUser extends Component
     public ?User $editedUser = null;
     public $chatUser;
 
-    public $chat;
+    public $tanggalAgenda;
+    public $waktuAgenda;
+    public $agenda;
     public $bulkChatMessage;
 
     public $bulkUsers = [];
@@ -305,25 +308,112 @@ class KelolaUser extends Component
     {
 
         $validated = $this->validate([
-            'chat' => 'required|string|max:255'
+            'tanggalAgenda' => 'required|date',
+            'waktuAgenda' => 'required|date_format:H:i',
+            'agenda' => 'required|string|max:255',
         ]);
 
-        // Ganti dengan nomor tujuan
-        $no_hp = $this->chatUser->no_hp;
+        $templateMessage = "INFORMASI KEGIATAN POSYANDU
 
-        if (substr($no_hp, 0, 1) === '0') {
-            $no_hp = '62' . substr($no_hp, 1);
+Assalamu'alaikum Warahmatullahi Wabarakatuh
+
+Kami mengundang Bapak/Ibu untuk hadir dalam kegiatan Posyandu:
+
+📅 *Hari/Tanggal*
+" . \Carbon\Carbon::parse($validated['tanggalAgenda'])->translatedFormat('l, d F Y') . "
+
+⏰ *Waktu*
+" . date('H:i', strtotime($validated['waktuAgenda'])) . " WIB
+
+📋 *Agenda*
+" . $validated['agenda'] . "
+
+📍 *Tempat*
+Posyandu Desa Ketawang Karay
+
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh
+----------------------------
+Mohon hadir tepat waktu
+Atas perhatiannya kami ucapkan terima kasih 🙏";
+
+        try {
+            $service = new FonnteService();
+            $service->sendMessage($this->chatUser->no_hp, $templateMessage, '2');
+            Flux::modals()->close();
+            $this->dispatch(
+                'alert',
+                type: 'success',
+                title: 'Sukses',
+                text: 'Pesan berhasil dikirim!',
+            );
+        } catch (\Exception $e) {
+            Flux::modals()->close();
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: 'Error',
+                text: 'Ada yang salah ' . $e->getMessage(),
+                timer: 5000
+            );
         }
+    }
 
-        // Encode teks agar enter menjadi %0A
-        $pesan = urlencode($validated['chat']);
+    // Fungsi Mengirim Bulk Chat
+    public function sendBulkChat()
+    {
+        $validated = $this->validate([
+            'tanggalAgenda' => 'required|date',
+            'waktuAgenda' => 'required|date_format:H:i',
+            'agenda' => 'required|string|max:255',
+        ]);
 
-        // Buat URL wa.me
-        $wa_link = "https://wa.me/{$no_hp}?text={$pesan}";
-        $this->reset('chat');
+        $templateMessage = "INFORMASI KEGIATAN POSYANDU
 
-        // Redirect atau buka link baru
-        return redirect()->away($wa_link);
+Assalamu'alaikum Warahmatullahi Wabarakatuh
+
+Kami mengundang Bapak/Ibu untuk hadir dalam kegiatan Posyandu:
+
+📅 *Hari/Tanggal*
+" . \Carbon\Carbon::parse($validated['tanggalAgenda'])->translatedFormat('l, d F Y') . "
+
+⏰ *Waktu*
+" . date('H:i', strtotime($validated['waktuAgenda'])) . " WIB
+
+📋 *Agenda*
+" . $validated['agenda'] . "
+
+📍 *Tempat*
+Posyandu Desa Ketawang Karay
+
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh
+----------------------------
+Mohon hadir tepat waktu
+Atas perhatiannya kami ucapkan terima kasih 🙏";
+
+        $no = [];
+        $no = implode(',', $this->selectedUsers);
+        try {
+            $service = new FonnteService();
+            $service->sendMessage($no, $templateMessage, '2');
+            Flux::modals()->close();
+            $this->dispatch(
+                'alert',
+                type: 'success',
+                title: 'Sukses',
+                text: 'Pesan berhasil dikirim!',
+            );
+        } catch (\Exception $e) {
+            Flux::modals()->close();
+            $this->dispatch(
+                'alert',
+                type: 'error',
+                title: 'Error',
+                text: 'Ada yang salah ' . $e->getMessage(),
+                timer: 5000
+            );
+        }
     }
 
     // Method untuk membuka modal bulk chat
@@ -342,75 +432,11 @@ class KelolaUser extends Component
         }
     }
 
-    // Method untuk mengirim bulk chat
-    public function sendBulkChat()
-    {
-        Flux::modals()->close();
-        $this->dispatch(
-            'alert',
-            type: 'info',
-            title: 'Info',
-            text: 'Fitur akan segera hadir!',
-        );
-        // $validated = $this->validate([
-        //     'chat' => 'required|string|max:255'
-        // ]);
-
-        // $links = [];
-
-        // foreach ($this->selectedUsers as $userId) {
-        //     $user = User::find($userId);
-        //     if ($user && $user->no_hp) {
-        //         $no_hp = $user->no_hp;
-
-        //         // Bersihkan nomor HP dari karakter non-digit
-        //         $no_hp = preg_replace('/[^0-9]/', '', $no_hp);
-
-        //         // Pastikan nomor memiliki panjang yang cukup
-        //         if (strlen($no_hp) < 10) {
-        //             continue; // Skip nomor yang terlalu pendek
-        //         }
-
-        //         // Format nomor HP (ubah 0 menjadi 62)
-        //         if (substr($no_hp, 0, 1) === '0') {
-        //             $no_hp = '62' . substr($no_hp, 1);
-        //         }
-
-        //         $pesan = urlencode($validated['chat']);
-        //         $links[] = "https://wa.me/{$no_hp}?text={$pesan}";
-        //     }
-        // }
-
-        // if (!empty($links)) {
-        //     // Dispatch event dengan data yang benar
-        //     $this->dispatch('openBulkWhatsApp', links: $links);
-
-        //     $this->dispatch(
-        //         'alert',
-        //         type: 'success',
-        //         title: 'Berhasil',
-        //         text: 'Membuka WhatsApp untuk ' . count($links) . ' user...',
-        //         timer: 3000
-        //     );
-
-        //     $this->reset('chat');
-        //     Flux::modals()->close();
-        // } else {
-        //     $this->dispatch(
-        //         'alert',
-        //         type: 'warning',
-        //         title: 'Peringatan',
-        //         text: 'Tidak ada nomor WhatsApp yang valid untuk user terpilih.',
-        //         timer: 3000
-        //     );
-        // }
-    }
-
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->selectedUsers = collect($this->bulkUsers)->pluck('id_user')->map(function ($id) {
-                return (string) $id;
+            $this->selectedUsers = collect($this->bulkUsers)->pluck('no_hp')->map(function ($no_hp) {
+                return (string) $no_hp;
             })->toArray();
         } else {
             $this->selectedUsers = [];
