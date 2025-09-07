@@ -71,13 +71,12 @@
                 </form>
             </flux:modal>
 
-            <!-- Modal Update User -->
-            {{-- <flux:modal name="update-user" class="md:w-xl">
+            {{-- Update User Modal --}}
+            <flux:modal name="edit-user" class="md:w-xl">
                 <form wire:submit.prevent="update" class="space-y-6">
                     <div>
-                        <flux:heading size="lg">Tambah Pengguna</flux:heading>
-                        <flux:text class="mt-2">Buatkan akun untuk pengguna yang belum terdaftar dalam sistem!
-                        </flux:text>
+                        <flux:heading size="lg">Update Pengguna</flux:heading>
+                        <flux:text class="mt-2">Update data pengguna yang sudah terdaftar dalam sistem.</flux:text>
                     </div>
                     <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)"
                         placeholder="NIK" />
@@ -92,11 +91,11 @@
                     <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
                         :invalid="$errors->has('jenis_kelamin')">
                         <flux:select.option value="">Pilih Jenis Kelamin</flux:select.option>
-                        <flux:select.option value="L" selected>Laki-laki</flux:select.option>
+                        <flux:select.option value="L">Laki-laki</flux:select.option>
                         <flux:select.option value="P">Perempuan</flux:select.option>
                     </flux:select>
                     <flux:select placeholder="Kategori" wire:model='kategori' :invalid="$errors->has('kategori')">
-                        <flux:select.option value="" selected>Kategori</flux:select.option>
+                        <flux:select.option value="">Kategori</flux:select.option>
                         <flux:select.option value="bumil">Ibu Hamil</flux:select.option>
                         <flux:select.option value="anak">Anak</flux:select.option>
                         <flux:select.option value="lansia">Lansia</flux:select.option>
@@ -105,42 +104,10 @@
                         placeholder="Alamat Lengkap" />
                     <div class="flex">
                         <flux:spacer />
-                        <flux:button type="submit" variant="primary">Simpan</flux:button>
-                    </div>
-                </form>
-            </flux:modal> --}}
-
-            {{-- Update User Modal --}}
-            {{-- <flux:modal name="update-user" class="md:w-xl">
-                <form wire:submit.prevent="update" class="space-y-6">
-                    <div>
-                        <flux:heading size="lg">Update Pengguna</flux:heading>
-                        <flux:text class="mt-2">Update data pengguna yang sudah terdaftar dalam sistem.</flux:text>
-                    </div>
-                    <flux:input :invalid="$errors->has('nik')" wire:model="nik"
-                        label="Nomor Induk Kependudukan (NIK)" placeholder="NIK" />
-                    <flux:input :invalid="$errors->has('name')" wire:model="name" label="Nama Lengkap"
-                        placeholder="Full Name" />
-                    <flux:input :invalid="$errors->has('email')" wire:model="email" label="Email"
-                        placeholder="Email" />
-                    <flux:input label="No. HP" wire:model.defer="no_hp" :invalid="$errors->has('no_hp')"
-                        class="w-full" required placeholder="628xxxxxxxx" :invalid="$errors->has('no_hp')" />
-                    <flux:input :invalid="$errors->has('tanggal_lahir')" wire:model="tanggal_lahir" type="date"
-                        label="Tanggal Lahir" placeholder="Tanggal Lahir" />
-                    <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
-                        :invalid="$errors->has('jenis_kelamin')">
-                        <flux:select.option value="">Pilih Jenis Kelamin</flux:select.option>
-                        <flux:select.option value="L" selected>Laki-laki</flux:select.option>
-                        <flux:select.option value="P">Perempuan</flux:select.option>
-                    </flux:select>
-                    <flux:input :invalid="$errors->has('alamat')" wire:model="alamat" label="Alamat"
-                        placeholder="Alamat Lengkap" />
-                    <div class="flex">
-                        <flux:spacer />
                         <flux:button type="submit" variant="primary">Edit Pengguna</flux:button>
                     </div>
                 </form>
-            </flux:modal> --}}
+            </flux:modal>
 
             <flux:modal name="open-chat" class="md:w-lg">
                 <form wire:submit.prevent="chat_notif" class="space-y-6">
@@ -288,10 +255,6 @@
     </flux:fieldset>
 </main>
 @push('script')
-    <script>
-        console.log('Hello Motherfucker!')
-    </script>
-    <!-- Di bagian bawah file blade, sebelum penutup </body> -->
     <script>
         document.addEventListener('livewire:init', () => {
             Livewire.on('openBulkWhatsApp', (event) => {

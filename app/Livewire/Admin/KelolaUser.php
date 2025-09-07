@@ -176,22 +176,16 @@ class KelolaUser extends Component
 
     public function edit(User $user)
     {
-        $this->dispatch(
-            'alert',
-            type: 'info',
-            title: 'Info',
-            text: "Fitur akan segera hadir! Stay Awesome!"
-        );
-        // $this->editedUser = $user;
-        // $this->name = $user->name;
-        // $this->email = $user->email;
-        // $this->nik = $user->nik;
-        // $this->no_hp = $user->no_hp;
-        // $this->alamat = $user->alamat;
-        // $this->jenis_kelamin = $user->jenis_kelamin;
-        // $this->kategori = $user->kategori;
-        // $this->tanggal_lahir = $user->tanggal_lahir;
-        // Flux::modal('update-user')->show();
+        $this->editedUser = $user;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->nik = $user->nik;
+        $this->no_hp = $user->no_hp;
+        $this->alamat = $user->alamat;
+        $this->jenis_kelamin = $user->jenis_kelamin;
+        $this->kategori = $user->kategori;
+        $this->tanggal_lahir = $user->tanggal_lahir;
+        FLux::modal('edit-user')->show();
     }
 
     public function confirmResetPassword(User $user)
@@ -232,6 +226,7 @@ class KelolaUser extends Component
 
     public function update()
     {
+
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'nik' => ['required', 'string', 'max:16'],
@@ -268,7 +263,6 @@ class KelolaUser extends Component
             'kategori.required' => 'Kategori wajib dipilih.',
             'kategori.in' => 'Kategori tidak valid!.',
         ]);
-
         try {
             $this->editedUser->update($validated);
             Flux::modals()->close();

@@ -50,7 +50,7 @@
                         required placeholder="628xxxxxxxx" :invalid="$errors->has('no_hp')" />
                     <flux:input :invalid="$errors->has('tanggal_lahir')" wire:model="tanggal_lahir" type="date"
                         label="Tanggal Lahir" placeholder="Tanggal Lahir" />
-                    <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
+                    <flux:select label="Jenis Kelamin" placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
                         :invalid="$errors->has('jenis_kelamin')">
                         <flux:select.option value="">Pilih Jenis Kelamin</flux:select.option>
                         <flux:select.option value="L" selected>Laki-laki</flux:select.option>
@@ -88,7 +88,7 @@
                         required placeholder="628xxxxxxxx" :invalid="$errors->has('no_hp')" />
                     <flux:input :invalid="$errors->has('tanggal_lahir')" wire:model="tanggal_lahir" type="date"
                         label="Tanggal Lahir" placeholder="Tanggal Lahir" />
-                    <flux:select placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
+                    <flux:select label="Jenis Kelamin" placeholder="Jenis Kelamin" wire:model='jenis_kelamin'
                         :invalid="$errors->has('jenis_kelamin')">
                         <flux:select.option value="">Pilih Jenis Kelamin</flux:select.option>
                         <flux:select.option value="L" selected>Laki-laki</flux:select.option>

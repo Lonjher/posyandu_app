@@ -1,36 +1,36 @@
 <x-layouts.auth>
     @slot('title')
-    Welcome
+        Welcome
     @endslot
     @push('style')
-    <style>
-        /* Animasi bounce up and down */
-        @keyframes bounce {
+        <style>
+            /* Animasi bounce up and down */
+            @keyframes bounce {
 
-            0%,
-            100% {
-                transform: translateY(0);
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-20px);
+                }
             }
 
-            50% {
-                transform: translateY(-20px);
+            .bounce-animation {
+                animation: bounce 3s ease-in-out infinite;
             }
-        }
 
-        .bounce-animation {
-            animation: bounce 3s ease-in-out infinite;
-        }
+            /* Efek hover untuk card */
+            .card-hover {
+                transition: all 0.3s ease;
+            }
 
-        /* Efek hover untuk card */
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-    </style>
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+        </style>
     @endpush
     <section class="antialiased">
         <!-- Navbar -->
@@ -44,10 +44,14 @@
                 <!-- Menu -->
                 <nav class="hidden md:flex space-x-6 text-sm text-gray-700 dark:text-gray-300">
                     <a href="#home" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Home</a>
-                    <a href="#edukasi" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Edukasi</a>
-                    <a href="#about" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">About</a>
-                    <a href="#statistic" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Statistic</a>
-                    <a href="#" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Contact</a>
+                    <a href="#edukasi"
+                        class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Edukasi</a>
+                    <a href="#about"
+                        class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">About</a>
+                    <a href="#statistic"
+                        class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Statistic</a>
+                    <a href="#"
+                        class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Contact</a>
                 </nav>
 
                 <div class="flex items-center gap-3">
@@ -62,7 +66,8 @@
                         </flux:button>
 
                         <flux:menu>
-                            <flux:menu.item icon="sun" x-on:click="$flux.appearance = 'light'">Light</flux:menu.item>
+                            <flux:menu.item icon="sun" x-on:click="$flux.appearance = 'light'">Light
+                            </flux:menu.item>
                             <flux:menu.item icon="moon" x-on:click="$flux.appearance = 'dark'">Dark</flux:menu.item>
                             <flux:menu.item icon="computer-desktop" x-on:click="$flux.appearance = 'system'">System
                             </flux:menu.item>
@@ -71,7 +76,8 @@
                     <!-- Button -->
                     <div>
                         @if ('Auth::user()')
-                            <a href="{{ route('login') }}" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
+                            <a href="{{ route('login') }}"
+                                class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
                                 Masuk
                             </a>
                         @endif
@@ -81,14 +87,16 @@
         </header>
 
         <!-- Hero Section -->
-        <section id="hero" class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+        <section id="hero"
+            class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
 
                 <!-- Left content -->
                 <div class="space-y-4">
                     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
                         Sistem Informasi Kesehatan <br>
-                        <span class="text-purple-600 dark:text-purple-400">Ibu Hamil</span>, <span class="text-purple-600 dark:text-purple-400">Anak</span> &
+                        <span class="text-purple-600 dark:text-purple-400">Ibu Hamil</span>, <span
+                            class="text-purple-600 dark:text-purple-400">Anak</span> &
                         <span class="text-purple-600 dark:text-purple-400">Lansia</span>.
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed">
@@ -97,13 +105,15 @@
                     </p>
                     <div class="flex space-x-4 pt-2">
                         @if (Auth::user())
-                        <a href="{{ route('dashboard') }}" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
-                            Dashboard
-                        </a>
+                            <a href="{{ route('dashboard') }}"
+                                class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
+                                Dashboard
+                            </a>
                         @else
-                        <a href="{{ route('register') }}" class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
-                            Daftar Sekarang
-                        </a>
+                            <a href="{{ route('register') }}"
+                                class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105">
+                                Daftar Sekarang
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -112,9 +122,11 @@
                 <div class="relative flex justify-center md:justify-start">
 
                     <!-- Efek Lingkaran Blur -->
-                    <div class="absolute -top-10 -left-16 w-80 h-80 bg-gradient-to-r from-purple-400 to-indigo-400 dark:from-purple-800 dark:to-indigo-800 rounded-full blur-3xl opacity-30 dark:opacity-20">
+                    <div
+                        class="absolute -top-10 -left-16 w-80 h-80 bg-gradient-to-r from-purple-400 to-indigo-400 dark:from-purple-800 dark:to-indigo-800 rounded-full blur-3xl opacity-30 dark:opacity-20">
                     </div>
-                    <div class="absolute top-20 -left-5 w-96 h-96 bg-gradient-to-r from-indigo-300 to-purple-300 dark:from-indigo-700 dark:to-purple-700 rounded-full blur-3xl opacity-20 dark:opacity-15">
+                    <div
+                        class="absolute top-20 -left-5 w-96 h-96 bg-gradient-to-r from-indigo-300 to-purple-300 dark:from-indigo-700 dark:to-purple-700 rounded-full blur-3xl opacity-20 dark:opacity-15">
                     </div>
 
                     <!-- Mockup Card -->
@@ -222,12 +234,12 @@
             <!-- Grid Kategori -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 @foreach ($categories as $key => $category)
-                <a href="{{ route('adukasi.kategori', $key) }}"
-                    class="category-card group bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-150 dark:border-gray-700 p-4 text-center transition-all duration-200 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-600 animate-slide-up"
-                    style="animation-delay: {{ $loop->index * 0.07 }}s">
+                    <a href="{{ route('adukasi.kategori', $key) }}"
+                        class="category-card group bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-150 dark:border-gray-700 p-4 text-center transition-all duration-200 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-600 animate-slide-up"
+                        style="animation-delay: {{ $loop->index * 0.07 }}s">
 
-                    <div
-                        class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-105
+                        <div
+                            class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-105
                 {{ $key == 'bumil'
                     ? 'bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-300'
                     : ($key == 'anak'
@@ -236,51 +248,52 @@
                             ? 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300'
                             : 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300')) }}">
 
-                        @if ($key == 'bumil')
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                        </svg>
-                        @elseif($key == 'anak')
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                        </svg>
-                        @elseif($key == 'lansia')
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                        </svg>
-                        @else
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                        </svg>
-                        @endif
-                    </div>
+                            @if ($key == 'bumil')
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                                </svg>
+                            @elseif($key == 'anak')
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                            @elseif($key == 'lansia')
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                                </svg>
+                            @else
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            @endif
+                        </div>
 
-                    <h3 class="font-medium text-gray-800 dark:text-white text-sm mb-1">
-                        {{ $category }}
-                    </h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-                        {{ $key == 'bumil'
-                            ? 'Edukasi ibu hamil'
-                            : ($key == 'anak'
-                                ? 'Edukasi anak'
-                                : ($key == 'lansia'
-                                    ? 'Edukasi lansia'
-                                    : 'Kesehatan umum')) }}
-                    </p>
+                        <h3 class="font-medium text-gray-800 dark:text-white text-sm mb-1">
+                            {{ $category }}
+                        </h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                            {{ $key == 'bumil'
+                                ? 'Edukasi ibu hamil'
+                                : ($key == 'anak'
+                                    ? 'Edukasi anak'
+                                    : ($key == 'lansia'
+                                        ? 'Edukasi lansia'
+                                        : 'Kesehatan umum')) }}
+                        </p>
 
-                    <div
-                        class="mt-2 text-indigo-600 dark:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span class="text-xs">Lihat</span>
-                        <svg class="w-3 h-3 inline-block ml-0.5" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </a>
+                        <div
+                            class="mt-2 text-indigo-600 dark:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="text-xs">Lihat</span>
+                            <svg class="w-3 h-3 inline-block ml-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </a>
                 @endforeach
             </div>
 
@@ -288,19 +301,20 @@
             <div class="animate-fade-in">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-gray-800 dark:text-white">Edukasi Terbaru</h2>
-                    <a href="#" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Lihat semua</a>
+                    <a href="#" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Lihat
+                        semua</a>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     @foreach ($latestEdukasi as $edukasi)
-                    <div
-                        class="bg-white dark:bg-gray-800 rounded-md shadow-sm border border-gray-150 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md">
-                        <div class="h-28 overflow-hidden">
-                            <img src="{{ asset('storage/' . $edukasi->gambar) }}" alt="{{ $edukasi->judul }}"
-                                class="w-full h-full object-cover transition-transform duration-300 hover:scale-102">
-                        </div>
-                        <div class="p-3">
-                            <span
-                                class="text-[10px] font-medium px-1.5 py-0.5 rounded-full
+                        <div
+                            class="bg-white dark:bg-gray-800 rounded-md shadow-sm border border-gray-150 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md">
+                            <div class="h-28 overflow-hidden">
+                                <img src="{{ asset('storage/' . $edukasi->gambar) }}" alt="{{ $edukasi->judul }}"
+                                    class="w-full h-full object-cover transition-transform duration-300 hover:scale-102">
+                            </div>
+                            <div class="p-3">
+                                <span
+                                    class="text-[10px] font-medium px-1.5 py-0.5 rounded-full
                         {{ $edukasi->kategori == 'bumil'
                             ? 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200'
                             : ($edukasi->kategori == 'anak'
@@ -308,31 +322,31 @@
                                 : ($edukasi->kategori == 'lansia'
                                     ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
                                     : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200')) }}">
-                                {{ $edukasi->kategori == 'bumil'
-                                    ? 'Ibu Hamil'
-                                    : ($edukasi->kategori == 'anak'
-                                        ? 'anak'
-                                        : ($edukasi->kategori == 'lansia'
-                                            ? 'Lansia'
-                                            : 'Umum')) }}
-                            </span>
+                                    {{ $edukasi->kategori == 'bumil'
+                                        ? 'Ibu Hamil'
+                                        : ($edukasi->kategori == 'anak'
+                                            ? 'anak'
+                                            : ($edukasi->kategori == 'lansia'
+                                                ? 'Lansia'
+                                                : 'Umum')) }}
+                                </span>
 
-                            <h3
-                                class="font-medium text-gray-800 dark:text-white text-sm mt-1.5 mb-1.5 line-clamp-2 leading-tight">
-                                {{ $edukasi->judul }}
-                            </h3>
+                                <h3
+                                    class="font-medium text-gray-800 dark:text-white text-sm mt-1.5 mb-1.5 line-clamp-2 leading-tight">
+                                    {{ $edukasi->judul }}
+                                </h3>
 
-                            <a href="{{ route('baca.edukasi', $edukasi->id_edukasi) }}"
-                                class="text-xs text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium inline-flex items-center">
-                                Baca
-                                <svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
+                                <a href="{{ route('baca.edukasi', $edukasi->id_edukasi) }}"
+                                    class="text-xs text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium inline-flex items-center">
+                                    Baca
+                                    <svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
@@ -346,7 +360,8 @@
                     <span class="text-purple-600 dark:text-purple-400">SIPEDES</span>
                 </h2>
                 <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                    SIPEDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu hamil,
+                    SIPEDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu
+                    hamil,
                     anak, dan lansia secara lebih cepat, terstruktur, dan mudah diakses.
                 </p>
 
@@ -363,7 +378,8 @@
                             <h3 class="text-sm font-semibold text-gray-800 dark:text-white">Visi</h3>
                         </div>
                         <p class="text-gray-600 dark:text-gray-300 text-xs leading-relaxed">
-                            Mewujudkan pelayanan kesehatan masyarakat desa yang efektif dan mudah diakses melalui teknologi
+                            Mewujudkan pelayanan kesehatan masyarakat desa yang efektif dan mudah diakses melalui
+                            teknologi
                             digital.
                         </p>
                     </div>
@@ -432,7 +448,8 @@
         </section>
 
         <!-- Statistics Section -->
-        <section id="statistic" class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden py-16">
+        <section id="statistic"
+            class="relative bg-gradient-to-r from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden py-16">
             <div class="absolute inset-0 overflow-hidden">
                 <div
                     class="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-r from-purple-200 to-indigo-200 dark:from-purple-900 dark:to-indigo-900 rounded-full blur-3xl opacity-40 dark:opacity-20">
@@ -455,29 +472,41 @@
                 <div class="flex justify-center">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-2xl">
                         <!-- Statistic 1 -->
-                        <div class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
-                            <div class="bg-purple-100 dark:bg-purple-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <div
+                            class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
+                            <div
+                                class="bg-purple-100 dark:bg-purple-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
                                 <img src="{{ asset('img/anak.png') }}" alt="anak" class="w-6 h-6 md:w-7 md:h-7">
                             </div>
-                            <h3 class="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400 counter">250</h3>
+                            <h3 class="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400 counter">
+                                {{ $jumlah['anak'] }}</h3>
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Anak</p>
                         </div>
 
                         <!-- Statistic 2 -->
-                        <div class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
-                            <div class="bg-pink-100 dark:bg-pink-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
-                                <img src="{{ asset('img/bumil.png') }}" alt="bumil" class="w-6 h-6 md:w-7 md:h-7">
+                        <div
+                            class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
+                            <div
+                                class="bg-pink-100 dark:bg-pink-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <img src="{{ asset('img/bumil.png') }}" alt="bumil"
+                                    class="w-6 h-6 md:w-7 md:h-7">
                             </div>
-                            <h3 class="text-2xl md:text-3xl font-bold text-pink-600 dark:text-pink-400 counter">120</h3>
+                            <h3 class="text-2xl md:text-3xl font-bold text-pink-600 dark:text-pink-400 counter">
+                                {{ $jumlah['bumil'] }}
+                            </h3>
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Ibu Hamil</p>
                         </div>
 
                         <!-- Statistic 3 -->
-                        <div class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
-                            <div class="bg-blue-100 dark:bg-blue-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
-                                <img src="{{ asset('img/lansia.png') }}" alt="lansia" class="w-6 h-6 md:w-7 md:h-7">
+                        <div
+                            class="stat-card bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center mx-auto w-full">
+                            <div
+                                class="bg-blue-100 dark:bg-blue-900/40 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <img src="{{ asset('img/lansia.png') }}" alt="lansia"
+                                    class="w-6 h-6 md:w-7 md:h-7">
                             </div>
-                            <h3 class="text-2xl md:text-3xl font-bold counter text-blue-600 dark:text-blue-400">24</h3>
+                            <h3 class="text-2xl md:text-3xl font-bold counter text-blue-600 dark:text-blue-400">
+                                {{ $jumlah['lansia'] }}</h3>
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Lansia</p>
                         </div>
                     </div>
@@ -488,7 +517,8 @@
                     class="mt-16 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-700 dark:to-purple-700 rounded-2xl shadow-xl p-8 text-center text-white">
                     <h3 class="text-2xl font-bold mb-4">Join Us</h3>
                     <p class="max-w-2xl mx-auto mb-6">Bergabung untuk mendapatkan layanan yang kami berikan.</p>
-                    <button class="bg-white text-indigo-600 dark:bg-gray-100 dark:text-indigo-700 hover:bg-gray-100 dark:hover:bg-gray-200 px-6 py-3 rounded-lg font-medium">
+                    <button
+                        class="bg-white text-indigo-600 dark:bg-gray-100 dark:text-indigo-700 hover:bg-gray-100 dark:hover:bg-gray-200 px-6 py-3 rounded-lg font-medium">
                         Get Started
                     </button>
                 </div>
