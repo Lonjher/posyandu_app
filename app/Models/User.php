@@ -129,12 +129,22 @@ class User extends Authenticatable
     }
     public function anakPemeriksaans()
     {
-        return $this->hasMany(BumilPemeriksaan::class, 'user_id', 'id_user');
+        return $this->hasMany(AnakPemeriksaan::class, 'user_id', 'id_user');
     }
 
     public function pemeriksaanAnaks()
     {
-        return $this->hasMany(BumilPemeriksaan::class, 'anak_id', 'id_user');
+        return $this->hasMany(AnakPemeriksaan::class, 'anak_id', 'id_user');
+    }
+
+    public function lansiaPemeriksaans()
+    {
+        return $this->hasMany(LansiaPemeriksaan::class, 'lansia_id', 'id_user');
+    }
+
+    public function pemeriksaanLansias()
+    {
+        return $this->hasMany(LansiaPemeriksaan::class, 'lansia_id', 'id_user');
     }
 
 }

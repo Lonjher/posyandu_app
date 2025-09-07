@@ -21,20 +21,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('isAdmin', function(User $user){
+        Gate::define('isAdmin', function (User $user) {
             return $user->role === 'admin';
         });
-        Gate::define('isUser', function(User $user){
+        Gate::define('isUser', function (User $user) {
             return $user->role === 'user';
         });
-        Gate::define('isKader', function(User $user){
+        Gate::define('isKader', function (User $user) {
             return $user->role === 'kader';
         });
-        Gate::define('isPemdes', function(User $user){
+        Gate::define('isPemdes', function (User $user) {
             return $user->role === 'pemdes';
         });
-        Gate::define('isAdminBidanKader', function(User $user){
+        Gate::define('isAdminBidanKader', function (User $user) {
             return $user->role === 'admin' || $user->role === 'bidan' || $user->role === 'kader';
         });
+
+        \Carbon\Carbon::setLocale('id');
     }
 }

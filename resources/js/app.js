@@ -1,4 +1,6 @@
 import Swal from "sweetalert2";
+import Chart from 'chart.js/auto';
+window.Chart = Chart;
 
 window.addEventListener("alert", (event) => {
     let data = event.detail;

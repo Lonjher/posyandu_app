@@ -6,6 +6,7 @@ use App\Livewire\Admin\KelolaAdmin;
 use App\Livewire\Admin\KelolaKader;
 use App\Livewire\Admin\KelolaPemdes;
 use App\Livewire\Admin\KelolaUser;
+use App\Livewire\Dashboard;
 use App\Livewire\LaporanKegiatan;
 use App\Livewire\LaporanPemeriksaanPemdes;
 use App\Livewire\Pemdes\ViewLaporan;
@@ -39,11 +40,12 @@ Route::get('/', function(){
 Route::get('/edukasi/{kategori}', EdukasiByKategori::class)->name('adukasi.kategori');
 Route::get('/baca-edukasi/{edukasi}', BacaEdukasi::class)->name('baca.edukasi');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', Dashboard::class)->name('dashboard');
     Route::middleware('isAdmin')->prefix('admin')->group(function() {
         Route::get('kelola-user', KelolaUser::class)->name('admin.kelola-user');
         Route::get('kelola-admin', KelolaAdmin::class)->name('admin.kelola-admin');
