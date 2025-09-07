@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import '@fortawesome/fontawesome-free/js/all';
 import Chart from 'chart.js/auto';
 window.Chart = Chart;
 

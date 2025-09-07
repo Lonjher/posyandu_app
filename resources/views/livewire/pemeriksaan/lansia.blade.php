@@ -52,14 +52,14 @@
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
                         <td class="px-2 py-2">{{ $pemeriksaans->firstItem() + $no }}</td>
                         <td class="px-2 py-2 flex items-center gap-2">
-                                <img src="{{ asset('storage/' . $pemeriksaan->lansia->avatar) }}"
-                                    class="h-6 w-6 rounded-full" alt="avatar">
-                                <div>
-                                    <div class="text-[0.7rem] font-semibold">{{ $pemeriksaan->lansia->name }}</div>
-                                    <div class="text-[0.65rem] text-gray-500 dark:text-gray-400">
-                                        {{ $pemeriksaan->lansia->nik }}</div>
-                                </div>
-                            </td>
+                            <img src="{{ asset('storage/' . $pemeriksaan->lansia->avatar) }}"
+                                class="h-6 w-6 rounded-full" alt="avatar">
+                            <div>
+                                <div class="text-[0.7rem] font-semibold">{{ $pemeriksaan->lansia->name }}</div>
+                                <div class="text-[0.65rem] text-gray-500 dark:text-gray-400">
+                                    {{ $pemeriksaan->lansia->nik }}</div>
+                            </div>
+                        </td>
                         <td class="px-2 py-2">{{ $pemeriksaan->usia }}</td>
                         <td class="px-2 py-2">{{ $pemeriksaan->lansia->jenis_kelamin }}</td>
                         <td class="px-2 py-2">{{ $pemeriksaan->bb }}</td>
@@ -70,25 +70,30 @@
                         <td class="px-2 py-2">{{ $pemeriksaan->gula_darah }}</td>
                         <td class="px-2 py-2">
                             <flux:dropdown position="bottom" align="start">
-                                    <button
-                                        class="text-gray-950 bg-blue-100 hover:bg-blue-200 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 focus:outline-none px-3 py-1 rounded">
-                                        &#8942;
-                                    </button>
-                                    <flux:menu class="w-10">
-                                        <div class="flex flex-col space-y-1">
+                                <button
+                                    class="text-gray-950 bg-blue-100 hover:bg-blue-200 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 focus:outline-none px-3 py-1 rounded">
+                                    &#8942;
+                                </button>
+                                <flux:menu class="w-10">
+                                    <div class="flex flex-col space-y-1">
 
-                                            <flux:button wire:click="edit({{ $pemeriksaan->id_lansia_pemeriksaan }})"
-                                                size="xs" icon="pencil" class="!text-[0.65rem]">
-                                                Edit
-                                            </flux:button>
-                                            <flux:button
-                                                wire:click="confirmDelete({{ $pemeriksaan->id_lansia_pemeriksaan }})"
-                                                size="xs" icon="trash" class="!text-[0.65rem]">
-                                                Hapus
-                                            </flux:button>
-                                        </div>
-                                    </flux:menu>
-                                </flux:dropdown>
+                                        <flux:button wire:click="edit({{ $pemeriksaan->id_lansia_pemeriksaan }})"
+                                            size="xs" icon="pencil" class="!text-[0.65rem]">
+                                            Edit
+                                        </flux:button>
+                                        <flux:button
+                                            wire:click="confirmDelete({{ $pemeriksaan->id_lansia_pemeriksaan }})"
+                                            size="xs" icon="trash" class="!text-[0.65rem]">
+                                            Hapus
+                                        </flux:button>
+                                        <flux:button
+                                            wire:click="openModalTbc({{ $pemeriksaan->id_lansia_pemeriksaan }})"
+                                            size="xs" icon="information-circle" class="!text-[0.65rem]">
+                                            Skrining Tbc
+                                        </flux:button>
+                                    </div>
+                                </flux:menu>
+                            </flux:dropdown>
                         </td>
                     </tr>
                 @empty
@@ -121,7 +126,8 @@
                         <span class="text-sm text-gray-500 dark:text-gray-400">NIK:
                             {{ $choosenLansia->nik ?? '' }}</span>
                         <br />
-                        <span class="text-sm text-gray-500 dark:text-gray-400">{{ $choosenLansia->alamat ?? '' }}</span>
+                        <span
+                            class="text-sm text-gray-500 dark:text-gray-400">{{ $choosenLansia->alamat ?? '' }}</span>
                     </span>
                 </span>
             @endif
@@ -226,12 +232,14 @@
                 <span class="flex items-center gap-3 mt-4">
                     <flux:avatar name="{{ $choosenLansia->name ?? '' }}" color="auto" size="xl" />
                     <span class="leading-tight">
-                        <span class="font-medium text-gray-900 dark:text-white">{{ $choosenLansia->name ?? '' }}</span>
+                        <span
+                            class="font-medium text-gray-900 dark:text-white">{{ $choosenLansia->name ?? '' }}</span>
                         <br />
                         <span class="text-sm text-gray-500 dark:text-gray-400">NIK:
                             {{ $choosenLansia->nik ?? '' }}</span>
                         <br />
-                        <span class="text-sm text-gray-500 dark:text-gray-400">{{ $choosenLansia->alamat ?? '' }}</span>
+                        <span
+                            class="text-sm text-gray-500 dark:text-gray-400">{{ $choosenLansia->alamat ?? '' }}</span>
                     </span>
                 </span>
             @endif
@@ -350,8 +358,7 @@
                     @foreach ($searchLansiaResults as $lansia)
                         <button wire:click="chooseLansia({{ $lansia->id_user }})"
                             class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
-                            <span
-                                class="font-medium dark:text-white text-zinc-800">{{ $lansia->nik }}</span>
+                            <span class="font-medium dark:text-white text-zinc-800">{{ $lansia->nik }}</span>
                             <span class="col-span-2">{{ $lansia->name }}</span>
                             <span class="text-end">{{ $lansia->jenis_kelamin }}</span>
                     @endforeach
@@ -368,8 +375,7 @@
                     @foreach ($this->lansiaList as $result)
                         <button wire:click="chooseLansia({{ $result->id_user }})"
                             class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
-                            <span
-                                class="font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
+                            <span class="font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
                             <span class="col-span-2">{{ $result->name }}</span>
                             <span class="text-end">{{ $result->jenis_kelamin }}</span>
                         </button>
@@ -380,6 +386,289 @@
                             👋 Masukkan nama/NIK Lansia</p>
                     </div>
                 @endif
+            </div>
+        </div>
+    </flux:modal>
+
+    <flux:modal name="skrining-tbc" class="min-w-3xl">
+        <!-- Modal Skrining TBC -->
+        <div
+            class="rounded-lg w-full overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 shadow-2xl">
+
+            <!-- Modal Header dengan Gradient -->
+            <div
+                class="flex items-center justify-between p-6 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-700 dark:to-blue-800 text-white">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                        <i class="fas fa-lungs-virus text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">Hasil Skrining TBC</h3>
+                        <p class="text-sm text-blue-100 opacity-90">Status kesehatan pernapasan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <div class="mb-6 text-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Hasil pemeriksaan skrining TBC untuk pasien:
+                    </p>
+
+                    <!-- Status Hasil dengan Icon -->
+                    <div
+                        class="mb-6 p-5 rounded-2xl border-2 shadow-sm transition-all duration-300
+                    @if (
+                        $batuk_terus_menerus == 0 &&
+                            $demam_lebih_dari_2_minggu == 0 &&
+                            $berat_badan_turun_tanpa_sebab_jelas == 0 &&
+                            $kontak_dengan_orang_terinfeksi_tbc == 0) border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20
+                         hover:shadow-green-200 dark:hover:shadow-green-900
+                    @elseif (
+                        $batuk_terus_menerus +
+                            $demam_lebih_dari_2_minggu +
+                            $berat_badan_turun_tanpa_sebab_jelas +
+                            $kontak_dengan_orang_terinfeksi_tbc >=
+                            2)
+                         border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20
+                         hover:shadow-red-200 dark:hover:shadow-red-900
+                    @else
+                         border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-900/20
+                         hover:shadow-yellow-200 dark:hover:shadow-yellow-900 @endif">
+
+                        <div class="flex items-center justify-center mb-3">
+                            <div
+                                class="w-12 h-12 rounded-full flex items-center justify-center
+                            @if (
+                                $batuk_terus_menerus == 0 &&
+                                    $demam_lebih_dari_2_minggu == 0 &&
+                                    $berat_badan_turun_tanpa_sebab_jelas == 0 &&
+                                    $kontak_dengan_orang_terinfeksi_tbc == 0) bg-green-100 text-green-600 dark:bg-green-800 dark:text-green-300
+                            @elseif (
+                                $batuk_terus_menerus +
+                                    $demam_lebih_dari_2_minggu +
+                                    $berat_badan_turun_tanpa_sebab_jelas +
+                                    $kontak_dengan_orang_terinfeksi_tbc >=
+                                    2)
+                                 bg-red-100 text-red-600 dark:bg-red-800 dark:text-red-300
+                            @else
+                                 bg-yellow-100 text-yellow-600 dark:bg-yellow-800 dark:text-yellow-300 @endif">
+                                <i
+                                    class="fas
+                                @if (
+                                    $batuk_terus_menerus == 0 &&
+                                        $demam_lebih_dari_2_minggu == 0 &&
+                                        $berat_badan_turun_tanpa_sebab_jelas == 0 &&
+                                        $kontak_dengan_orang_terinfeksi_tbc == 0) fa-check-circle
+                                @elseif (
+                                    $batuk_terus_menerus +
+                                        $demam_lebih_dari_2_minggu +
+                                        $berat_badan_turun_tanpa_sebab_jelas +
+                                        $kontak_dengan_orang_terinfeksi_tbc >=
+                                        2)
+                                     fa-exclamation-circle
+                                @else
+                                     fa-info-circle @endif text-xl">
+                                </i>
+                            </div>
+                        </div>
+
+                        <span
+                            class="font-bold text-lg
+                        @if (
+                            $batuk_terus_menerus == 0 &&
+                                $demam_lebih_dari_2_minggu == 0 &&
+                                $berat_badan_turun_tanpa_sebab_jelas == 0 &&
+                                $kontak_dengan_orang_terinfeksi_tbc == 0) text-green-700 dark:text-green-300
+                        @elseif (
+                            $batuk_terus_menerus +
+                                $demam_lebih_dari_2_minggu +
+                                $berat_badan_turun_tanpa_sebab_jelas +
+                                $kontak_dengan_orang_terinfeksi_tbc >=
+                                2)
+                             text-red-700 dark:text-red-300
+                        @else
+                             text-yellow-700 dark:text-yellow-300 @endif">
+                            @if (
+                                $batuk_terus_menerus == 0 &&
+                                    $demam_lebih_dari_2_minggu == 0 &&
+                                    $berat_badan_turun_tanpa_sebab_jelas == 0 &&
+                                    $kontak_dengan_orang_terinfeksi_tbc == 0)
+                                TIDAK ADA GEJALA TBC
+                            @elseif (
+                                $batuk_terus_menerus +
+                                    $demam_lebih_dari_2_minggu +
+                                    $berat_badan_turun_tanpa_sebab_jelas +
+                                    $kontak_dengan_orang_terinfeksi_tbc >=
+                                    2)
+                                DIREKOMENDASIKAN TES TBC
+                            @else
+                                PERLU PEMANTAUAN LANJUT
+                            @endif
+                        </span>
+
+                        <p
+                            class="text-sm mt-2
+                        @if (
+                            $batuk_terus_menerus == 0 &&
+                                $demam_lebih_dari_2_minggu == 0 &&
+                                $berat_badan_turun_tanpa_sebab_jelas == 0 &&
+                                $kontak_dengan_orang_terinfeksi_tbc == 0) text-green-600 dark:text-green-400
+                        @elseif (
+                            $batuk_terus_menerus +
+                                $demam_lebih_dari_2_minggu +
+                                $berat_badan_turun_tanpa_sebab_jelas +
+                                $kontak_dengan_orang_terinfeksi_tbc >=
+                                2)
+                             text-red-600 dark:text-red-400
+                        @else
+                             text-yellow-600 dark:text-yellow-400 @endif">
+                            @if (
+                                $batuk_terus_menerus == 0 &&
+                                    $demam_lebih_dari_2_minggu == 0 &&
+                                    $berat_badan_turun_tanpa_sebab_jelas == 0 &&
+                                    $kontak_dengan_orang_terinfeksi_tbc == 0)
+                                ✅ Tidak terdeteksi gejala TBC
+                            @elseif (
+                                $batuk_terus_menerus +
+                                    $demam_lebih_dari_2_minggu +
+                                    $berat_badan_turun_tanpa_sebab_jelas +
+                                    $kontak_dengan_orang_terinfeksi_tbc >=
+                                    2)
+                                ⚠️ Segera konsultasi ke dokter
+                            @else
+                                🔍 Perlu observasi lebih lanjut
+                            @endif
+                        </p>
+                    </div>
+
+                    <!-- Daftar Gejala dengan Card -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div
+                            class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300
+                         {{ $batuk_terus_menerus ? 'ring-2 ring-red-200 dark:ring-red-800' : 'ring-2 ring-green-200 dark:ring-green-800' }}">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div
+                                        class="w-8 h-8 rounded-full flex items-center justify-center mr-3
+                                    {{ $batuk_terus_menerus ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300' }}">
+                                        <i class="fas fa-coughing"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-800 dark:text-white">Batuk terus
+                                        menerus</span>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold
+                                {{ $batuk_terus_menerus ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' }}">
+                                    {{ $batuk_terus_menerus ? 'Ya' : 'Tidak' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300
+                         {{ $demam_lebih_dari_2_minggu ? 'ring-2 ring-red-200 dark:ring-red-800' : 'ring-2 ring-green-200 dark:ring-green-800' }}">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div
+                                        class="w-8 h-8 rounded-full flex items-center justify-center mr-3
+                                    {{ $demam_lebih_dari_2_minggu ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300' }}">
+                                        <i class="fas fa-temperature-high"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-800 dark:text-white">Demam > 2
+                                        minggu</span>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold
+                                {{ $demam_lebih_dari_2_minggu ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' }}">
+                                    {{ $demam_lebih_dari_2_minggu ? 'Ya' : 'Tidak' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300
+                         {{ $berat_badan_turun_tanpa_sebab_jelas ? 'ring-2 ring-red-200 dark:ring-red-800' : 'ring-2 ring-green-200 dark:ring-green-800' }}">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div
+                                        class="w-8 h-8 rounded-full flex items-center justify-center mr-3
+                                    {{ $berat_badan_turun_tanpa_sebab_jelas ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300' }}">
+                                        <i class="fas fa-weight"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-800 dark:text-white">Berat badan
+                                        turun</span>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold
+                                {{ $berat_badan_turun_tanpa_sebab_jelas ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' }}">
+                                    {{ $berat_badan_turun_tanpa_sebab_jelas ? 'Ya' : 'Tidak' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300
+                         {{ $kontak_dengan_orang_terinfeksi_tbc ? 'ring-2 ring-red-200 dark:ring-red-800' : 'ring-2 ring-green-200 dark:ring-green-800' }}">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div
+                                        class="w-8 h-8 rounded-full flex items-center justify-center mr-3
+                                    {{ $kontak_dengan_orang_terinfeksi_tbc ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300' }}">
+                                        <i class="fas fa-people-arrows"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-800 dark:text-white">Kontak dengan
+                                        penderita TBC</span>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold
+                                {{ $kontak_dengan_orang_terinfeksi_tbc ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' }}">
+                                    {{ $kontak_dengan_orang_terinfeksi_tbc ? 'Ya' : 'Tidak' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informasi Tambahan -->
+                <div
+                    class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-200 dark:border-blue-700">
+                    <div class="flex items-start">
+                        <div
+                            class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-info-circle text-blue-600 dark:text-blue-300"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-800 dark:text-white mb-2">
+                                Rekomendasi Tindakan
+                            </h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                                @if (
+                                    $batuk_terus_menerus +
+                                        $demam_lebih_dari_2_minggu +
+                                        $berat_badan_turun_tanpa_sebab_jelas +
+                                        $kontak_dengan_orang_terinfeksi_tbc >=
+                                        2)
+                                    🚨 <strong>Segera konsultasi ke dokter!</strong> Ditemukan
+                                    {{ $batuk_terus_menerus + $demam_lebih_dari_2_minggu + $berat_badan_turun_tanpa_sebab_jelas + $kontak_dengan_orang_terinfeksi_tbc }}
+                                    gejala yang mengindikasikan kemungkinan TBC.
+                                @elseif (
+                                    $batuk_terus_menerus +
+                                        $demam_lebih_dari_2_minggu +
+                                        $berat_badan_turun_tanpa_sebab_jelas +
+                                        $kontak_dengan_orang_terinfeksi_tbc ==
+                                        1)
+                                    🔍 <strong>Perlu pemantauan.</strong> Terdapat 1 gejala, observasi perkembangan
+                                    kondisi.
+                                @else
+                                    ✅ <strong>Tidak ada tindakan khusus.</strong> Tidak terdeteksi gejala TBC, tetap
+                                    jaga kesehatan.
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </flux:modal>

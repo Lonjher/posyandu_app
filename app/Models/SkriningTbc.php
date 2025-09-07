@@ -18,4 +18,12 @@ class SkriningTbc extends Model
     {
         return $this->hasOne(BumilPemeriksaan::class, 'skrining_tbc_id', 'id_skrining_tbc');
     }
+    public function anakPemeriksaan()
+    {
+        return $this->hasOne(AnakPemeriksaan::class, 'skrining_tbc_id', 'id_skrining_tbc');
+    }
+    public function lansiaPemeriksaan()
+    {
+        return $this->hasOne(LansiaPemeriksaan::class, 'skrining_tbc_id', 'id_skrining_tbc');
+    }
 }

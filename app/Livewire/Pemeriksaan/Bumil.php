@@ -332,4 +332,14 @@ class Bumil extends Component
             return;
         }
     }
+
+    public function openModalTbc(BumilPemeriksaan $pemeriksaan)
+    {
+
+        $this->batuk_terus_menerus = $pemeriksaan->skriningTbc->batuk_terus_menerus;
+        $this->demam_lebih_dari_2_minggu = $pemeriksaan->skriningTbc->demam_lebih_dari_2_minggu;
+        $this->berat_badan_turun_tanpa_sebab_jelas = $pemeriksaan->skriningTbc->berat_badan_turun_tanpa_sebab_jelas;
+        $this->kontak_dengan_orang_terinfeksi_tbc = $pemeriksaan->skriningTbc->kontak_dengan_orang_terinfeksi_tbc;
+        Flux::modal('skrining-tbc')->show();
+    }
 }
