@@ -1,4 +1,7 @@
 <div class="flex h-full w-full flex-1 flex-col gap-6 rounded-xl">
+    @slot('title')
+        Dashboard
+    @endslot
     <!-- Header Selamat Datang -->
     <div
         class="flex flex-col md:flex-row md:items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
@@ -187,32 +190,41 @@
             <!-- Kader Dashboard -->
             <div class="space-y-6 col-span-3">
                 <!-- Tugas Hari Ini -->
-                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                {{-- <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Jadwal Pemeriksaan Hari Ini</h3>
                     <div class="space-y-3">
-                        {{-- @foreach ($jadwalHariIni as $jadwal)
-                    <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                        <div class="flex items-center">
-                            <div class="p-2 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300 mr-3">
-                                <i class="fas fa-calendar-check"></i>
+                        @foreach ($jadwalHariIni as $jadwal)
+                            <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                <div class="flex items-center">
+                                    <div
+                                        class="p-2 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300 mr-3">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800 dark:text-white">
+                                            {{ $jadwal->user->name }}</p>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
+                                            {{ $jadwal->waktu }} -
+                                            @if ($jadwal->kategori == 'bumil')
+                                                Ibu Hamil
+                                            @endif
+                                            @if ($jadwal->kategori == 'anak')
+                                                Anak
+                                            @endif
+                                            @if ($jadwal->kategori == 'lansia')
+                                                Lansia
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1 rounded-full transition-colors">
+                                    Detail
+                                </button>
                             </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-800 dark:text-white">{{ $jadwal->user->name }}</p>
-                                <p class="text-xs text-gray-600 dark:text-gray-400">
-                                    {{ $jadwal->waktu }} -
-                                    @if ($jadwal->kategori == 'bumil') Ibu Hamil @endif
-                                    @if ($jadwal->kategori == 'anak') Anak @endif
-                                    @if ($jadwal->kategori == 'lansia') Lansia @endif
-                                </p>
-                            </div>
-                        </div>
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1 rounded-full transition-colors">
-                            Detail
-                        </button>
+                        @endforeach
                     </div>
-                    @endforeach --}}
-                    </div>
-                </div>
+                </div> --}}
 
                 <!-- Progress Hari Ini -->
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
@@ -235,7 +247,7 @@
                 </div>
 
                 <!-- Aksi Cepat -->
-                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                {{-- <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Aksi Cepat</h3>
                     <div class="grid grid-cols-2 gap-3">
                         <button
@@ -248,6 +260,35 @@
                             <i class="fas fa-file-medical text-lg mb-1"></i>
                             <span class="text-xs">Buat Laporan</span>
                         </button>
+                    </div>
+                </div> --}}
+                <!-- Grafik Fluktuasi -->
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Fluktuasi Jumlah Pemeriksaan
+                    </h3>
+                    <div class="h-full">
+                        <canvas id="trendChart" data-labels='@json($monthlyLabels)'
+                            data-bumil='@json($monthlyBumil)' data-anak='@json($monthlyAnak)'
+                            data-lansia='@json($monthlyLansia)'></canvas>
+                    </div>
+                </div>
+
+                <!-- Status Gizi -->
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Status Gizi Balita</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                            <p class="text-xl font-bold text-green-600 dark:text-green-400">{{ $giziBaik }}</p>
+                            <p class="text-xs text-gray-800 dark:text-white">Gizi Baik</p>
+                        </div>
+                        <div class="text-center p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                            <p class="text-xl font-bold text-yellow-600 dark:text-yellow-400">{{ $giziSedang }}</p>
+                            <p class="text-xs text-gray-800 dark:text-white">Gizi Sedang</p>
+                        </div>
+                        <div class="text-center p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                            <p class="text-xl font-bold text-red-600 dark:text-red-400">{{ $giziBuruk }}</p>
+                            <p class="text-xs text-gray-800 dark:text-white">Gizi Buruk</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -409,128 +450,161 @@
 
                 @if ($edukasis->count() > 0)
                     <div class="mt-4 text-center">
-                        <a href="{{ route('view.edukasi') }}"
-                            class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-xs font-medium">
-                            Lihat Semua Edukasi <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
+                        @can('siAdmin')
+                            <a href="{{ route('view.edukasi') }}"
+                                class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-xs font-medium">
+                                Lihat Semua Edukasi <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        @endcan
+                        @can('isKader')
+                            <a href="{{ route('home') }}#edukasi"
+                                class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-xs font-medium">
+                                Lihat Semua Edukasi <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        @endcan
+
                     </div>
                 @endif
             </div>
 
-            <!-- Cuaca -->
-            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Cuaca Hari Ini</h3>
-                    <span class="text-xs text-gray-500 dark:text-gray-400">
-                        <span id="current-time">00:00</span> WIB
-                    </span>
+            @if (!$this->getWeather)
+                <div
+                    class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-md mx-auto flex items-center justify-center space-x-3 border border-red-200 dark:border-red-800">
+                    <!-- Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500 animate-pulse" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <!-- Teks -->
+                    <span class="text-gray-800 dark:text-gray-200 font-medium">Tidak Ada Koneksi</span>
+                    <!-- Tombol Refresh -->
+                    <button
+                        class="bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 text-red-600 dark:text-red-300 rounded-full p-1 transition-colors duration-200"
+                        title="Coba lagi">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
                 </div>
+            @else
+                <!-- Cuaca -->
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Cuaca Hari Ini</h3>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                            <span id="current-time">00:00</span> WIB
+                        </span>
+                    </div>
 
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center">
-                        <div class="text-3xl font-bold text-gray-800 dark:text-white mr-4">
-                            {{ $this->getWeather['current']['temp_c'] }}°C
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="text-3xl font-bold text-gray-800 dark:text-white mr-4">
+                                {{ $this->getWeather['current']['temp_c'] }}°C
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-600 dark:text-gray-300 capitalize">
+                                    {{ $this->getWeather['current']['condition']['text'] }}
+                                </div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">
+                                    Terasa seperti {{ $this->getWeather['current']['feelslike_c'] }}°C
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="text-sm text-gray-600 dark:text-gray-300 capitalize">
-                                {{ $this->getWeather['current']['condition']['text'] }}
-                            </div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">
-                                Terasa seperti {{ $this->getWeather['current']['feelslike_c'] }}°C
-                            </div>
+                        <div class="text-4xl text-blue-500">
+                            <!-- Icon berdasarkan kondisi cuaca -->
+                            @if ($this->getWeather['current']['condition']['text'] == 'Sunny')
+                                <i class="fas fa-sun"></i>
+                            @elseif($this->getWeather['current']['condition']['text'] == 'Partly cloudy')
+                                <i class="fas fa-cloud-sun"></i>
+                            @elseif($this->getWeather['current']['condition']['text'] == 'Cloudy')
+                                <i class="fas fa-cloud"></i>
+                            @elseif(str_contains(strtolower($this->getWeather['current']['condition']['text']), 'rain'))
+                                <i class="fas fa-cloud-rain"></i>
+                            @else
+                                <i class="fas fa-cloud-sun"></i>
+                            @endif
                         </div>
                     </div>
-                    <div class="text-4xl text-blue-500">
-                        <!-- Icon berdasarkan kondisi cuaca -->
-                        @if ($this->getWeather['current']['condition']['text'] == 'Sunny')
-                            <i class="fas fa-sun"></i>
-                        @elseif($this->getWeather['current']['condition']['text'] == 'Partly cloudy')
-                            <i class="fas fa-cloud-sun"></i>
-                        @elseif($this->getWeather['current']['condition']['text'] == 'Cloudy')
-                            <i class="fas fa-cloud"></i>
-                        @elseif(str_contains(strtolower($this->getWeather['current']['condition']['text']), 'rain'))
-                            <i class="fas fa-cloud-rain"></i>
-                        @else
-                            <i class="fas fa-cloud-sun"></i>
-                        @endif
-                    </div>
-                </div>
 
-                <!-- Tanggal Indonesia -->
-                <div class="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
-                    <div class="text-sm font-medium text-gray-800 dark:text-white" id="current-date">
-                        Memuat tanggal...
+                    <!-- Tanggal Indonesia -->
+                    <div class="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
+                        <div class="text-sm font-medium text-gray-800 dark:text-white" id="current-date">
+                            Memuat tanggal...
+                        </div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                            <span id="current-time-full">00:00:00</span> WIB
+                        </div>
                     </div>
-                    <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        <span id="current-time-full">00:00:00</span> WIB
-                    </div>
-                </div>
 
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <div class="text-blue-500 mr-2">
-                            <i class="fas fa-wind"></i>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <div class="text-blue-500 mr-2">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Angin</div>
+                                <div class="text-sm font-medium text-gray-800 dark:text-white">
+                                    {{ $this->getWeather['current']['wind_kph'] }} km/j
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Angin</div>
-                            <div class="text-sm font-medium text-gray-800 dark:text-white">
-                                {{ $this->getWeather['current']['wind_kph'] }} km/j
+                        <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <div class="text-blue-500 mr-2">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Kelembapan</div>
+                                <div class="text-sm font-medium text-gray-800 dark:text-white">
+                                    {{ $this->getWeather['current']['humidity'] }}%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <div class="text-blue-500 mr-2">
+                                <i class="fas fa-compress-alt"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Tekanan</div>
+                                <div class="text-sm font-medium text-gray-800 dark:text-white">
+                                    {{ $this->getWeather['current']['pressure_mb'] }} mb
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <div class="text-blue-500 mr-2">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Visibilitas</div>
+                                <div class="text-sm font-medium text-gray-800 dark:text-white">
+                                    {{ $this->getWeather['current']['vis_km'] }} km
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <div class="text-blue-500 mr-2">
-                            <i class="fas fa-tint"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Kelembapan</div>
-                            <div class="text-sm font-medium text-gray-800 dark:text-white">
-                                {{ $this->getWeather['current']['humidity'] }}%
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <div class="text-blue-500 mr-2">
-                            <i class="fas fa-compress-alt"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Tekanan</div>
-                            <div class="text-sm font-medium text-gray-800 dark:text-white">
-                                {{ $this->getWeather['current']['pressure_mb'] }} mb
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <div class="text-blue-500 mr-2">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Visibilitas</div>
-                            <div class="text-sm font-medium text-gray-800 dark:text-white">
-                                {{ $this->getWeather['current']['vis_km'] }} km
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
-                    <div class="flex items-center">
-                        <i class="fas fa-map-marker-alt mr-1"></i>
-                        {{ $this->getWeather['location']['name'] }}, {{ $this->getWeather['location']['region'] }}
-                    </div>
-                    <div>
-                        <i class="fas fa-sync-alt mr-1"></i>
-                        Data cuaca:
-                        {{ \Carbon\Carbon::parse($this->getWeather['current']['last_updated'])->timezone('Asia/Jakarta')->diffForHumans() }}
+                    <div class="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            {{ $this->getWeather['location']['name'] }}, {{ $this->getWeather['location']['region'] }}
+                        </div>
+                        <div>
+                            <i class="fas fa-sync-alt mr-1"></i>
+                            Data cuaca:
+                            {{ \Carbon\Carbon::parse($this->getWeather['current']['last_updated'])->timezone('Asia/Jakarta')->diffForHumans() }}
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
 
 @push('script')
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('trendChart');
             if (!ctx) return;
@@ -669,5 +743,170 @@
         // Update waktu setiap detik
         updateIndonesiaTime();
         setInterval(updateIndonesiaTime, 1000);
+    </script> --}}
+    <script>
+        document.addEventListener('livewire:init', () => {
+            // Inisialisasi chart ketika komponen di-load
+            initializeCharts();
+        });
+
+        document.addEventListener('livewire:navigated', () => {
+            // Inisialisasi ulang chart setelah navigasi Livewire
+            setTimeout(() => {
+                initializeCharts();
+            }, 100);
+        });
+
+        function initializeCharts() {
+            // Fungsi untuk trend chart
+            const trendCtx = document.getElementById('trendChart');
+            if (trendCtx && trendCtx.dataset.labels) {
+                const labels = JSON.parse(trendCtx.dataset.labels);
+                const bumilData = JSON.parse(trendCtx.dataset.bumil);
+                const anakData = JSON.parse(trendCtx.dataset.anak);
+                const lansiaData = JSON.parse(trendCtx.dataset.lansia);
+
+                // Destroy chart jika sudah ada
+                if (window.trendChartInstance) {
+                    window.trendChartInstance.destroy();
+                }
+
+                window.trendChartInstance = new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                                label: 'Ibu Hamil',
+                                data: bumilData,
+                                borderColor: 'rgba(236, 72, 153, 1)',
+                                backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                                tension: 0.3,
+                                fill: false,
+                            },
+                            {
+                                label: 'Anak',
+                                data: anakData,
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                                tension: 0.3,
+                                fill: false,
+                            },
+                            {
+                                label: 'Lansia',
+                                data: lansiaData,
+                                borderColor: 'rgba(139, 92, 246, 1)',
+                                backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                                tension: 0.3,
+                                fill: false,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Fungsi untuk user chart
+            const userCtx = document.getElementById('userChart');
+            if (userCtx && userCtx.dataset.labels) {
+                const anakLabels = JSON.parse(userCtx.dataset.labels);
+                const bb = JSON.parse(userCtx.dataset.bb);
+                const tb = JSON.parse(userCtx.dataset.tb);
+                const kategori = userCtx.dataset.kategori;
+
+                const tbLabel = kategori === 'bumil' ? 'Sistole Diastole' : 'Tinggi Badan (cm)';
+
+                // Destroy chart jika sudah ada
+                if (window.userChartInstance) {
+                    window.userChartInstance.destroy();
+                }
+
+                window.userChartInstance = new Chart(userCtx, {
+                    type: 'line',
+                    data: {
+                        labels: anakLabels,
+                        datasets: [{
+                                label: 'Berat Badan (kg)',
+                                data: bb,
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                                fill: true,
+                                tension: 0.3
+                            },
+                            {
+                                label: tbLabel,
+                                data: tb,
+                                borderColor: 'rgba(34, 197, 94, 1)',
+                                backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                                fill: true,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Fungsi waktu (tetap sama)
+        function updateIndonesiaTime() {
+            const now = new Date();
+            const dateOptions = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            const formattedDate = now.toLocaleDateString('id-ID', dateOptions);
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const shortTime = `${hours}:${minutes}`;
+            const fullTime = `${hours}:${minutes}:${seconds}`;
+
+            // Update elemen HTML jika ada
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            const fullTimeElement = document.getElementById('current-time-full');
+
+            if (dateElement) dateElement.textContent = formattedDate;
+            if (timeElement) timeElement.textContent = shortTime;
+            if (fullTimeElement) fullTimeElement.textContent = fullTime;
+        }
+
+        // Inisialisasi waktu
+        document.addEventListener('livewire:init', () => {
+            updateIndonesiaTime();
+            setInterval(updateIndonesiaTime, 1000);
+        });
+
+        document.addEventListener('livewire:navigated', () => {
+            setTimeout(() => {
+                updateIndonesiaTime();
+                setInterval(updateIndonesiaTime, 1000);
+            }, 100);
+        });
     </script>
 @endpush

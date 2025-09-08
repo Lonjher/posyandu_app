@@ -39,6 +39,7 @@ class Anak extends Component
     public $mt_pangan_lokal;
     public $gejala_sakit;
     public $diagnosa;
+    public $edukasi;
     public $keterangan;
 
     // skrining TBC
@@ -73,6 +74,7 @@ class Anak extends Component
         'mt_pangan_lokal' => 'nullable|string',
         'gejala_sakit' => 'nullable|string',
         'diagnosa' => 'nullable|string|max:255',
+        'edukasi' => 'nullable|string|max:255',
         'keterangan' => 'nullable|string|max:255',
 
         // Skrining TBC rules
@@ -170,6 +172,8 @@ class Anak extends Component
         $this->obat_cacing = $pemeriksaan->obat_cacing;
         $this->mt_pangan_lokal = $pemeriksaan->mt_pangan_lokal;
         $this->gejala_sakit = $pemeriksaan->gejala_sakit;
+        $this->diagnosa = $pemeriksaan->diagnosa;
+        $this->edukasi = $pemeriksaan->edukasi;
         $this->skrining_tbc_id = $pemeriksaan->skrining_tbc_id;
 
         // Jika ada relasi skrining TBC, load juga detailnya
@@ -258,6 +262,8 @@ class Anak extends Component
                 'obat_cacing' => $this->obat_cacing,
                 'mt_pangan_lokal' => $this->mt_pangan_lokal,
                 'gejala_sakit' => $this->gejala_sakit,
+                'diagnosa' => $this->diagnosa,
+                'edukasi' => $this->edukasi,
                 'skrining_tbc_id' => $skriningTbc->id_skrining_tbc,
             ]);
 
@@ -314,6 +320,8 @@ class Anak extends Component
             'obat_cacing' => $this->obat_cacing,
             'mt_pangan_lokal' => $this->mt_pangan_lokal,
             'gejala_sakit' => $this->gejala_sakit,
+            'diagnosa' => $this->diagnosa,
+            'edukasi' => $this->edukasi,
         ];
 
         $this->editedPemeriksaan->skriningTbc->update($skriningTbcData);
@@ -341,6 +349,7 @@ class Anak extends Component
             'sistole_distole',
             'keluhan_lain',
             'diagnosa',
+            'edukasi',
             'keterangan',
             'konsumsi_ttd',
             'jumlah_ttd',

@@ -396,7 +396,7 @@ Atas perhatiannya kami ucapkan terima kasih 🙏";
         $no = implode(',', $this->selectedUsers);
         try {
             $service = new FonnteService();
-            $service->sendMessage($no, $templateMessage, '2');
+            $service->sendMessage($no, $templateMessage, '3');
             Flux::modals()->close();
             $this->dispatch(
                 'alert',

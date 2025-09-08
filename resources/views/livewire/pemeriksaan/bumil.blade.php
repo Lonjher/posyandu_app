@@ -44,6 +44,7 @@
                     <th class="px-2 py-2 text-left">Jum. Mt</th>
                     <th class="px-2 py-2 text-left">Jad. Mt</th>
                     <th class="px-2 py-2 text-left">Diagnosa</th>
+                    <th class="px-2 py-2 text-left">Edukasi</th>
                     <th class="px-2 py-2 text-left">Tgl</th>
                     <th class="px-2 py-2 text-left">Aksi</th>
                 </tr>
@@ -88,6 +89,9 @@
                             </td>
                             <td class="px-2 py-1.5 whitespace-nowrap text-gray-500 dark:text-gray-400">
                                 {{ $pemeriksaan->diagnosa ?? '-' }}
+                            </td>
+                            <td class="px-2 py-1.5 whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                {{ $pemeriksaan->edukasi ?? '-' }}
                             </td>
                             <td class="px-2 py-1.5 whitespace-nowrap text-gray-500 dark:text-gray-400">
                                 {{ $pemeriksaan->created_at->format('d/m') }}
@@ -507,10 +511,11 @@
                 @elseif($searchBumil && $searchBumilResults->isNotEmpty())
                     @foreach ($searchBumilResults as $bumil)
                         <button wire:click="chooseBumil({{ $bumil->id_user }})"
-                            class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
-                            <span class="font-medium dark:text-white text-zinc-800">{{ $bumil->nik }}</span>
-                            <span class="col-span-2">{{ $bumil->name }}</span>
-                            <span class="text-end">{{ $bumil->jenis_kelamin }}</span>
+                            class="grid grid-cols-7 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
+                            <span
+                                class="col-span-3 font-medium dark:text-white text-zinc-800">{{ $bumil->nik }}</span>
+                            <span class="col-span-3">{{ $bumil->name }}</span>
+                            <span class="text-end col-span-1">{{ $bumil->jenis_kelamin }}</span>
                     @endforeach
 
                     {{-- No Results --}}
@@ -524,10 +529,11 @@
                 @elseif($this->bumilList)
                     @foreach ($this->bumilList as $result)
                         <button wire:click="chooseBumil({{ $result->id_user }})"
-                            class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
-                            <span class="font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
-                            <span class="col-span-2">{{ $result->name }}</span>
-                            <span class="text-end">{{ $result->jenis_kelamin }}</span>
+                            class="grid grid-cols-7 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
+                            <span
+                                class="col-span-3 font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
+                            <span class="col-span-3">{{ $result->name }}</span>
+                            <span class="text-end col-span-1">{{ $result->jenis_kelamin }}</span>
                         </button>
                     @endforeach
                 @else

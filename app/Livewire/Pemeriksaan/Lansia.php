@@ -34,6 +34,7 @@ class Lansia extends Component
     public $usia;
     public $menggunakan_alat_kontrasepsi;
     public $diagnosa;
+    public $edukasi;
     public $keterangan;
     public $skrining_tbc_id;
 
@@ -61,6 +62,7 @@ class Lansia extends Component
         'usia' => 'required|numeric',
         'menggunakan_alat_kontrasepsi' => 'boolean',
         'diagnosa' => 'nullable|string|max:255',
+        'edukasi' => 'nullable|string|max:255',
         'keterangan' => 'nullable|string|max:255',
 
         // Skrining TBC rules
@@ -119,6 +121,7 @@ class Lansia extends Component
         $this->usia = $pemeriksaan->usia;
         $this->menggunakan_alat_kontrasepsi = $pemeriksaan->menggunakan_alat_kontrasepsi;
         $this->diagnosa = $pemeriksaan->diagnosa;
+        $this->edukasi = $pemeriksaan->edukasi;
         $this->keterangan = $pemeriksaan->keterangan;
 
         // jika ada data skrining TBC yg berelasi
@@ -197,6 +200,7 @@ class Lansia extends Component
             'usia' => $this->usia,
             'menggunakan_alat_kontrasepsi' => $this->menggunakan_alat_kontrasepsi,
             'diagnosa' => $this->diagnosa,
+            'edukasi' => $this->edukasi,
             'keterangan' => $this->keterangan,
         ];
 
@@ -252,6 +256,7 @@ class Lansia extends Component
             'usia' => $this->usia,
             'menggunakan_alat_kontrasepsi' => $this->menggunakan_alat_kontrasepsi,
             'diagnosa' => $this->diagnosa,
+            'edukasi' => $this->edukasi,
             'keterangan' => $this->keterangan,
         ];
 
@@ -297,6 +302,7 @@ class Lansia extends Component
             'usia',
             'menggunakan_alat_kontrasepsi',
             'diagnosa',
+            'edukasi',
             'keterangan',
             'skrining_tbc_id',
         ]);

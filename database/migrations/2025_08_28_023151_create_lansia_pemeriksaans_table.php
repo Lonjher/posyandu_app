@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->string('usia');
             $table->boolean('menggunakan_alat_kontrasepsi');
             $table->string('diagnosa')->nullable();
+            $table->string('edukasi')->nullable();
             $table->string('keterangan')->nullable();
             $table->unsignedBigInteger('skrining_tbc_id');
             $table->foreign('user_id')->references('id_user')->on('users');

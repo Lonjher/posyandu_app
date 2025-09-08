@@ -44,6 +44,14 @@
                     <th class="px-2 py-2 text-left">Lingkar Perut</th>
                     <th class="px-2 py-2 text-left">Tekanan Darah</th>
                     <th class="px-2 py-2 text-left">Gula Darah</th>
+                    <th class="px-2 py-2 text-left">Mata Kanan</th>
+                    <th class="px-2 py-2 text-left">Mata Kiri</th>
+                    <th class="px-2 py-2 text-left">Telingan Kanan</th>
+                    <th class="px-2 py-2 text-left">Telingan Kiri</th>
+                    <th class="px-2 py-2 text-left">Usia</th>
+                    <th class="px-2 py-2 text-left">Alat Kontrasepsi</th>
+                    <th class="px-2 py-2 text-left">Diagnosa</th>
+                    <th class="px-2 py-2 text-left">Edukasi</th>
                     <th class="px-2 py-2 text-left">Aksi</th>
                 </tr>
             </thead>
@@ -68,6 +76,14 @@
                         <td class="px-2 py-2">{{ $pemeriksaan->lingkar_perut }}</td>
                         <td class="px-2 py-2">{{ $pemeriksaan->tekanan_darah }}</td>
                         <td class="px-2 py-2">{{ $pemeriksaan->gula_darah }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->mata_kanan }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->mata_kiri }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->telinga_kanan }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->telinga_kiri }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->usia }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->menggunakan_alat_kontrasepsi ? 'Ya' : 'Tidak' }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->diagnosa }}</td>
+                        <td class="px-2 py-2">{{ $pemeriksaan->edukasi }}</td>
                         <td class="px-2 py-2">
                             <flux:dropdown position="bottom" align="start">
                                 <button
@@ -121,7 +137,8 @@
                 <span class="flex items-center gap-3 mt-4">
                     <flux:avatar name="{{ $choosenLansia->name ?? '' }}" color="auto" size="xl" />
                     <span class="leading-tight">
-                        <span class="font-medium text-gray-900 dark:text-white">{{ $choosenLansia->name ?? '' }}</span>
+                        <span
+                            class="font-medium text-gray-900 dark:text-white">{{ $choosenLansia->name ?? '' }}</span>
                         <br />
                         <span class="text-sm text-gray-500 dark:text-gray-400">NIK:
                             {{ $choosenLansia->nik ?? '' }}</span>
@@ -208,6 +225,12 @@
                     <flux:input :invalid="$errors->has('keterangan')" wire:model="keterangan" label="Keterangan"
                         size="sm" />
                 </div>
+            </div>
+
+            <!-- Edukasi -->
+            <div class="space-y-4 mt-4">
+                <flux:textarea wire:model="edukasi" :invalid="$errors->has('edukasi')" label="Edukasi yang Diberikan"
+                    placeholder="Berikan edukasi kesehatan yang diperlukan..." />
             </div>
 
             <!-- Actions -->
@@ -320,6 +343,13 @@
                     <flux:input :invalid="$errors->has('keterangan')" wire:model="keterangan" label="Keterangan"
                         size="sm" />
                 </div>
+
+            </div>
+
+            <!-- Edukasi -->
+            <div class="space-y-4 mt-4">
+                <flux:textarea wire:model="edukasi" :invalid="$errors->has('edukasi')" label="Edukasi yang Diberikan"
+                    placeholder="Berikan edukasi kesehatan yang diperlukan..." />
             </div>
 
             <!-- Actions -->
@@ -357,10 +387,11 @@
                 @elseif($searchLansia && $searchLansiaResults->isNotEmpty())
                     @foreach ($searchLansiaResults as $lansia)
                         <button wire:click="chooseLansia({{ $lansia->id_user }})"
-                            class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
-                            <span class="font-medium dark:text-white text-zinc-800">{{ $lansia->nik }}</span>
-                            <span class="col-span-2">{{ $lansia->name }}</span>
-                            <span class="text-end">{{ $lansia->jenis_kelamin }}</span>
+                            class="grid grid-cols-7 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
+                            <span
+                                class="col-span-3 font-medium dark:text-white text-zinc-800">{{ $lansia->nik }}</span>
+                            <span class="col-span-3">{{ $lansia->name }}</span>
+                            <span class="text-end col-span-1">{{ $lansia->jenis_kelamin }}</span>
                     @endforeach
 
                     {{-- No Results --}}
@@ -374,10 +405,11 @@
                 @elseif($this->lansiaList)
                     @foreach ($this->lansiaList as $result)
                         <button wire:click="chooseLansia({{ $result->id_user }})"
-                            class="grid grid-cols-4 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
-                            <span class="font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
-                            <span class="col-span-2">{{ $result->name }}</span>
-                            <span class="text-end">{{ $result->jenis_kelamin }}</span>
+                            class="grid grid-cols-7 cursor-pointer rounded-md dark:text-zinc-400 gap-2 text-zinc-500 w-full text-left px-4 py-3 bg-gray-100 dark:bg-zinc-900 hover:scale-[1.02] hover:bg-blue-200 dark:hover:bg-zinc-700 hover:shadow-md border-l-2 border-transparent hover:border-blue-400 dark:hover:border-zinc-600">
+                            <span
+                                class="col-span-3 font-medium dark:text-white text-zinc-800">{{ $result->nik }}</span>
+                            <span class="col-span-3">{{ $result->name }}</span>
+                            <span class="text-end col-span-1">{{ $result->jenis_kelamin }}</span>
                         </button>
                     @endforeach
                 @else
