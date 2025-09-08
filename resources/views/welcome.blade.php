@@ -81,7 +81,7 @@
                                 Masuk
                             </a>
                         @else
-                            <form action="{{ route('logout') }}">
+                            <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit"
                                     class="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
