@@ -28,6 +28,7 @@ class Register extends Component
     public string $jenis_kelamin = '';
 
     public string $password = '';
+    public string $kategori = '';
 
     public string $password_confirmation = '';
 
