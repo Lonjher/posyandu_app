@@ -75,11 +75,19 @@
                     </flux:dropdown>
                     <!-- Button -->
                     <div>
-                        @if ('Auth::user()')
+                        @if (!Auth::user())
                             <a href="{{ route('login') }}"
                                 class="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
                                 Masuk
                             </a>
+                        @else
+                            <form action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">
+                                    Keluar
+                                </button>
+                            </form>
                         @endif
                     </div>
                 </div>
@@ -357,10 +365,10 @@
             <div class="max-w-6xl mx-auto px-6 text-center">
                 <!-- Heading -->
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">
-                    <span class="text-purple-600 dark:text-purple-400">SIPEDES</span>
+                    <span class="text-purple-600 dark:text-purple-400">SIPONDES</span>
                 </h2>
                 <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                    SIPEDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu
+                    SIPONDES hadir untuk membantu kader, bidan, dan masyarakat desa dalam mengelola data kesehatan ibu
                     hamil,
                     anak, dan lansia secara lebih cepat, terstruktur, dan mudah diakses.
                 </p>
@@ -510,17 +518,6 @@
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Lansia</p>
                         </div>
                     </div>
-                </div>
-
-                <!-- Additional Info -->
-                <div
-                    class="mt-16 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-700 dark:to-purple-700 rounded-2xl shadow-xl p-8 text-center text-white">
-                    <h3 class="text-2xl font-bold mb-4">Join Us</h3>
-                    <p class="max-w-2xl mx-auto mb-6">Bergabung untuk mendapatkan layanan yang kami berikan.</p>
-                    <button
-                        class="bg-white text-indigo-600 dark:bg-gray-100 dark:text-indigo-700 hover:bg-gray-100 dark:hover:bg-gray-200 px-6 py-3 rounded-lg font-medium">
-                        Get Started
-                    </button>
                 </div>
             </div>
         </section>

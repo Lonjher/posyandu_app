@@ -32,6 +32,7 @@ return new class extends Migration {
             $table->string('mt_pangan_lokal')->nullable();
             $table->string('gejala_sakit')->nullable();
             $table->string('diagnosa')->nullable();
+            $table->string('edukasi')->nullable();
             $table->string('keterangan')->nullable();
             $table->unsignedBigInteger('skrining_tbc_id');
             $table->foreign('user_id')->references('id_user')->on('users');

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class FonnteService
 {
-    public function sendMessage($phone, $message, $delay = '')
+    public function sendMessage($phone, $message, $delay)
     {
         return Http::withHeaders([
             'Authorization' => env('FONNTE_TOKEN'),

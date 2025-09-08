@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\BumilPemeriksaan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Flux\Flux;
 use Livewire\Component;
 use App\Models\AnakPemeriksaan;
 use App\Models\LansiaPemeriksaan;
@@ -13,6 +14,11 @@ use Livewire\WithPagination;
 class PemeriksaanSaya extends Component
 {
     use WithPagination;
+    // Skrining TBC fields
+    public $batuk_terus_menerus = false;
+    public $demam_lebih_dari_2_minggu = false;
+    public $berat_badan_turun_tanpa_sebab_jelas = false;
+    public $kontak_dengan_orang_terinfeksi_tbc = false;
 
     public function render()
     {
@@ -70,5 +76,31 @@ class PemeriksaanSaya extends Component
             );
             return;
         }
+    }
+
+    public function openModalTbcLansia(LansiaPemeriksaan $pemeriksaan)
+    {
+        $this->batuk_terus_menerus = $pemeriksaan->skriningTbc->batuk_terus_menerus;
+        $this->demam_lebih_dari_2_minggu = $pemeriksaan->skriningTbc->demam_lebih_dari_2_minggu;
+        $this->berat_badan_turun_tanpa_sebab_jelas = $pemeriksaan->skriningTbc->berat_badan_turun_tanpa_sebab_jelas;
+        $this->kontak_dengan_orang_terinfeksi_tbc = $pemeriksaan->skriningTbc->kontak_dengan_orang_terinfeksi_tbc;
+        Flux::modal('skrining-tbc')->show();
+    }
+    public function openModalTbcAnak(AnakPemeriksaan $pemeriksaan)
+    {
+
+        $this->batuk_terus_menerus = $pemeriksaan->skriningTbc->batuk_terus_menerus;
+        $this->demam_lebih_dari_2_minggu = $pemeriksaan->skriningTbc->demam_lebih_dari_2_minggu;
+        $this->berat_badan_turun_tanpa_sebab_jelas = $pemeriksaan->skriningTbc->berat_badan_turun_tanpa_sebab_jelas;
+        $this->kontak_dengan_orang_terinfeksi_tbc = $pemeriksaan->skriningTbc->kontak_dengan_orang_terinfeksi_tbc;
+        Flux::modal('skrining-tbc')->show();
+    }
+    public function openModalTbcBumil(BumilPemeriksaan $pemeriksaan)
+    {
+        $this->batuk_terus_menerus = $pemeriksaan->skriningTbc->batuk_terus_menerus;
+        $this->demam_lebih_dari_2_minggu = $pemeriksaan->skriningTbc->demam_lebih_dari_2_minggu;
+        $this->berat_badan_turun_tanpa_sebab_jelas = $pemeriksaan->skriningTbc->berat_badan_turun_tanpa_sebab_jelas;
+        $this->kontak_dengan_orang_terinfeksi_tbc = $pemeriksaan->skriningTbc->kontak_dengan_orang_terinfeksi_tbc;
+        Flux::modal('skrining-tbc')->show();
     }
 }

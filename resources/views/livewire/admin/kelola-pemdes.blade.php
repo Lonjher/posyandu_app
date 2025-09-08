@@ -40,8 +40,8 @@
                         <flux:text class="mt-2">Buatkan akun untuk Pemdes yang belum terdaftar dalam sistem!
                         </flux:text>
                     </div>
-                    <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)"
-                        placeholder="NIK" />
+                    <flux:input maxlength="16" :invalid="$errors->has('nik')" wire:model="nik"
+                        label="Nomor Induk Kependudukan (NIK)" placeholder="NIK" />
                     <flux:input :invalid="$errors->has('name')" wire:model="name" label="Nama Lengkap"
                         placeholder="Full Name" />
                     <flux:input :invalid="$errors->has('email')" wire:model="email" label="Email"
@@ -78,8 +78,8 @@
                         <flux:select.option value="pemdes">Pemerintah Desa</flux:select.option>
                         <flux:select.option value="user">Penggguna</flux:select.option>
                     </flux:select>
-                    <flux:input :invalid="$errors->has('nik')" wire:model="nik" label="Nomor Induk Kependudukan (NIK)"
-                        placeholder="NIK" />
+                    <flux:input maxlength="16" :invalid="$errors->has('nik')" wire:model="nik"
+                        label="Nomor Induk Kependudukan (NIK)" placeholder="NIK" />
                     <flux:input :invalid="$errors->has('name')" wire:model="name" label="Nama Lengkap"
                         placeholder="Full Name" />
                     <flux:input :invalid="$errors->has('email')" wire:model="email" label="Email"

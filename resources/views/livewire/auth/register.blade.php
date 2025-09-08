@@ -120,7 +120,7 @@
                 <!-- Side Image -->
                 <div class="w-full lg:w-5/12 hidden lg:flex flex-col justify-center items-center text-white">
                     <div class="max-w-xs mx-auto">
-                        <img src="{{ asset('img/login.png') }}" alt="Register" class="w-full h-auto">
+                        <img src="{{ asset('img/logo.png') }}" alt="Register" class="w-full h-auto">
                     </div>
                 </div>
             </div>
