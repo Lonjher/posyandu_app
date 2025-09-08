@@ -28,6 +28,7 @@ class AnakPemeriksaan extends Model
         'mt_pangan_lokal',
         'gejala_sakit',
         'diagnosa',
+        'edukasi',
         'keterangan',
         'skrining_tbc_id',
     ];

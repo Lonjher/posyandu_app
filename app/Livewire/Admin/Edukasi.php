@@ -25,7 +25,7 @@ class Edukasi extends Component
     public $gambar;
     public $kategori;
     public $editMode = false;
-    public ?Edukasi $edukasi = null;
+    public ?ModelsEdukasi $edukasi = null;
 
     // Properties untuk filter dan pencarian
     public $search = '';
@@ -102,7 +102,7 @@ class Edukasi extends Component
     }
 
     // Edit edukasi
-    public function edit(Edukasi $edukasi)
+    public function edit(ModelsEdukasi $edukasi)
     {
         // Cek authorization
         Gate::authorize('isAdmin');
@@ -120,8 +120,6 @@ class Edukasi extends Component
         $this->judul = $edukasi->judul;
         $this->kategori = $edukasi->kategori;
         $this->gambar = $edukasi->gambar; // Path gambar yang sudah ada
-        $this->editMode = true;
-
         // Buka modal edit
         Flux::modal('edit-edukasi')->show();
     }
@@ -143,15 +141,21 @@ class Edukasi extends Component
                 return;
             }
 
-            // Jika ada gambar baru, proses upload
-            if ($this->gambar && !is_string($this->gambar)) {
-                // Hapus gambar lama
-                if ($this->edukasi->gambar && Storage::exists($this->edukasi->gambar)) {
-                    Storage::delete($this->edukasi->gambar);
-                }
+            /// Di dalam method update/upload
+            if ($this->gambar) {
+                // Jika gambar baru diupload (bukan string)
+                if (!$this->gambar instanceof \Illuminate\Http\UploadedFile) {
+                    $gambarPath = $this->edukasi->gambar;
+                } else {
+                    // Hapus gambar lama jika ada
+                    if ($this->edukasi->gambar && Storage::disk('public')->exists($this->edukasi->gambar)) {
+                        Storage::disk('public')->delete($this->edukasi->gambar);
+                    }
 
-                $gambarPath = $this->processImage();
+                    $gambarPath = $this->processImage();
+                }
             } else {
+                // Jika tidak ada gambar yang diupload, pertahankan gambar lama
                 $gambarPath = $this->edukasi->gambar;
             }
 
@@ -164,7 +168,7 @@ class Edukasi extends Component
 
             // Reset form dan tampilkan pesan sukses
             $this->resetInput();
-            Flux::modal()->close();
+            Flux::modals()->close();
             $this->dispatch(
                 'alert',
                 type: 'success',
@@ -182,7 +186,7 @@ class Edukasi extends Component
     }
 
     // Konfirmasi penghapusan
-    public function confirmDelete(Edukasi $edukasi)
+    public function confirmDelete(ModelsEdukasi $edukasi)
     {
         $this->dispatch(
             'confirmDelete',
@@ -195,12 +199,12 @@ class Edukasi extends Component
 
     // Hapus edukasi
     #[On('delete')]
-    public function deleteEdukasi(Edukasi $id)
+    public function deleteEdukasi(ModelsEdukasi $id)
     {
         try {
             Gate::authorize('isAdmin');
             // Cek authorization
-            if ($id->user_id !== Auth::user()->is_user) {
+            if ($id->user_id !== Auth::user()->id_user) {
                 $this->dispatch(
                     'alert',
                     type: 'error',
@@ -211,8 +215,8 @@ class Edukasi extends Component
             }
 
             // Hapus gambar dari storage
-            if ($id->gambar && Storage::exists($id->gambar)) {
-                Storage::delete($id->gambar);
+            if ($id->gambar && Storage::disk('public')->exists($id->gambar)) {
+                Storage::disk('public')->delete($id->gambar);
             }
 
             // Hapus data
@@ -254,11 +258,6 @@ class Edukasi extends Component
         }
 
         // Jika gambar adalah string (sudah ada path), return path tersebut
-        if (is_string($this->gambar)) {
-            return $this->gambar;
-        }
-
-        // Jika gambar adalah string (path yang sudah ada), return path tersebut
         if (is_string($this->gambar)) {
             return $this->gambar;
         }

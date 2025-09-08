@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LansiaPemeriksaan extends Model
 {
-    protected $primaryKey =  'id_lansia_pemeriksaan';
+    protected $primaryKey = 'id_lansia_pemeriksaan';
     protected $fillable = [
         'user_id',
         'lansia_id',
@@ -23,6 +23,7 @@ class LansiaPemeriksaan extends Model
         'usia',
         'menggunakan_alat_kontrasepsi',
         'diagnosa',
+        'edukasi',
         'keterangan',
         'skrining_tbc_id',
     ];
